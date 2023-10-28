@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">NonameApp</string>
+
+    <!--registration-->
+    <string name="hello">Hey there, </string>
+    <string name="slogan">Ready to explore new delicious horizons? Let\'s begin!</string>
+    <string name="create_account">Create an account</string>
+    <string name="firstname">Firstname</string>
+    <string name="lastname">Lastname</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="password_hide">Hide password</string>
+    <string name="password_show">Show password</string>
+    <string name="terms_start">By continuing you accept our </string>
+    <string name="privacy_policy"> Privacy Policy </string>
+    <string name="terms_and"> and </string>
+    <string name="term_of_use"> Term of Use</string>
+    <string name="register">Start now!</string>
+    <string name="or">Or</string>
+    <string name="already_have_account">Already have an account? </string>
+    <string name="login"> Login</string>
+
+    <!--login-->
+    <string name="welcome">Welcome back</string>
+    <string name="login_button">Login</string>
+    <string name="do_not_have_account">Don\'t have an account yet?</string>
+    <string name="to_register">Register</string>
+
+</resources>
