@@ -1,10 +1,13 @@
 package com.example.nonameapp.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
@@ -34,15 +37,30 @@ fun OnboardingDemoTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable() () -> Unit
 ) {
-    val systemUiController: SystemUiController = rememberSystemUiController()
+//    val systemUiController: SystemUiController = rememberSystemUiController()
+//    systemUiController.isStatusBarVisible = false // Hide StatusBar
 
-    systemUiController.isStatusBarVisible = false // Status bar
+    val colors: ColorScheme = if(darkTheme){
+        LightColorPalette // change to DarkColorPalette
+    }
+    else{
+        LightColorPalette
+    }
 
-    val colors = LightColorPalette
+    SetStatusBarColor(color = colors.background)
+
     MaterialTheme(
         colorScheme = colors,
         typography = Typography,
         shapes = Shapes,
         content = content
     )
+}
+
+@Composable
+fun SetStatusBarColor(color: Color) {
+    val systemUiController = rememberSystemUiController()
+    SideEffect {
+        systemUiController.setSystemBarsColor(color)
+    }
 }
