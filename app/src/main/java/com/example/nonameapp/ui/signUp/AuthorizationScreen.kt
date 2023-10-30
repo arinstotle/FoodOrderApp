@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
+import com.example.nonameapp.navigation.Screen
 import com.example.nonameapp.ui.signUp.signUpNavigation.SignUpRouter
 import com.example.nonameapp.ui.signUp.signUpNavigation.SignUpScreen
 
@@ -19,7 +20,9 @@ fun AuthorizationScreen(navController: NavController) {
         Crossfade(targetState = SignUpRouter.currentScreen, label = "") { currentState ->
             when(currentState.value) {
                 is SignUpScreen.RegistrationScreen -> {
-                    RegistrationComposable()
+                    RegistrationComposable {
+                        navController.navigate(Screen.ProfileScreen.route)
+                    }
                 }
                 is SignUpScreen.PrivacyPolicyScreen -> {
                     PrivacyPolicyComposable()

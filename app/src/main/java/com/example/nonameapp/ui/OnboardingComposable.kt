@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -50,13 +51,7 @@ import com.example.nonameapp.ui.theme.BottomCardShape
 import com.example.nonameapp.ui.theme.FoodOnboardingBackground
 import com.example.nonameapp.ui.theme.FoodOnboardingGradient
 import com.example.nonameapp.ui.theme.FoodOnboardingText
-import com.example.nonameapp.ui.theme.PillsOnboardingBackground
-import com.example.nonameapp.ui.theme.PillsOnboardingGradient
-import com.example.nonameapp.ui.theme.PillsOnboardingText
-import com.example.nonameapp.ui.theme.Poppins
-import com.example.nonameapp.ui.theme.WaterOnboardingBackground
-import com.example.nonameapp.ui.theme.WaterOnboardingGradient
-import com.example.nonameapp.ui.theme.WaterOnboardingText
+import com.example.nonameapp.ui.theme.ReemKufi
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
@@ -70,9 +65,9 @@ fun OnboardingScreen(navController: NavController) {
             val items = ArrayList<OnBoardingData>()
             items.add(
                 OnBoardingData(
-                    R.drawable.food_onboarding_sticker,
-                    "Healthy Recipes",
-                    "Delicious and healthy Food & Calorie Counting",
+                    R.drawable.burger_png,
+                    "Text1",
+                    "Tiny text1",
                     backgroundColor = FoodOnboardingBackground,
                     mainColor = FoodOnboardingText,
                     gradientColor = FoodOnboardingGradient
@@ -80,22 +75,22 @@ fun OnboardingScreen(navController: NavController) {
             )
             items.add(
                 OnBoardingData(
-                    R.drawable.pills_sticker4,
-                    "Pills Tracker",
-                    "Now you won't forget to take pills",
-                    backgroundColor = PillsOnboardingBackground,
-                    mainColor = PillsOnboardingText,
-                    gradientColor = PillsOnboardingGradient
+                    R.drawable.fastfood_png,
+                    "Text2",
+                    "Tiny text2",
+                    backgroundColor = FoodOnboardingBackground,
+                    mainColor = FoodOnboardingText,
+                    gradientColor = FoodOnboardingGradient
                 )
             )
             items.add(
                 OnBoardingData(
-                    R.drawable.water_onboarding_sticker,
-                    "Water Tracker",
-                    "We understand how important water balance is. And you?",
-                    backgroundColor = WaterOnboardingBackground,
-                    mainColor = WaterOnboardingText,
-                    gradientColor = WaterOnboardingGradient
+                    R.drawable.pizza_png,
+                    "Text3",
+                    "Tiny text2",
+                    backgroundColor = FoodOnboardingBackground,
+                    mainColor = FoodOnboardingText,
+                    gradientColor = FoodOnboardingGradient
                 )
             )
             val pagerState = rememberPagerState(
@@ -139,14 +134,14 @@ fun OnBoardingPager(
                             )
                         ),
                     horizontalAlignment = Alignment.Start,
-                    verticalArrangement = Arrangement.Top
+                    verticalArrangement = Arrangement.Center
                 ) {
                     Image(
                         painter = painterResource(id = item[page].image),
                         contentScale = ContentScale.FillWidth,
                         contentDescription = item[page].title,
                         modifier = Modifier
-                            .fillMaxWidth()
+                            .size(1000.dp)
                     )
                 }
             }
@@ -158,7 +153,7 @@ fun OnBoardingPager(
                     .fillMaxWidth()
                     .height(340.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    containerColor = Color.White,
                 ),
                 elevation = CardDefaults.cardElevation(
                     defaultElevation = 8.dp
@@ -176,19 +171,19 @@ fun OnBoardingPager(
                                 .fillMaxWidth()
                                 .padding(top = 16.dp, end = 16.dp),
                             color = item[pagerState.currentPage].mainColor,
-                            fontFamily = Poppins,
+                            fontFamily = ReemKufi,
                             textAlign = TextAlign.Right,
                             fontSize = 26.sp,
-                            fontWeight = FontWeight.ExtraBold
+                            fontWeight = FontWeight.Bold
                         )
                         Text(
                             text = item[pagerState.currentPage].desc,
                             modifier = Modifier.padding(16.dp),
                             color = Color.Gray,
-                            fontFamily = Poppins,
+                            fontFamily = ReemKufi,
                             fontSize = 17.sp,
                             textAlign = TextAlign.Center,
-                            fontWeight = FontWeight.ExtraLight
+                            fontWeight = FontWeight.Normal
                         )
                     }
                     Box(
@@ -205,15 +200,11 @@ fun OnBoardingPager(
                             if (pagerState.currentPage != 2) {
                                 TextButton(onClick = {
 
-
-
-
-
                                 }) {
                                     Text(
                                         text = "Skip Now",
                                         color = item[pagerState.currentPage].mainColor,
-                                        fontFamily = Poppins,
+                                        fontFamily = ReemKufi,
                                         textAlign = TextAlign.Right,
                                         fontSize = 14.sp,
                                         fontWeight = FontWeight.SemiBold
@@ -272,7 +263,6 @@ fun PagerIndicator(currentPage: Int, items: List<OnBoardingData>) {
 @Composable
 fun Indicator(isSelected: Boolean, color: Color) {
     val width = animateDpAsState(targetValue = if (isSelected) 40.dp else 10.dp, label = "")
-
     Box(
         modifier = Modifier
             .padding(4.dp)
@@ -287,25 +277,40 @@ fun Indicator(isSelected: Boolean, color: Color) {
 
 @Composable
 fun MyButton(navController: NavController) {
-    val buttonBackgroundColor = WaterOnboardingText
-    val buttonTextColor = Color.White
-    Button(
-        onClick = {
-            navController.navigate(Screen.AuthorizationScreen.route)
-        },
-        modifier = Modifier.fillMaxWidth(),
-        colors = ButtonDefaults.buttonColors(containerColor = buttonBackgroundColor,
-            contentColor = buttonBackgroundColor),
-        contentPadding = PaddingValues(vertical = 8.dp),
-        elevation = ButtonDefaults.buttonElevation(8.dp)
+    Button(onClick = {
+                  navController.navigate(Screen.AuthorizationScreen.route)
+
+    },
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(48.dp)
+            .padding(start = 16.dp, end = 16.dp, top = 24.dp)
+        ,
+        contentPadding = PaddingValues(),
+        colors = ButtonDefaults.buttonColors(Color.Transparent)
     ) {
-        Text(
-            text = "Get Started",
-            color = buttonTextColor,
-            fontFamily = Poppins,
-            fontSize = 16.sp
-        )
-    }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(48.dp)
+                .background(
+                    brush = Brush.horizontalGradient(
+                        listOf(
+                            FoodOnboardingBackground,
+                            FoodOnboardingText
+                        )
+                    ),
+                    shape = RoundedCornerShape(50.dp)
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "Start!",
+                fontFamily = ReemKufi,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }}
 }
 
 @ExperimentalPagerApi

@@ -38,16 +38,12 @@ import com.example.nonameapp.ui.signUp.tinyComposableElements.TextFieldComponent
 import com.example.nonameapp.ui.signUp.tinyComposableElements.ToLoginTextComponent
 
 @Composable
-fun RegistrationComposable() {
+fun RegistrationComposable(afterRegistrationAction : () -> Unit) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
             .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(Color.White, Color.White),
-                    startY = 0f,
-                    endY = 1f
-                )
+                Color.White
             )
             .padding(0.dp)
             .verticalScroll(ScrollState(0)),
@@ -106,7 +102,7 @@ fun RegistrationComposable() {
                 onChangeTextAction = {} )
             TermsSectorComponent(startedCheckedState = false)
             ButtonComponent(text = stringResource(id = R.string.register)) {
-                SignUpRouter.navigateTo(SignUpScreen.LoginScreen)
+                afterRegistrationAction.invoke()
             }
             DividerComponent()
             SocialNetworksComponent(icon1 = ImageVector.vectorResource(R.drawable.google_icon),

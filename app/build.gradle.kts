@@ -69,4 +69,6 @@ dependencies {
     implementation("com.google.accompanist:accompanist-pager:0.12.0")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.17.0")
     implementation("com.exyte:animated-navigation-bar:1.0.0")
+    implementation ("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+
 }

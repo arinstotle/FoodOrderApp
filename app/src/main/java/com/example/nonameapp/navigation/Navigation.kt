@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.nonameapp.ui.MainScreen
 import com.example.nonameapp.ui.OnboardingScreen
+import com.example.nonameapp.ui.ProfileScreen
 import com.example.nonameapp.ui.signUp.AuthorizationScreen
 
 @Composable
@@ -21,6 +22,9 @@ fun Navigation() {
         }
         composable(route = Screen.AuthorizationScreen.route) {
             AuthorizationScreen(navController = navController)
+        }
+        composable(route = Screen.ProfileScreen.route) {
+            ProfileScreen(navController = navController)
         }
     }
 }
