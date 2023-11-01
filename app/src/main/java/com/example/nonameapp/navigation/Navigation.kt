@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.nonameapp.ui.MainScreen
 import com.example.nonameapp.ui.OnboardingScreen
 import com.example.nonameapp.ui.ProfileScreen
+import com.example.nonameapp.ui.carte.CarteScreen
 import com.example.nonameapp.ui.settings.SettingsScreen
 import com.example.nonameapp.ui.signUp.AuthorizationScreen
 import com.example.nonameapp.ui.theme.OnboardingDemoTheme
@@ -55,6 +56,9 @@ fun Navigation() {
 //                        .putBoolean("DAY_NIGHT_THEME_KEY", isUiModeIsDark)
 //                        .apply()
                 }
+            }
+            composable(route = Screen.CarteScreen.route){
+                CarteScreen()
             }
         }
     }
