@@ -42,7 +42,7 @@ fun ChipSection(
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp)
-            .background(CardColor, shape = RoundedCornerShape(10.dp))
+            .background(Color.Red, shape = RoundedCornerShape(10.dp))
     ) {
         LazyRow {
             items(chips.size) {

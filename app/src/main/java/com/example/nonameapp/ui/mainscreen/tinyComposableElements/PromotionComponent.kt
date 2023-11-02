@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.nonameapp.Promotion
 import com.example.nonameapp.R
-import com.example.nonameapp.ui.mainscreen.Wave
 import com.example.nonameapp.ui.theme.GrayColorWithAlpha
 import com.example.nonameapp.ui.theme.ReemKufi
 
@@ -78,13 +77,12 @@ fun PromotionComponentItem(
             .background(GrayColorWithAlpha)
             .padding(horizontal = 15.dp, vertical = 20.dp)
     ) {
-        AnimatedWave()
         Column(modifier = Modifier.weight(1f).padding(16.dp)) {
             Text(
                 text = promotionText,
                 fontFamily = ReemKufi,
                 fontSize = 16.sp,
-                maxLines = 1,
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
             Text(

@@ -1,11 +1,13 @@
 package com.example.nonameapp.navigation
 
-import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -15,11 +17,16 @@ import com.example.nonameapp.ui.ProfileScreen
 import com.example.nonameapp.ui.carte.CarteScreen
 import com.example.nonameapp.ui.settings.SettingsScreen
 import com.example.nonameapp.ui.signUp.AuthorizationScreen
+import com.example.nonameapp.ui.signUp.signUpNavigation.SignUpScreen
 import com.example.nonameapp.ui.theme.OnboardingDemoTheme
 
+object NavigationRouter {
+    var currentScreen : MutableState<Screen> = mutableStateOf(Screen.OnboardingScreen)
+}
+
 @Composable
-fun Navigation() {
-    val navController = rememberNavController()
+fun Navigation(navController : NavHostController) {
+
     var isUiModeIsDark by remember {
         mutableStateOf( false
 //            context.getSharedPreferences(
@@ -28,6 +35,8 @@ fun Navigation() {
 //            ).getBoolean("DAY_NIGHT_THEME_KEY", false)
         )
     }
+
+
 
     OnboardingDemoTheme(darkTheme = isUiModeIsDark) {
         NavHost(navController = navController, startDestination = Screen.OnboardingScreen.route) {

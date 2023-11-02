@@ -46,7 +46,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.nonameapp.OnBoardingData
 import com.example.nonameapp.R
+import com.example.nonameapp.navigation.NavigationRouter
 import com.example.nonameapp.navigation.Screen
+import com.example.nonameapp.ui.signUp.signUpNavigation.SignUpRouter.currentScreen
 import com.example.nonameapp.ui.theme.BottomCardShape
 import com.example.nonameapp.ui.theme.FoodOnboardingBackground
 import com.example.nonameapp.ui.theme.FoodOnboardingGradient
@@ -145,7 +147,6 @@ fun OnBoardingPager(
                     )
                 }
             }
-
         }
         Box(modifier = Modifier.align(Alignment.BottomCenter)) {
             Card(
@@ -278,8 +279,8 @@ fun Indicator(isSelected: Boolean, color: Color) {
 @Composable
 fun MyButton(navController: NavController) {
     Button(onClick = {
-                  navController.navigate(Screen.AuthorizationScreen.route)
-
+        NavigationRouter.currentScreen.value = Screen.AuthorizationScreen
+        navController.navigate(Screen.AuthorizationScreen.route)
     },
         modifier = Modifier
             .fillMaxWidth()
