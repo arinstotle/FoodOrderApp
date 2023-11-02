@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
+import com.example.nonameapp.navigation.Screen
 import com.example.nonameapp.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,6 +43,19 @@ fun ProfileScreen(navController: NavController) {
                         )
                     },
                     colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.White),
+                    navigationIcon = {
+                        IconButton(
+                            onClick = {
+                                navController.navigate(Screen.SettingsScreen.route)
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Settings,
+                                contentDescription = "Settings",
+                                tint = FoodOnboardingGradient
+                            )
+                        }
+                    },
                     actions = {
                         IconButton(onClick = { /*TODO*/ }) {
                             Icon(
