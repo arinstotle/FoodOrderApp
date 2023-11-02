@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -21,6 +22,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.nonameapp.navigation.Screen
 
 @Composable
@@ -72,14 +74,16 @@ fun CustomButtonNavigationItem(
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Icon(
+                modifier = Modifier.size(20.dp),
                 imageVector = ImageVector.vectorResource(id = item.icon),
                 contentDescription =null,
-                tint = contentColor
+                tint = contentColor,
             )
             AnimatedVisibility(visible = isSelected) {
                 Text(
                     text = item.title,
-                    color = contentColor
+                    color = contentColor,
+                    fontSize = 14.sp
                 )
             }
         }
