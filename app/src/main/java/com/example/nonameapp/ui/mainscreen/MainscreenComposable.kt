@@ -1,7 +1,5 @@
-package com.example.nonameapp.ui
+package com.example.nonameapp.ui.mainscreen
 
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
@@ -11,6 +9,8 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
@@ -29,9 +29,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.*
 import androidx.navigation.NavController
 import com.example.nonameapp.Feature
+import com.example.nonameapp.Promotion
 import com.example.nonameapp.R
 import com.example.nonameapp.util.standardQuadFromTo
 import com.example.nonameapp.ui.bottomMenu.*
+import com.example.nonameapp.ui.mainscreen.tinyComposableElements.ChipSection
+import com.example.nonameapp.ui.mainscreen.tinyComposableElements.PromotionComponentItem
+import com.example.nonameapp.ui.mainscreen.tinyComposableElements.PromotionListComponent
 import com.example.nonameapp.ui.theme.*
 import kotlinx.coroutines.delay
 import java.lang.Math.sin
@@ -69,36 +73,99 @@ fun MainScreen(navController: NavController) {
                     .background(Color.White)
             ) {
                 GreetingSection()
-                ChipSection(chips = listOf("Sweet sleep", "Insomnia", "Depression", "Right", "Left", "Memes"))
+                ChipSection(chips = listOf(
+                    com.example.nonameapp.Chip(
+                        "Snacks",
+                        R.drawable.chip_snacks),
+                    com.example.nonameapp.Chip(
+                        "Salads",
+                        R.drawable.chip_salad),
+                    com.example.nonameapp.Chip(
+                        "Soups",
+                        R.drawable.chip_soup),
+                    com.example.nonameapp.Chip(
+                        "Roman pizza",
+                        R.drawable.chip_pizza),
+                    com.example.nonameapp.Chip(
+                        "Josper",
+                        R.drawable.chip_pizza),
+                    com.example.nonameapp.Chip(
+                        "Other",
+                        R.drawable.chip_pizza),
+                    com.example.nonameapp.Chip(
+                        "Prime",
+                        R.drawable.chip_pizza),
+                    com.example.nonameapp.Chip(
+                        "Burgers",
+                        R.drawable.chip_burger),
+                    com.example.nonameapp.Chip(
+                        "Side dishes",
+                        R.drawable.chip_sd),
+                    com.example.nonameapp.Chip(
+                        "Sauces",
+                        R.drawable.chip_sauce),
+                    com.example.nonameapp.Chip(
+                        "Desserts",
+                        R.drawable.chip_dessert),
+                    com.example.nonameapp.Chip(
+                        "Drinks",
+                        R.drawable.chip_drink),
+                    com.example.nonameapp.Chip(
+                        "Alcohol",
+                        R.drawable.chip_alco)
+                ))
             }
-            CurrentMeditation()
+            val promotions = listOf(
+                Promotion(
+                    promotionTitle = "Promotion 1bcffcbbcfcbfcbf",
+                    shortDescription = "Description 1vbvcfbcfncfbfnfncfn",
+                    fullDescription = "",
+                    fullTitle = "",
+                    pictureId = R.drawable.sample_avatar
+                ),
+                Promotion(
+                    promotionTitle = "Promotion 2",
+                    shortDescription = "Description 2",
+                    fullDescription = "",
+                    fullTitle = "",
+                    pictureId = R.drawable.sample_avatar
+                ),
+                Promotion(
+                    promotionTitle = "Promotion 3",
+                    shortDescription = "Description 3",
+                    fullDescription = "",
+                    fullTitle = "",
+                    pictureId = R.drawable.sample_avatar
+                )
+            )
+            PromotionListComponent(promotions = promotions)
             FeatureSection(
                 isLoading = isLoading,
                 features = listOf(
                     Feature(
-                        title = "Sleep meditation",
+                        title = "Dish1",
                         R.drawable.arrow_right,
                         almostTransparentBlack,
                         slightlyDarkerBlack,
                         evenDarkerBlack
                     ),
                     Feature(
-                        title = "Tips for sleeping",
+                        title = "Dish2",
                         R.drawable.arrow_right,
                         almostTransparentBlack,
                         slightlyDarkerBlack,
                         evenDarkerBlack
                     ),
                     Feature(
-                        title = "Night island",
+                        title = "Dish3",
                         R.drawable.arrow_right,
                         almostTransparentBlack,
                         slightlyDarkerBlack,
                         evenDarkerBlack
                     ),
                     Feature(
-                        title = "Calming sounds",
-                        R.drawable.search_icon,
+                        title = "Dish4",
+                        R.drawable.arrow_right,
                         almostTransparentBlack,
                         slightlyDarkerBlack,
                         evenDarkerBlack
@@ -108,6 +175,13 @@ fun MainScreen(navController: NavController) {
 
         }
     }
+
+
+
+
+
+
+
 //        BottomMenu(items = listOf(
 //            BottomMenuContent("Home", androidx.core.R.drawable.ic_call_answer),
 //            BottomMenuContent("Meditate", androidx.core.R.drawable.ic_call_answer),
@@ -130,8 +204,7 @@ fun GreetingSection(
             .fillMaxWidth()
             .padding(15.dp)
             .background(
-                CardColor,
-                shape = RoundedCornerShape(10.dp)
+                Color.White,
             )
     ) {
         Row(
@@ -139,10 +212,17 @@ fun GreetingSection(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
+                .background(
+                    Color.White,
+                )
         ) {
             Column(
                 verticalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier
+                    .padding(8.dp)
+                    .background(
+                        Color.White,
+                    )
             ) {
                 Image(
                     painter = painterResource(R.drawable.sample_avatar),
@@ -159,7 +239,7 @@ fun GreetingSection(
                     fontFamily = ReemKufi
                 )
                 Text(
-                    text = "Let's make your healthy goals a reality.",
+                    text = "Enjoy your meal!",
                     color = Color.Gray,
                     fontFamily = ReemKufi
                 )
@@ -173,104 +253,12 @@ fun GreetingSection(
                     imageVector = ImageVector.vectorResource(R.drawable.search),
                     contentDescription = "SearchButton",
                     tint = Color.Gray,
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier
+                        .size(24.dp)
                 )
             }
         }
     }
-}
-
-@Composable
-fun ChipSection(
-    chips: List<String>
-) {
-    var selectedChipIndex by remember {
-        mutableStateOf(0)
-    }
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .padding(10.dp)
-        .background(CardColor, shape = RoundedCornerShape(10.dp))) {
-        LazyRow {
-            items(chips.size) {
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .padding(start = 15.dp, top = 15.dp, bottom = 15.dp)
-                        .clickable {
-                            selectedChipIndex = it
-                        }
-                        .clip(RoundedCornerShape(10.dp))
-                        .background(
-                            if (selectedChipIndex == it) Color.DarkGray
-                            else Color.Gray
-                        )
-                        .padding(15.dp)
-                ) {
-                    Text(text = chips[it], color = Color.White)
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun CurrentMeditation(
-    color: Color = Color.Blue
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier
-            .padding(15.dp)
-            .clip(RoundedCornerShape(16.dp))
-            .background(GrayColorWithAlpha)
-            .padding(horizontal = 15.dp, vertical = 20.dp)
-            .fillMaxWidth()
-    ) {
-        AnimatedWave()
-        Column {
-            Text(
-                text = "Daily Thought",
-                style = MaterialTheme.typography.titleMedium
-            )
-            Text(
-                text = "Meditation • 3-10 min",
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.White
-            )
-        }
-        AnimatedWave()
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .size(40.dp)
-                .clip(CircleShape)
-                .background(Color.Gray)
-                .padding(10.dp)
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.arrow_right),
-                contentDescription = "Play",
-                tint = Color.White,
-                modifier = Modifier.size(16.dp)
-            )
-        }
-    }
-}
-
-@Composable
-fun AnimatedWave() {
-    val infiniteTransition = rememberInfiniteTransition(label = "")
-    val animOffset by infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = 360f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(2000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
-        ), label = ""
-    )
-    Wave(animOffset)
 }
 
 @Composable
@@ -331,7 +319,8 @@ fun ShimmerListItem(
 ) {
     if(isLoading) {
         Column(modifier =
-        modifier.padding(7.5.dp)
+        modifier
+            .padding(7.5.dp)
             .aspectRatio(1f)
             .background(Color.Gray, shape = RoundedCornerShape(10.dp))
             .fillMaxSize()
@@ -353,7 +342,9 @@ fun ShimmerListItem(
                     painter = painterResource(id = R.drawable.arrow_right),
                     contentDescription = "",
                     tint = Color.Transparent,
-                    modifier = Modifier.align(Alignment.BottomStart).shimmerEffect()
+                    modifier = Modifier
+                        .align(Alignment.BottomStart)
+                        .shimmerEffect()
                 )
                 Text(
                     text = "Start",
@@ -476,6 +467,8 @@ fun FeatureItem(
 
             Text(
                 text = feature.title,
+                fontFamily = ReemKufi,
+                color = Color.White,
                 style = MaterialTheme.typography.titleMedium,
                 lineHeight = 26.sp,
                 modifier = Modifier.align(Alignment.TopStart)
@@ -487,7 +480,7 @@ fun FeatureItem(
                 modifier = Modifier.align(Alignment.BottomStart)
             )
             Text(
-                text = "Start",
+                text = "Buy",
                 color = Color.White,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,

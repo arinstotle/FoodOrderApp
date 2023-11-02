@@ -187,7 +187,8 @@ fun RoundCardWithButtons(imageForButton1 : ImageVector,
                 colors = ButtonDefaults.buttonColors(FoodOnboardingBackground)
             ) {
                 Row(
-                    modifier = Modifier.background(Color.Transparent),
+                    modifier = Modifier.background(Color.Transparent)
+                        .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
@@ -200,11 +201,6 @@ fun RoundCardWithButtons(imageForButton1 : ImageVector,
                         fontFamily = ReemKufi,
                         fontSize = 16.sp,
                         textAlign = TextAlign.Left,
-                        modifier = Modifier.weight(1f)
-                    )
-                    Icon(
-                        imageVector = Icons.Default.ArrowForward,
-                        contentDescription = null,
                         modifier = Modifier.padding(4.dp)
                     )
                 }
@@ -219,24 +215,21 @@ fun RoundCardWithButtons(imageForButton1 : ImageVector,
                 colors = ButtonDefaults.buttonColors(FoodOnboardingBackground)
             ) {
                 Row(
+                    modifier = Modifier.background(Color.Transparent)
+                        .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
                         imageVector = imageForButton2,
                         contentDescription = null,
-                        modifier = Modifier.padding(end = 4.dp)
+                        modifier = Modifier.padding(4.dp),
                     )
                     Text(
                         text = textForButton2,
                         fontFamily = ReemKufi,
                         fontSize = 16.sp,
                         textAlign = TextAlign.Left,
-                        modifier = Modifier.weight(1f)
-                    )
-                    Icon(
-                        imageVector = Icons.Default.ArrowForward,
-                        contentDescription = null,
-                        modifier = Modifier.padding(start = 4.dp)
+                        modifier = Modifier.padding(4.dp)
                     )
                 }
             }

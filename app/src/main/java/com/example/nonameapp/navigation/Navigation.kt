@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.nonameapp.ui.MainScreen
+import com.example.nonameapp.ui.mainscreen.MainScreen
 import com.example.nonameapp.ui.OnboardingScreen
 import com.example.nonameapp.ui.ProfileScreen
 import com.example.nonameapp.ui.signUp.AuthorizationScreen

@@ -21,7 +21,7 @@ fun AuthorizationScreen(navController: NavController) {
             when(currentState.value) {
                 is SignUpScreen.RegistrationScreen -> {
                     RegistrationComposable {
-                        navController.navigate(Screen.ProfileScreen.route)
+                        navController.navigate(Screen.MainScreen.route)
                     }
                 }
                 is SignUpScreen.PrivacyPolicyScreen -> {
