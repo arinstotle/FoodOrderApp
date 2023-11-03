@@ -2,7 +2,7 @@ package com.example.nonameapp.ui.carte
 
 import com.example.nonameapp.R
 
-class FoodDishesDataSource {
+object FoodDishesDataSource {
     val listOfFoodDishes = listOf(
         FoodDish(
             id = 0,
@@ -41,6 +41,48 @@ class FoodDishesDataSource {
         ),
         FoodDish(
             id = 5,
+            name = "Scrambled eggs",
+            image = R.drawable.scrambled_eggs_with_something,
+            description = "А что внутри?",
+            price = 300
+        ),
+        FoodDish(
+            id = 6,
+            name = "Borsh",
+            image = R.drawable.borsh,
+            description = "Tasty borsh",
+            price = 300
+        ),
+        FoodDish(
+            id = 7,
+            name = "Mushroom Soup",
+            image = R.drawable.mushroom_soup,
+            description = "Mmmm, mushrooms",
+            price = 250
+        ),
+        FoodDish(
+            id = 8,
+            name = "Salman Fish",
+            image = R.drawable.salmon_fish,
+            description = "Дайте рыбов))",
+            price = 350
+        ),
+        FoodDish(
+            id = 9,
+            name = "Vermicelli",
+            image = R.drawable.vermicelli_with_mushrooms,
+            description = "With mushrooms =)",
+            price = 300
+        ),
+        FoodDish(
+            id = 10,
+            name = "Scrambled eggs",
+            image = R.drawable.scrambled_eggs_and_toast,
+            description = "And toast",
+            price = 300
+        ),
+        FoodDish(
+            id = 11,
             name = "Scrambled eggs",
             image = R.drawable.scrambled_eggs_with_something,
             description = "А что внутри?",

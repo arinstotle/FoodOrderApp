@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -46,7 +47,7 @@ import com.example.nonameapp.ui.theme.FoodOnboardingGradient
 fun CarteScreen(
 //    navController: NavController
 ) {
-    val list = FoodDishesDataSource().listOfFoodDishes
+    val list = FoodDishesDataSource.listOfFoodDishes
 
     Scaffold(
         topBar = {
@@ -134,6 +135,8 @@ fun TinyFoodDishCard(foodDish: FoodDish) {
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.ExtraBold,
                     color = MaterialTheme.colorScheme.primary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     modifier = Modifier
                         .padding(top = 5.dp)
                 )
@@ -141,6 +144,8 @@ fun TinyFoodDishCard(foodDish: FoodDish) {
                     text = foodDish.description,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.primary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     modifier = Modifier
                         .padding(top = 5.dp)
                 )
@@ -148,6 +153,8 @@ fun TinyFoodDishCard(foodDish: FoodDish) {
                     text = foodDish.price.toString() + " руб.",
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.primary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     fontWeight = FontWeight.ExtraBold,
                     modifier = Modifier
                         .padding(top = 5.dp)
