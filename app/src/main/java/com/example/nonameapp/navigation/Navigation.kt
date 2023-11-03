@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.nonameapp.ui.mainscreen.MainScreen
 import com.example.nonameapp.ui.OnboardingScreen
 import com.example.nonameapp.ui.ProfileScreen
+import com.example.nonameapp.ui.cart.CartScreen
 import com.example.nonameapp.ui.carte.CarteScreen
 import com.example.nonameapp.ui.settings.SettingsScreen
 import com.example.nonameapp.ui.signUp.AuthorizationScreen
@@ -30,7 +31,7 @@ fun Navigation() {
     }
 
     OnboardingDemoTheme(darkTheme = isUiModeIsDark) {
-        NavHost(navController = navController, startDestination = Screen.OnboardingScreen.route) {
+        NavHost(navController = navController, startDestination = Screen.CartScreen.route) {
             composable(route = Screen.OnboardingScreen.route) {
                 OnboardingScreen(navController = navController)
             }
@@ -59,6 +60,9 @@ fun Navigation() {
             }
             composable(route = Screen.CarteScreen.route){
                 CarteScreen()
+            }
+            composable(route = Screen.CartScreen.route){
+                CartScreen()
             }
         }
     }
