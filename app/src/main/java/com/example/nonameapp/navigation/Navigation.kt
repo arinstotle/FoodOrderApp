@@ -40,7 +40,7 @@ fun Navigation(navController : NavHostController) {
 
 
     OnboardingDemoTheme(darkTheme = isUiModeIsDark) {
-        NavHost(navController = navController, startDestination = Screen.CartScreen.route) {
+        NavHost(navController = navController, startDestination = Screen.OnboardingScreen.route) {
             composable(route = Screen.OnboardingScreen.route) {
                 OnboardingScreen(navController = navController)
             }
@@ -68,10 +68,10 @@ fun Navigation(navController : NavHostController) {
                 }
             }
             composable(route = Screen.CarteScreen.route){
-                CarteScreen()
+                CarteScreen(navController = navController)
             }
             composable(route = Screen.CartScreen.route){
-                CartScreen()
+                CartScreen(navController = navController)
             }
         }
     }

@@ -47,18 +47,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.nonameapp.R
 import com.example.nonameapp.ui.carte.FoodDish
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CartScreen(
-    //navController: NavController
+    navController: NavController,
     mViewModel: CartViewModel = CartViewModel()
 ) {
     var itemsInCart: List<FoodDish> by remember { mutableStateOf(mViewModel.getItemsInCart()) }
     var totalSum: Int by remember { mutableIntStateOf(mViewModel.getTotalCartSum()) }
-
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -94,7 +94,6 @@ fun CartScreen(
                 .padding(it)
                 .padding(top = 10.dp)
         ) {
-
             // List of products
             for (item in itemsInCart) {
                 TinyDishCardInCart(
@@ -103,15 +102,12 @@ fun CartScreen(
                     foodDish = item,
                 )
             }
-
-
             // Divider
             Divider(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 20.dp, end = 20.dp, top = 20.dp)
             )
-
             // Row with total sum
             Row(
                 modifier = Modifier
@@ -132,11 +128,9 @@ fun CartScreen(
                     color = MaterialTheme.colorScheme.primary
                 )
             }
-
             // Button "Order now"
             Button(
                 onClick = {
-
                 },
                 modifier = Modifier
                     .padding(start = 20.dp, end = 20.dp, top = 40.dp, bottom = 10.dp)
@@ -157,11 +151,11 @@ fun CartScreen(
     }
 }
 
-@Preview(showSystemUi = true)
-@Composable
-fun CartScreenPreview(){
-    CartScreen()
-}
+//@Preview(showSystemUi = true)
+//@Composable
+//fun CartScreenPreview(){
+//    CartScreen()
+//}
 
 @Composable
 fun TinyDishCardInCart(

@@ -45,10 +45,9 @@ import com.example.nonameapp.ui.theme.FoodOnboardingGradient
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CarteScreen(
-//    navController: NavController
+    navController: NavController
 ) {
     val list = FoodDishesDataSource.listOfFoodDishes
-
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -81,7 +80,6 @@ fun CarteScreen(
                 .padding(top = 20.dp),
             contentPadding = PaddingValues(10.dp)
         ) {
-
             itemsIndexed(
                 items = list,
                 key = { _: Int, item: FoodDish ->
@@ -95,12 +93,11 @@ fun CarteScreen(
 
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun CarteScreenPreview() {
-    CarteScreen()
-}
-
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun CarteScreenPreview() {
+//    CarteScreen()
+//}
 
 @Composable
 fun TinyFoodDishCard(foodDish: FoodDish) {
@@ -109,10 +106,8 @@ fun TinyFoodDishCard(foodDish: FoodDish) {
             .height(250.dp)
             .padding(10.dp)
             .clickable {
-
             }
     ) {
-
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -123,7 +118,6 @@ fun TinyFoodDishCard(foodDish: FoodDish) {
                 defaultElevation = 5.dp
             )
         ) {
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -162,7 +156,6 @@ fun TinyFoodDishCard(foodDish: FoodDish) {
             }
 
         }
-
         Image(
             painter = painterResource(id = foodDish.image),
             contentDescription = foodDish.description,
@@ -175,7 +168,6 @@ fun TinyFoodDishCard(foodDish: FoodDish) {
                 )
         )
     }
-
 }
 
 @Preview(showBackground = true)
