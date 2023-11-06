@@ -31,10 +31,12 @@ val evenDarkerBlack = Color(0xAA000000) // Ещё чернее (67% прозра
 
 val WhiteFC = Color(0xFFFCFAF8)
 val White = Color(0xFFFFFFFF)
-val Yellow = Color(0xFFFEDB71)
+val Yellow = Color(0xFFF1C745)
+val Orange = Color(0xFFDF781E)
 val Black14 = Color(0xFF140F1F)
-val DarkRed = Color(0xFFC32524)
-
+val MainInterfaceColor = Color(0xFFD83B20)
 val Black1_28 = Color(0xFF282726)
+val Black1_28_Transparent_50 = Color(0x80282726)
+val Black1_28_Transparent_30 = Color(0x4D282726)
 val Black2_54 = Color(0xFF54504C)
 val Black3_86 = Color(0xFF86817C)

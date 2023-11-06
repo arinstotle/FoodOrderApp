@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val darkPalette = darkColorScheme(
-    primary = DarkRed,
+    primary = MainInterfaceColor,
     onPrimary = WhiteFC,
     secondary = Color.Black,
     background = Black1_28,
@@ -19,7 +19,7 @@ private val darkPalette = darkColorScheme(
 )
 
 private val lightPalette = lightColorScheme(
-    primary = DarkRed,
+    primary = MainInterfaceColor,
     onPrimary = Black14,
     secondary = White,
     background = WhiteFC,
