@@ -42,8 +42,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
-    navController: NavController,
-    onChangeTheme: () -> Unit
+    navController: NavController
 ) {
     Scaffold(
         topBar = {
@@ -87,7 +86,7 @@ fun SettingsScreen(
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.primary
                 )
-                DayNightSwitch(onChangeTheme)
+//                DayNightSwitch()
             }
         }
     }

@@ -1,6 +1,9 @@
 package com.example.nonameapp.ui.carte
 
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,18 +32,29 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.nonameapp.R
+import com.example.nonameapp.ui.theme.Black14
+import com.example.nonameapp.ui.theme.Black1_28
+import com.example.nonameapp.ui.theme.DarkRed
 import com.example.nonameapp.ui.theme.FoodOnboardingGradient
+import com.example.nonameapp.ui.theme.GrayColorWithAlpha
+import com.example.nonameapp.ui.theme.almostTransparentBlack
+import com.example.nonameapp.ui.theme.evenDarkerBlack
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -68,7 +82,10 @@ fun CarteScreen(
                             tint = FoodOnboardingGradient
                         )
                     }
-                }
+                },
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background
+                )
             )
         },
     ) {
@@ -76,8 +93,7 @@ fun CarteScreen(
             state = rememberLazyGridState(),
             columns = GridCells.Fixed(2),
             modifier = Modifier
-                .padding(it)
-                .padding(top = 20.dp),
+                .padding(it),
             contentPadding = PaddingValues(10.dp)
         ) {
             itemsIndexed(
@@ -116,43 +132,67 @@ fun TinyFoodDishCard(foodDish: FoodDish) {
             shape = RoundedCornerShape(20.dp),
             elevation = CardDefaults.elevatedCardElevation(
                 defaultElevation = 5.dp
+            ),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.secondary
             )
+
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .background(
+                        Brush.verticalGradient(
+                            listOf(
+                                MaterialTheme.colorScheme.background,
+                                MaterialTheme.colorScheme.secondary
+                            )
+                        )
+                    )
                     .padding(start = 15.dp, end = 15.dp, bottom = 20.dp),
                 verticalArrangement = Arrangement.Bottom,
             ) {
-                Text(
-                    text = foodDish.name,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.ExtraBold,
-                    color = MaterialTheme.colorScheme.primary,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
+                Box(
                     modifier = Modifier
-                        .padding(top = 5.dp)
+                        .fillMaxWidth()
+                        .fillMaxHeight(fraction = 0.5f)
                 )
-                Text(
-                    text = foodDish.description,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.primary,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
+
+                Column(
                     modifier = Modifier
-                        .padding(top = 5.dp)
-                )
-                Text(
-                    text = foodDish.price.toString() + " руб.",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.primary,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    fontWeight = FontWeight.ExtraBold,
-                    modifier = Modifier
-                        .padding(top = 5.dp)
-                )
+                        .fillMaxSize()
+                ) {
+                    Text(
+                        text = foodDish.name,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = MaterialTheme.colorScheme.primary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier
+                            .padding(top = 5.dp)
+                    )
+                    Text(
+                        text = foodDish.description,
+                        fontSize = 12.sp,
+                        color = MaterialTheme.colorScheme.tertiary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier
+                            .padding(top = 5.dp)
+                    )
+                    Text(
+                        text = foodDish.price.toString() + " руб.",
+                        color = MaterialTheme.colorScheme.primary,
+                        fontSize = 16.sp,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        fontWeight = FontWeight.ExtraBold,
+                        modifier = Modifier
+                            .padding(top = 5.dp)
+                    )
+                }
+
             }
 
         }
@@ -170,9 +210,13 @@ fun TinyFoodDishCard(foodDish: FoodDish) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(
+    showBackground = true,
+    widthDp = 200,
+    uiMode = UI_MODE_NIGHT_NO
+)
 @Composable
-fun TinyFoodDishCardPreview() {
+fun TinyFoodDishCardDayPreview() {
     TinyFoodDishCard(
         foodDish = FoodDish(
             id = 0,
@@ -183,3 +227,17 @@ fun TinyFoodDishCardPreview() {
         )
     )
 }
+
+//@Preview(showBackground = true, widthDp = 200, uiMode = UI_MODE_NIGHT_YES)
+//@Composable
+//fun TinyFoodDishCardNightPreview() {
+//    TinyFoodDishCard(
+//        foodDish = FoodDish(
+//            id = 0,
+//            name = "Borsh",
+//            image = R.drawable.borsh,
+//            description = "Tasty borsh",
+//            price = 300
+//        )
+//    )
+//}
