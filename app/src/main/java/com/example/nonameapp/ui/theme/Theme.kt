@@ -8,19 +8,23 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
-import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
-private val DarkColorPalette = darkColorScheme(
-    primary = Purple80,
-    inversePrimary = Purple40,
-    secondary = Pink40
+private val darkPalette = darkColorScheme(
+    primary = DarkRed,
+    onPrimary = WhiteFC,
+    secondary = Color.Black,
+    background = Black1_28,
+    tertiary = CardColor
 )
 
-private val LightColorPalette = lightColorScheme(
-    primary = Purple80,
-    inversePrimary = Purple40,
-    secondary = Pink40
+private val lightPalette = lightColorScheme(
+    primary = DarkRed,
+    onPrimary = Black14,
+    secondary = White,
+    background = WhiteFC,
+    tertiary = GrayColorWithAlpha,
+
 
     /* Other default colors to override
     background = Color.White,
@@ -32,38 +36,38 @@ private val LightColorPalette = lightColorScheme(
     */
 )
 
-@Composable
-fun CustomBottomNavigationTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable() () -> Unit
-) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
-    }
+//@Composable
+//fun CustomBottomNavigationTheme(
+//    darkTheme: Boolean = isSystemInDarkTheme(),
+//    content: @Composable() () -> Unit
+//) {
+//    val colors = if (darkTheme) {
+//        DarkColorPalette
+//    } else {
+//        LightColorPalette
+//    }
+//
+//    MaterialTheme(
+//        colorScheme = colors,
+//        typography = Typography,
+//        shapes = Shapes,
+//        content = content
+//    )
+//}
 
-    MaterialTheme(
-        colorScheme = colors,
-        typography = Typography,
-        shapes = Shapes,
-        content = content
-    )
-}
-
 @Composable
-fun OnboardingDemoTheme(
+fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable() () -> Unit
+    content: @Composable () -> Unit
 ) {
 //    val systemUiController: SystemUiController = rememberSystemUiController()
 //    systemUiController.isStatusBarVisible = false // Hide StatusBar
 
     val colors: ColorScheme = if(darkTheme){
-        LightColorPalette // change to DarkColorPalette
+        darkPalette // change to DarkColorPalette
     }
     else{
-        LightColorPalette
+        lightPalette
     }
 
     SetStatusBarColor(color = colors.background)

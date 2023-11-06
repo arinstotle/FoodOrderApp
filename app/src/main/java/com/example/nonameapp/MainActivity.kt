@@ -10,16 +10,14 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
-import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.nonameapp.navigation.Navigation
 import com.example.nonameapp.navigation.NavigationRouter
 import com.example.nonameapp.navigation.Screen
 import com.example.nonameapp.ui.bottomNavigation.CustomBottomNavigation
-import com.example.nonameapp.ui.theme.CustomBottomNavigationTheme
+import com.example.nonameapp.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -32,8 +30,7 @@ class MainActivity : ComponentActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 window.navigationBarDividerColor=MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f).toArgb()
             }
-            val currentScreen = mutableStateOf<Screen>(Screen.OnboardingScreen)
-            CustomBottomNavigationTheme {
+            AppTheme {
                 Surface(color = MaterialTheme.colorScheme.background) {
                     Scaffold(
                         bottomBar = {
