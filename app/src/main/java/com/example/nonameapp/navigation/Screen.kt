@@ -20,7 +20,7 @@ sealed class Screen(val route : String, val icon : Int, val title : String) {
 
     object Items{
         val list= listOf(
-            MainScreen, ProfileScreen, CarteScreen, CartScreen
+            MainScreen, ProfileScreen, CarteScreen
         )
     }
 

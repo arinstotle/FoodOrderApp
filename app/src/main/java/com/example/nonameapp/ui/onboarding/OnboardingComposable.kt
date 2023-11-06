@@ -1,4 +1,4 @@
-package com.example.nonameapp.ui
+package com.example.nonameapp.ui.onboarding
 
 import androidx.annotation.FloatRange
 import androidx.compose.animation.core.animateDpAsState
@@ -24,7 +24,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -48,7 +47,6 @@ import com.example.nonameapp.OnBoardingData
 import com.example.nonameapp.R
 import com.example.nonameapp.navigation.NavigationRouter
 import com.example.nonameapp.navigation.Screen
-import com.example.nonameapp.ui.signUp.signUpNavigation.SignUpRouter.currentScreen
 import com.example.nonameapp.ui.theme.BottomCardShape
 import com.example.nonameapp.ui.theme.FoodOnboardingBackground
 import com.example.nonameapp.ui.theme.FoodOnboardingGradient

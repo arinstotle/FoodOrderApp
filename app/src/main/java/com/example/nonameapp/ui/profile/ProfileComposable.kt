@@ -1,4 +1,4 @@
-package com.example.nonameapp.ui
+package com.example.nonameapp.ui.profile
 
 import com.example.nonameapp.R
 import androidx.compose.foundation.*

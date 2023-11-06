@@ -1,92 +1,609 @@
 package com.example.nonameapp.ui.carte
 
+import com.example.nonameapp.FoodCategories
 import com.example.nonameapp.R
 
 object FoodDishesDataSource {
     val listOfFoodDishes = listOf(
-        FoodDish(
-            id = 0,
-            name = "Borsh",
-            image = R.drawable.borsh,
+        FoodDishUIModel(
+            id = "0",
+            title = "Borsh",
+            category = FoodCategories.SOUPS,
+            price = "300",
             description = "Tasty borsh",
-            price = 300
+            weight = "350",
+            calories = "200",
+            kilojoules = "1234",
+            cookingTime = "45 мин",
+            rating = "4.5",
+            reviews = "x comments",
+            proteins = "4",
+            fats = "12",
+            carbohydrates = "5",
+            allergens = listOf<String>("Allerg1", "Allerg2", "Allerg3"),
+            image = R.drawable.borsh,
+            ingredients = listOf(
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                )
+            )
         ),
-        FoodDish(
-            id = 1,
-            name = "Mushroom Soup",
+        FoodDishUIModel(
+            id = "1",
+            title = "Mushroom Soup",
             image = R.drawable.mushroom_soup,
             description = "Mmmm, mushrooms",
-            price = 250
+            price = "250",
+            category = FoodCategories.SOUPS,
+            weight = "350",
+            calories = "200",
+            kilojoules = "1234",
+            cookingTime = "45 мин",
+            rating = "4.5",
+            reviews = "x comments",
+            proteins = "4",
+            fats = "12",
+            carbohydrates = "5",
+            allergens = listOf<String>("Allerg1", "Allerg2", "Allerg3"),
+            ingredients = listOf(
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                )
+            )
         ),
-        FoodDish(
-            id = 2,
-            name = "Salman Fish",
+        FoodDishUIModel(
+            id = "2",
+            title = "Salman Fish",
             image = R.drawable.salmon_fish,
             description = "Дайте рыбов))",
-            price = 350
+            price = "350",
+            category = FoodCategories.SOUPS,
+            weight = "350",
+            calories = "200",
+            kilojoules = "1234",
+            cookingTime = "45 мин",
+            rating = "4.5",
+            reviews = "x comments",
+            proteins = "4",
+            fats = "12",
+            carbohydrates = "5",
+            allergens = listOf<String>("Allerg1", "Allerg2", "Allerg3"),
+            ingredients = listOf(
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                )
+            )
         ),
-        FoodDish(
-            id = 3,
-            name = "Vermicelli",
+        FoodDishUIModel(
+            id = "3",
+            title = "Vermicelli",
             image = R.drawable.vermicelli_with_mushrooms,
             description = "With mushrooms =)",
-            price = 300
+            price = "300",
+            category = FoodCategories.SOUPS,
+            weight = "350",
+            calories = "200",
+            kilojoules = "1234",
+            cookingTime = "45 мин",
+            rating = "4.5",
+            reviews = "x comments",
+            proteins = "4",
+            fats = "12",
+            carbohydrates = "5",
+            allergens = listOf<String>("Allerg1", "Allerg2", "Allerg3"),
+            ingredients = listOf(
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                )
+            )
         ),
-        FoodDish(
-            id = 4,
-            name = "Scrambled eggs",
+        FoodDishUIModel(
+            id = "4",
+            title = "Scrambled eggs",
             image = R.drawable.scrambled_eggs_and_toast,
             description = "And toast",
-            price = 300
+            price = "300",
+            category = FoodCategories.SOUPS,
+            weight = "350",
+            calories = "200",
+            kilojoules = "1234",
+            cookingTime = "45 мин",
+            rating = "4.5",
+            reviews = "x comments",
+            proteins = "4",
+            fats = "12",
+            carbohydrates = "5",
+            allergens = listOf<String>("Allerg1", "Allerg2", "Allerg3"),
+            ingredients = listOf(
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                )
+            )
         ),
-        FoodDish(
-            id = 5,
-            name = "Scrambled eggs",
+        FoodDishUIModel(
+            id = "5",
+            title = "Scrambled eggs",
             image = R.drawable.scrambled_eggs_with_something,
             description = "А что внутри?",
-            price = 300
+            price = "300",
+            category = FoodCategories.SOUPS,
+            weight = "350",
+            calories = "200",
+            kilojoules = "1234",
+            cookingTime = "45 мин",
+            rating = "4.5",
+            reviews = "x comments",
+            proteins = "4",
+            fats = "12",
+            carbohydrates = "5",
+            allergens = listOf<String>("Allerg1", "Allerg2", "Allerg3"),
+            ingredients = listOf(
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                )
+            )
         ),
-        FoodDish(
-            id = 6,
-            name = "Borsh",
+        FoodDishUIModel(
+            id = "6",
+            title = "Borsh",
             image = R.drawable.borsh,
             description = "Tasty borsh",
-            price = 300
+            price = "300",
+            category = FoodCategories.SOUPS,
+            weight = "350",
+            calories = "200",
+            kilojoules = "1234",
+            cookingTime = "45 мин",
+            rating = "4.5",
+            reviews = "x comments",
+            proteins = "4",
+            fats = "12",
+            carbohydrates = "5",
+            allergens = listOf<String>("Allerg1", "Allerg2", "Allerg3"),
+            ingredients = listOf(
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                )
+            )
         ),
-        FoodDish(
-            id = 7,
-            name = "Mushroom Soup",
+        FoodDishUIModel(
+            id = "7",
+            title = "Mushroom Soup",
             image = R.drawable.mushroom_soup,
             description = "Mmmm, mushrooms",
-            price = 250
+            price = "250",
+            category = FoodCategories.SOUPS,
+            weight = "350",
+            calories = "200",
+            kilojoules = "1234",
+            cookingTime = "45 мин",
+            rating = "4.5",
+            reviews = "x comments",
+            proteins = "4",
+            fats = "12",
+            carbohydrates = "5",
+            allergens = listOf<String>("Allerg1", "Allerg2", "Allerg3"),
+            ingredients = listOf(
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                )
+            )
         ),
-        FoodDish(
-            id = 8,
-            name = "Salman Fish",
+        FoodDishUIModel(
+            id = "8",
+            title = "Salman Fish",
             image = R.drawable.salmon_fish,
             description = "Дайте рыбов))",
-            price = 350
+            price = "350",
+            category = FoodCategories.SOUPS,
+            weight = "350",
+            calories = "200",
+            kilojoules = "1234",
+            cookingTime = "45 мин",
+            rating = "4.5",
+            reviews = "x comments",
+            proteins = "4",
+            fats = "12",
+            carbohydrates = "5",
+            allergens = listOf<String>("Allerg1", "Allerg2", "Allerg3"),
+            ingredients = listOf(
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                )
+            )
         ),
-        FoodDish(
-            id = 9,
-            name = "Vermicelli",
+        FoodDishUIModel(
+            id = "9",
+            title = "Vermicelli",
             image = R.drawable.vermicelli_with_mushrooms,
             description = "With mushrooms =)",
-            price = 300
+            price = "300",
+            category = FoodCategories.SOUPS,
+            weight = "350",
+            calories = "200",
+            kilojoules = "1234",
+            cookingTime = "45 мин",
+            rating = "4.5",
+            reviews = "x comments",
+            proteins = "4",
+            fats = "12",
+            carbohydrates = "5",
+            allergens = listOf<String>("Allerg1", "Allerg2", "Allerg3"),
+            ingredients = listOf(
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                )
+            )
         ),
-        FoodDish(
-            id = 10,
-            name = "Scrambled eggs",
+        FoodDishUIModel(
+            id = "10",
+            title = "Scrambled eggs",
             image = R.drawable.scrambled_eggs_and_toast,
             description = "And toast",
-            price = 300
+            price = "300",
+            category = FoodCategories.SOUPS,
+            weight = "350",
+            calories = "200",
+            kilojoules = "1234",
+            cookingTime = "45 мин",
+            rating = "4.5",
+            reviews = "x comments",
+            proteins = "4",
+            fats = "12",
+            carbohydrates = "5",
+            allergens = listOf<String>("Allerg1", "Allerg2", "Allerg3"),
+            ingredients = listOf(
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                )
+            )
         ),
-        FoodDish(
-            id = 11,
-            name = "Scrambled eggs",
+        FoodDishUIModel(
+            id = "11",
+            title = "Scrambled eggs",
             image = R.drawable.scrambled_eggs_with_something,
             description = "А что внутри?",
-            price = 300
+            price = "300",
+            category = FoodCategories.SOUPS,
+            weight = "350",
+            calories = "200",
+            kilojoules = "1234",
+            cookingTime = "45 мин",
+            rating = "4.5",
+            reviews = "x comments",
+            proteins = "4",
+            fats = "12",
+            carbohydrates = "5",
+            allergens = listOf<String>("Allerg1", "Allerg2", "Allerg3"),
+            ingredients = listOf(
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                ),
+                Ingredient(
+                    image = R.drawable.meat_ingredient,
+                    title = "Meat",
+                    subtitle = "340 g"
+                )
+            )
         ),
     )
 }

@@ -6,19 +6,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.example.nonameapp.ui.mainscreen.MainScreen
-import com.example.nonameapp.ui.OnboardingScreen
-import com.example.nonameapp.ui.ProfileScreen
+import com.example.nonameapp.ui.onboarding.OnboardingScreen
+import com.example.nonameapp.ui.profile.ProfileScreen
 import com.example.nonameapp.ui.cart.CartScreen
 import com.example.nonameapp.ui.carte.CarteScreen
 import com.example.nonameapp.ui.settings.SettingsScreen
 import com.example.nonameapp.ui.signUp.AuthorizationScreen
-import com.example.nonameapp.ui.signUp.signUpNavigation.SignUpScreen
 import com.example.nonameapp.ui.theme.OnboardingDemoTheme
 
 object NavigationRouter {
