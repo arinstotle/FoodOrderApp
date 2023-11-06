@@ -28,3 +28,13 @@ val GrayColorWithAlpha = Color(0.5f, 0.5f, 0.5f, alpha = 0.5f)
 val almostTransparentBlack = Color(0x33000000) // Почти прозрачный черный (33% прозрачности)
 val slightlyDarkerBlack = Color(0x61000000) // Чуть темнее черный (46% прозрачности)
 val evenDarkerBlack = Color(0xAA000000) // Ещё чернее (67% прозрачности)
+
+val WhiteFC = Color(0xFFFCFAF8)
+val White = Color(0xFFFFFFFF)
+val Yellow = Color(0xFFFEDB71)
+val Black14 = Color(0xFF140F1F)
+val DarkRed = Color(0xFFC32524)
+
+val Black1_28 = Color(0xFF282726)
+val Black2_54 = Color(0xFF54504C)
+val Black3_86 = Color(0xFF86817C)
