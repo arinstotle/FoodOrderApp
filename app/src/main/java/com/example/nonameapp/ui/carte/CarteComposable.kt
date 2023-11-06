@@ -222,12 +222,21 @@ fun TinyFoodDishCard(foodDish: FoodDishUIModel) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DishCardInfoComposable(foodDish: FoodDishUIModel) {
     val scrollState = rememberLazyListState()
-    Box(modifier = Modifier.fillMaxSize().padding(0.dp)) {
-        DishContent(foodDish, scrollState)
-        ParallaxToolbar(foodDish, scrollState)
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+    Scaffold(
+        containerColor = Color.White,
+        topBar = {
+            ParallaxToolbar(foodDish = foodDish, scrollState = scrollState)
+        }
+    ) { contentPadding ->
+        Box(modifier = Modifier.fillMaxSize().background(Color.White)
+            .padding(contentPadding)) {
+            DishContent(foodDish, scrollState)
+        }
     }
 }
 
@@ -241,8 +250,7 @@ fun DishCardInfoComposablePreview() {
 @Composable
 fun DishContent(foodDish: FoodDishUIModel, scrollState: LazyListState) {
     LazyColumn(
-        contentPadding = PaddingValues(top = AppBarExpendedHeight)
-        , state = scrollState
+      state = scrollState
     ) {
         item {
             BasicInfo(foodDish)
@@ -499,14 +507,13 @@ fun ParallaxToolbar(foodDish: FoodDishUIModel, scrollState: LazyListState) {
     val maxOffset = with(LocalDensity.current) { imageHeight.roundToPx() } - 700
     val offset = kotlin.math.min(scrollState.firstVisibleItemScrollOffset, maxOffset)
     val offsetProgress = kotlin.math.max(0f, offset * 3f - 2f + maxOffset) / maxOffset
-
     androidx.compose.material.TopAppBar(
-        contentPadding = PaddingValues(),
+        contentPadding = PaddingValues(0.dp),
         backgroundColor = Color.White,
         modifier = Modifier
             .height(AppBarExpendedHeight)
-            .padding(0.dp)
-        , elevation = if (offset == maxOffset) 4.dp else 0.dp,
+            .padding(0.dp),
+        elevation = if (offset == maxOffset) 4.dp else 0.dp,
     ) {
         Column {
             Box(modifier = Modifier.height(imageHeight)) {
