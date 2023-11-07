@@ -6,11 +6,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -56,24 +60,34 @@ fun CartScreen(
     ) {
         Column(
             modifier = Modifier
-                .verticalScroll(rememberScrollState())
                 .padding(it)
                 .padding(top = 10.dp)
         ) {
-            // List of products
-            for (item in itemsInCart) {
-                TinyDishCardInCart(
-//                    mViewModel = mViewModel,
-                    //navController = navController,
-                    foodDish = item,
-                )
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight(0.75f)
+            ){
+                LazyColumn(
+                    modifier = Modifier
+                ) {
+                    items(itemsInCart){ foodDish ->
+                        TinyDishCardInCart(
+//                            mViewModel = mViewModel,
+//                            navController = navController,
+                            foodDish = foodDish,
+                        )
+                    }
+                }
             }
+
+
             // Divider
             Divider(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 20.dp, end = 20.dp, top = 20.dp)
             )
+
             // Row with total sum
             Row(
                 modifier = Modifier
@@ -94,6 +108,7 @@ fun CartScreen(
                     color = MaterialTheme.colorScheme.primary
                 )
             }
+
             // Button "Order now"
             Button(
                 onClick = {
@@ -133,12 +148,10 @@ fun TinyDishCardInCart(
         shape = RoundedCornerShape(15.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .height(125.dp)
+            .height(130.dp)
             .padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
-            .clickable {
-
-            },
-        color = MaterialTheme.colorScheme.onBackground,
+            .clickable { /*TODO:Click on Dish in the Cart*/ },
+        color = MaterialTheme.colorScheme.secondary,
         shadowElevation = 10.dp
     ) {
         Row(
@@ -173,16 +186,20 @@ fun TinyDishCardInCart(
                         text = foodDish.title,
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.ExtraBold,
-                        color = MaterialTheme.colorScheme.background,
+                        color = MaterialTheme.colorScheme.onPrimary,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
 
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(
+                        modifier = Modifier
+                            .padding(end = 10.dp),
+                        onClick = { /*TODO:Remove Dish from cart*/ }
+                    ) {
                         Icon(
                             imageVector = Icons.Default.Clear,
                             contentDescription = "clear",
-                            tint = MaterialTheme.colorScheme.background
+                            tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }
                 }
@@ -196,7 +213,7 @@ fun TinyDishCardInCart(
                     Text(
                         text = foodDish.price.toString() + " руб.",
                         style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.background,
+                        color = MaterialTheme.colorScheme.onPrimary,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         fontWeight = FontWeight.ExtraBold,
