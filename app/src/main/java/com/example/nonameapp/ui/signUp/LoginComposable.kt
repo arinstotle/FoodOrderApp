@@ -1,17 +1,21 @@
 package com.example.nonameapp.ui.signUp
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -36,6 +40,8 @@ import com.example.nonameapp.ui.signUp.tinyComposableElements.SocialNetworksComp
 import com.example.nonameapp.ui.signUp.tinyComposableElements.TextFieldComponent
 import com.example.nonameapp.ui.signUp.tinyComposableElements.ToLoginTextComponent
 import com.example.nonameapp.ui.signUp.tinyComposableElements.ToRegisterTextComponent
+import com.example.nonameapp.ui.theme.Black1_28
+import com.example.nonameapp.ui.theme.MainInterfaceColor
 
 @Composable
 fun LoginComposable() {
@@ -43,11 +49,7 @@ fun LoginComposable() {
         modifier = Modifier
             .fillMaxSize()
             .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(Color.White, Color.White),
-                    startY = 0f,
-                    endY = 1f
-                )
+               Black1_28
             )
             .padding(0.dp)
             .verticalScroll(ScrollState(0))
@@ -55,50 +57,63 @@ fun LoginComposable() {
         BackHandler {
             SignUpRouter.navigateTo(SignUpScreen.RegistrationScreen)
         }
-        FeatureListComponent(list = listOf<FeaturePicture>(
-            FeaturePicture(R.drawable.japan, "vs"),
-            FeaturePicture(R.drawable.noodles, "vs"),
-            FeaturePicture(R.drawable.pizza, "vs"),
-            FeaturePicture(R.drawable.sandwich, "vs"),
-            FeaturePicture(R.drawable.breakfast, "vs"),
-            FeaturePicture(R.drawable.burger, "vs"),
-            FeaturePicture(R.drawable.chicken, "vs"),
-        ),
-            modifier = Modifier
-        )
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Transparent)) {
-            OrdinaryTextComponent(content = stringResource(id = R.string.hello), topPadding = 24)
-            OrdinaryTextComponent(content = stringResource(id = R.string.welcome), topPadding = 8,
-                size = 26,
-                fontWeight = FontWeight.Bold,
-                heightMin = 0)
-            Spacer(modifier = Modifier.height(20.dp))
-            TextFieldComponent(labelValue = stringResource(id = R.string.email),
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Email
-                ),
-                onChangeTextAction = { },
-                iconResource = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.email1_icon),
-                        contentDescription = ""
-                    )
-                })
-            Spacer(modifier = Modifier.height(16.dp))
-            PasswordTextFieldComponent(labelValue = stringResource(id = R.string.password),
-                onChangeTextAction = {} )
-            ButtonComponent(text = stringResource(id = R.string.login_button)) {
+        Box(modifier = Modifier.fillMaxSize().background(Black1_28)) {
+            Box(
+                modifier = Modifier.fillMaxSize()
+                    .background(Color.Transparent)
+                    .align(Alignment.Center)
+                    .size(700.dp)
+            ) {
+                Image(
+                    modifier = Modifier.fillMaxSize(),
+                    painter = painterResource(id = R.drawable.meat_sticker),
+                    contentDescription = null
+                )
+            }
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Transparent)
+            ) {
+                OrdinaryTextComponent(
+                    content = stringResource(id = R.string.hello),
+                    topPadding = 24,
+                    color = MainInterfaceColor
+                )
+                OrdinaryTextComponent(
+                    content = stringResource(id = R.string.welcome), topPadding = 8,
+                    size = 26,
+                    fontWeight = FontWeight.Bold,
+                    heightMin = 0,
+                    color = Color.White
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                TextFieldComponent(labelValue = stringResource(id = R.string.email),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Email
+                    ),
+                    onChangeTextAction = { },
+                    iconResource = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.email1_icon),
+                            contentDescription = ""
+                        )
+                    })
+                Spacer(modifier = Modifier.height(16.dp))
+                PasswordTextFieldComponent(labelValue = stringResource(id = R.string.password),
+                    onChangeTextAction = {})
+                ButtonComponent(text = stringResource(id = R.string.login_button)) {
 
-            }
-            DividerComponent()
-            SocialNetworksComponent(icon1 = ImageVector.vectorResource(R.drawable.google_icon),
-                icon2 = ImageVector.vectorResource(R.drawable.facebook_icon),
-                onIcon1Click = { /*TODO*/ },
+                }
+                DividerComponent()
+                SocialNetworksComponent(
+                    icon1 = ImageVector.vectorResource(R.drawable.google_icon),
+                    icon2 = ImageVector.vectorResource(R.drawable.facebook_icon),
+                    onIcon1Click = { /*TODO*/ },
                 ) {
+                }
+                ToRegisterTextComponent()
             }
-            ToRegisterTextComponent()
         }
     }
 }

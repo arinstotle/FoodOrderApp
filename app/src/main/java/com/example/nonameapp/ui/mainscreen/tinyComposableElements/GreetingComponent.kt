@@ -23,9 +23,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.nonameapp.R
+import com.example.nonameapp.ui.theme.MainInterfaceColor
 import com.example.nonameapp.ui.theme.ReemKufi
 
 @Preview
@@ -70,8 +72,9 @@ fun GreetingSection(
                 Text(
                     "Hello, $name!",
                     Modifier.padding(top = 4.dp),
-                    style = MaterialTheme.typography.titleMedium,
-                    fontFamily = ReemKufi
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = ReemKufi,
+                    color = MainInterfaceColor
                 )
                 Text(
                     text = "Enjoy your meal!",

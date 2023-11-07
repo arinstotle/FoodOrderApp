@@ -3,6 +3,7 @@ package com.example.nonameapp.ui.signUp.tinyComposableElements
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -24,6 +25,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.nonameapp.R
+import com.example.nonameapp.ui.theme.Black1_28_Transparent_30
+import com.example.nonameapp.ui.theme.Black1_28_Transparent_50
 import com.example.nonameapp.ui.theme.ReemKufi
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,24 +44,21 @@ fun TextFieldComponent(textValueStart : String = "",
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp)
-            .background(
-                color = Color.White,
-                shape = MaterialTheme.shapes.large
-            )
         ,
         leadingIcon = iconResource,
         value = textValue.value,
         onValueChange = { textValue.value = it },
-        shape = MaterialTheme.shapes.large,
+        shape = RoundedCornerShape(20.dp),
         textStyle = MaterialTheme.typography.titleMedium.copy(
-            color = Color.Black
+            color = Color.White
         ),
         singleLine = true,
         keyboardOptions = keyboardOptions,
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Color.Black,
-            focusedLabelColor = Color.Black,
-            cursorColor = Color.Black
+            focusedBorderColor = Color.White,
+            focusedLabelColor = Color.White,
+            cursorColor = Color.White,
+            containerColor = Black1_28_Transparent_50
         ),
         label = {
             Text(
@@ -85,26 +85,23 @@ fun PasswordTextFieldComponent(passwordStart : String = "",
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp)
-            .background(
-                color = Color.White,
-                shape = MaterialTheme.shapes.large
-            )
         ,
         leadingIcon = {
         Icon( painter = painterResource(id = R.drawable.password_icon), contentDescription = "")
         },
         value = password.value,
         onValueChange = { password.value = it },
-        shape = MaterialTheme.shapes.large,
+        shape = RoundedCornerShape(20.dp),
         textStyle = MaterialTheme.typography.titleMedium.copy(
-            color = Color.Black
+            color = Color.White
         ),
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Color.Black,
-            focusedLabelColor = Color.Black,
-            cursorColor = Color.Black
+            focusedBorderColor = Color.White,
+            focusedLabelColor = Color.White,
+            cursorColor = Color.White,
+            containerColor = Black1_28_Transparent_50
         ),
         trailingIcon = {
             when(isVisible.value) {

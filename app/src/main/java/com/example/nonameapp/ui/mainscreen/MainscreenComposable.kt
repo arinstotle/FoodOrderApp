@@ -42,7 +42,7 @@ fun MainScreen(navController: NavController) {
     }
     Box(  modifier = Modifier
         .fillMaxSize()
-        .background(Color.Black)
+        .background(Black1_28)
         .verticalScroll(ScrollState(0))
     ) {
     Column(
@@ -132,7 +132,7 @@ fun MainScreen(navController: NavController) {
             PromotionListComponent(promotions = promotions)
             Box(
                 modifier = Modifier.fillMaxWidth()
-                    .background(Color.Red)
+                    .background(Color.Transparent),
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth()

@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
@@ -27,7 +28,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.nonameapp.Chip
 import com.example.nonameapp.R
+import com.example.nonameapp.ui.theme.Black1_28_Transparent_30
+import com.example.nonameapp.ui.theme.Black1_28_Transparent_50
 import com.example.nonameapp.ui.theme.CardColor
+import com.example.nonameapp.ui.theme.MainInterfaceColor
 import com.example.nonameapp.ui.theme.ReemKufi
 
 @Composable
@@ -42,7 +46,7 @@ fun ChipSection(
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp)
-            .background(Color.Red, shape = RoundedCornerShape(10.dp))
+            .background(MainInterfaceColor, shape = RoundedCornerShape(20.dp))
     ) {
         LazyRow {
             items(chips.size) {
@@ -52,13 +56,14 @@ fun ChipSection(
                         .clickable {
                             selectedChipIndex = it
                         }
-                        .clip(RoundedCornerShape(10.dp))
+                        .clip(RoundedCornerShape(20.dp))
                         .background(
-                            if (selectedChipIndex == it) Color.DarkGray
-                            else Color.Gray
-                        ),
+                            brush = Brush.verticalGradient(
+                                colors = listOf(Black1_28_Transparent_50, Black1_28_Transparent_30),
+                                startY = 0f
+                            )),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                    verticalArrangement = Arrangement.Center,
                 ) {
                     Icon(
                         imageVector = ImageVector.vectorResource(id = chips[it].iconId),

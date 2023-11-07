@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.example.nonameapp.ui.theme.FoodOnboardingGradient
+import com.example.nonameapp.ui.theme.MainInterfaceColor
 
 @Composable
 fun SocialNetworksComponent(
@@ -65,7 +66,7 @@ fun ClickableIcon(
                 .background(Color.Transparent),
             imageVector = icon,
             contentDescription = null,
-            tint = FoodOnboardingGradient
+            tint = MainInterfaceColor
         )
     }
 }

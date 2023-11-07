@@ -236,7 +236,7 @@ fun MyButton(navController: NavController) {
                     brush = Brush.horizontalGradient(
                         listOf(
                             MainInterfaceColor,
-                            FoodOnboardingText
+                            MainInterfaceColor_Red
                         )
                     ),
                     shape = RoundedCornerShape(50.dp)

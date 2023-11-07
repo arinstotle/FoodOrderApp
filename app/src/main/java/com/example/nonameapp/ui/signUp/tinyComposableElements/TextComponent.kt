@@ -7,6 +7,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -24,7 +25,8 @@ fun OrdinaryTextComponent(content : String,
                           size : Int = 20,
                           fontWeight: FontWeight = FontWeight.Normal,
                           heightMin : Int = 40,
-                          topPadding : Int = 0
+                          topPadding : Int = 0,
+                          color : Color = Color.Black
 ) {
     Text(
         text = content,
@@ -37,13 +39,13 @@ fun OrdinaryTextComponent(content : String,
             fontSize = size.sp,
             fontWeight = fontWeight
         ),
-        textAlign = TextAlign.Center
+        textAlign = TextAlign.Center,
+        color = color
     )
 }
 
 @Composable
 fun TermTextComponent(onTextSelected : (String, String, String) -> Unit = { s: String, s1: String, s2: String ->
-    Log.d("tag", "Message")
                       }) {
     val startedTermText = stringResource(id = R.string.terms_start)
     val privacyPolicy = stringResource(id = R.string.privacy_policy)
@@ -52,6 +54,7 @@ fun TermTextComponent(onTextSelected : (String, String, String) -> Unit = { s: S
 
     val annotatedString = buildAnnotatedString {
         withStyle(style = SpanStyle(
+            color = Color.White,
             fontFamily = ReemKufi
         )) {
             append(startedTermText)
@@ -67,7 +70,8 @@ fun TermTextComponent(onTextSelected : (String, String, String) -> Unit = { s: S
         }
         append(" ")
         withStyle(style = SpanStyle(
-            fontFamily = ReemKufi
+            fontFamily = ReemKufi,
+            color = Color.White
         )) {
             append(termsAnd)
         }
@@ -101,7 +105,8 @@ fun ToLoginTextComponent(onTextSelected : () -> Unit = {
 
     val annotatedString = buildAnnotatedString {
         withStyle(style = SpanStyle(
-            fontFamily = ReemKufi
+            fontFamily = ReemKufi,
+            color = Color.White
         )) {
             append(startedText)
         }
@@ -144,7 +149,8 @@ fun ToRegisterTextComponent(onTextSelected : () -> Unit = {
 
     val annotatedString = buildAnnotatedString {
         withStyle(style = SpanStyle(
-            fontFamily = ReemKufi
+            fontFamily = ReemKufi,
+            color = Color.White
         )) {
             append(startedText)
         }

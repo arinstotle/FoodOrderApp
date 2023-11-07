@@ -11,12 +11,13 @@ import com.example.nonameapp.navigation.NavigationRouter
 import com.example.nonameapp.navigation.Screen
 import com.example.nonameapp.ui.signUp.signUpNavigation.SignUpRouter
 import com.example.nonameapp.ui.signUp.signUpNavigation.SignUpScreen
+import com.example.nonameapp.ui.theme.Black1_28
 
 @Composable
 fun AuthorizationScreen(navController: NavController) {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color.White
+        color = Black1_28
     ) {
         Crossfade(targetState = SignUpRouter.currentScreen, label = "") { currentState ->
             when(currentState.value) {
