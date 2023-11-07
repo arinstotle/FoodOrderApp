@@ -40,7 +40,6 @@ import kotlinx.coroutines.delay
 fun SplashScreen(brush: Brush, navController: NavController) {
     val context = LocalContext.current as? ComponentActivity ?: return
     WindowCompat.setDecorFitsSystemWindows(context.window, false)
-    val topBarHeight = with(LocalDensity.current) { 24.dp.toPx() }
     var animated by remember { mutableStateOf(false) }
     val rotation = remember { Animatable(initialValue = 360f) }
     var visible by remember { mutableStateOf(false) }
@@ -49,7 +48,7 @@ fun SplashScreen(brush: Brush, navController: NavController) {
         visible = !visible
         delay(500)
         animated = !animated
-        delay(1750)
+        delay(1800)
         visible = !visible
         navController.navigate(Screen.OnboardingScreen.route)
     }

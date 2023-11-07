@@ -74,4 +74,5 @@ dependencies {
     implementation ("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     dokkaPlugin("org.jetbrains.dokka:android-documentation-plugin:1.9.10")
+    implementation("com.github.skydoves:cloudy:0.1.2")
 }
