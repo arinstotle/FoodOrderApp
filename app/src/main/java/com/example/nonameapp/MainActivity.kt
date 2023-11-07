@@ -17,6 +17,7 @@ import com.example.nonameapp.navigation.Navigation
 import com.example.nonameapp.navigation.NavigationRouter
 import com.example.nonameapp.navigation.Screen
 import com.example.nonameapp.ui.bottomNavigation.CustomBottomNavigation
+import com.example.nonameapp.ui.splashscreen.LogoWithShimmer
 import com.example.nonameapp.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
@@ -26,7 +27,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             window.statusBarColor = MaterialTheme.colorScheme.background.toArgb()
-            window.navigationBarColor=MaterialTheme.colorScheme.background.toArgb()
+            window.navigationBarColor = MaterialTheme.colorScheme.background.toArgb()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 window.navigationBarDividerColor=MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f).toArgb()
             }
@@ -36,7 +37,7 @@ class MainActivity : ComponentActivity() {
                         bottomBar = {
                             when (NavigationRouter.currentScreen.value) {
                                 Screen.OnboardingScreen, Screen.SettingsScreen,
-                                Screen.AuthorizationScreen -> null
+                                Screen.AuthorizationScreen, Screen.SplashScreen -> null
                                 else -> {
                                     CustomBottomNavigation(currentScreenRoute = NavigationRouter.currentScreen.value.route) { screen ->
                                         NavigationRouter.currentScreen.value = screen

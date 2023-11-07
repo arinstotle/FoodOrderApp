@@ -86,13 +86,21 @@ fun OnBoardingPager(
                 }
             }
         }
-        Box(modifier = Modifier.align(Alignment.BottomCenter)) {
+        Box(modifier = Modifier.align(Alignment.BottomCenter)
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(Color.Transparent, Color.White.copy(alpha = 0.1f)),
+                    startY = 200f,
+                    endY = 400.0f
+                )
+            )
+        ) {
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(340.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = Color.White,
+                    containerColor = Black1_28,
                 ),
                 elevation = CardDefaults.cardElevation(
                     defaultElevation = 8.dp
