@@ -6,7 +6,7 @@ import com.example.nonameapp.ui.carte.FoodDishesDataSource
 
 class CartViewModel: ViewModel() {
 
-    private val dishesInCart: List<FoodDishUIModel> = FoodDishesDataSource.listOfFoodDishes.dropLast(4)
+    private var dishesInCart: List<FoodDishUIModel> = FoodDishesDataSource.listOfFoodDishes.dropLast(4)
 
     fun getItemsInCart(): List<FoodDishUIModel> = dishesInCart
 
@@ -16,5 +16,9 @@ class CartViewModel: ViewModel() {
             sum += dish.price.toInt()
         }
         return sum
+    }
+
+    fun removeDishFromCart(idDish: String){
+        dishesInCart = dishesInCart.filter { it.id != idDish }
     }
 }

@@ -69,6 +69,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.IntOffset
+import com.example.nonameapp.ui.cart.CartScreen
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -76,11 +77,18 @@ import kotlinx.coroutines.launch
 fun CarteScreen(
     navController: NavController
 ) {
-    val sheetState = rememberModalBottomSheetState(
+    val scope = rememberCoroutineScope()
+
+    val dishSheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true
     )
-    val scope = rememberCoroutineScope()
-    var showBottomSheet by remember { mutableStateOf(false) }
+    val cartSheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
+
+    var showDishBottomSheet by remember { mutableStateOf(false) }
+    var showCartBottomSheet by remember { mutableStateOf(false) }
+
     val list = FoodDishesDataSource.listOfFoodDishes
     Scaffold(
         topBar = {
@@ -89,12 +97,13 @@ fun CarteScreen(
                     Text(
                         text = "Soups",
                         style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.Bold
                     )
                 },
                 navigationIcon = {
                     IconButton(
-                        onClick = { /*TODO: Navigate to DishScreen*/ }
+                        onClick = { /*TODO: Navigate to %screen%*/ }
                     ) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
@@ -102,7 +111,10 @@ fun CarteScreen(
                             tint = FoodOnboardingGradient
                         )
                     }
-                }
+                },
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background
+                ),
             )
         },
         floatingActionButton = {
@@ -110,32 +122,45 @@ fun CarteScreen(
                 text = { Text("Cart") },
                 icon = { Icon(Icons.Filled.ShoppingCart, contentDescription = "") },
                 onClick = {
-                    showBottomSheet = true
-                }
+                    showCartBottomSheet = true
+                },
+                backgroundColor = MaterialTheme.colorScheme.primary
             )
         }
     ) {
-        if (showBottomSheet) {
+        if (showDishBottomSheet || showCartBottomSheet) {
             ModalBottomSheet(
                 shape = RoundedCornerShape(4.dp),
-                containerColor = Color.White,
+                containerColor = MaterialTheme.colorScheme.background,
                 modifier = Modifier.fillMaxSize(),
                 onDismissRequest = {
-                    showBottomSheet = false
+                    if(showDishBottomSheet)
+                        showDishBottomSheet = false
+                    else
+                        showCartBottomSheet = false
                 },
-                sheetState = sheetState,
+                sheetState = if(showDishBottomSheet) dishSheetState else cartSheetState,
                 content = {
-                    scope.launch { sheetState.expand() }
-                    DishCardInfoComposable(foodDish = FoodDishesDataSource.listOfFoodDishes[0])
+                    scope.launch {
+                        if(showDishBottomSheet)
+                            dishSheetState.expand()
+                        else
+                            cartSheetState.expand()
+                    }
+
+                    if(showDishBottomSheet)
+                        DishCardInfoComposable(foodDish = FoodDishesDataSource.listOfFoodDishes[0])
+                    else
+                        CartScreen(navController = navController)
                 }
             )
         }
+
         LazyVerticalGrid(
             state = rememberLazyGridState(),
             columns = GridCells.Fixed(2),
             modifier = Modifier
-                .padding(it)
-                .padding(top = 20.dp),
+                .padding(it),
             contentPadding = PaddingValues(10.dp)
         ) {
             itemsIndexed(
@@ -144,7 +169,9 @@ fun CarteScreen(
                     item.hashCode()
                 }
             ) { _, item ->
-                TinyFoodDishCard(item)
+                TinyFoodDishCard(item){
+                    showDishBottomSheet = true
+                }
             }
         }
     }
@@ -152,12 +179,16 @@ fun CarteScreen(
 }
 
 @Composable
-fun TinyFoodDishCard(foodDish: FoodDishUIModel) {
+fun TinyFoodDishCard(
+    foodDish: FoodDishUIModel,
+    onClick: () -> Unit
+) {
     Box(
         modifier = Modifier
             .height(250.dp)
             .padding(10.dp)
             .clickable {
+                onClick()
             }
     ) {
         Card(
@@ -233,7 +264,9 @@ fun DishCardInfoComposable(foodDish: FoodDishUIModel) {
             ParallaxToolbar(foodDish = foodDish, scrollState = scrollState)
         }
     ) { contentPadding ->
-        Box(modifier = Modifier.fillMaxSize().background(Color.White)
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
             .padding(contentPadding)) {
             DishContent(foodDish, scrollState)
         }
