@@ -19,10 +19,12 @@ sealed class Screen(val route : String, val icon : Int, val title : String) {
         title = "Cart", icon = R.drawable.google_icon)
     object SplashScreen : Screen("splash_screen",
         title = "Splash", icon = R.drawable.google_icon)
+    object MapScreen : Screen("map_screen",
+        title = "Map", icon = R.drawable.google_icon)
 
     object Items{
         val list = listOf(
-            MainScreen, ProfileScreen, CarteScreen
+            MainScreen, ProfileScreen, CarteScreen, MapScreen
         )
     }
 }

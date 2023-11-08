@@ -13,7 +13,7 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
-
+        buildConfigField("String", "MAPKIT_API_KEY", "\"${project.properties["mapkitApiKey"]}\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -38,6 +38,8 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
+        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
@@ -75,4 +77,6 @@ dependencies {
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     dokkaPlugin("org.jetbrains.dokka:android-documentation-plugin:1.9.10")
     implementation("com.github.skydoves:cloudy:0.1.2")
+    implementation ("com.yandex.android:maps.mobile:4.4.0-lite")
+    implementation("androidx.compose.ui:ui-viewbinding")
 }

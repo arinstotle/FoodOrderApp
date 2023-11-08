@@ -127,7 +127,7 @@ fun CarteScreen(
                 backgroundColor = MaterialTheme.colorScheme.primary
             )
         }
-    ) {
+    ) { padding ->
         if (showDishBottomSheet || showCartBottomSheet) {
             ModalBottomSheet(
                 shape = RoundedCornerShape(4.dp),
@@ -155,12 +155,11 @@ fun CarteScreen(
                 }
             )
         }
-
         LazyVerticalGrid(
             state = rememberLazyGridState(),
             columns = GridCells.Fixed(2),
             modifier = Modifier
-                .padding(it),
+                .padding(0.dp),
             contentPadding = PaddingValues(10.dp)
         ) {
             itemsIndexed(

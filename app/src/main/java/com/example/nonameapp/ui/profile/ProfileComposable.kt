@@ -33,7 +33,8 @@ fun ProfileScreen(navController: NavController) {
         color = MaterialTheme.colorScheme.surfaceVariant,
     ) {
         Scaffold(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize()
+            ,
             topBar = {
                 TopAppBar(
                     title = {
@@ -42,7 +43,7 @@ fun ProfileScreen(navController: NavController) {
                             fontFamily = ReemKufi,
                         )
                     },
-                    colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.White),
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Black),
                     navigationIcon = {
                         IconButton(
                             onClick = {
@@ -79,7 +80,7 @@ fun ProfileScreen(navController: NavController) {
             Column(
                 Modifier
                     .fillMaxHeight()
-                    .padding(padding)
+                    .padding(0.dp)
                     .background(Color.White),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {

@@ -38,8 +38,6 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(brush: Brush, navController: NavController) {
-    val context = LocalContext.current as? ComponentActivity ?: return
-    WindowCompat.setDecorFitsSystemWindows(context.window, false)
     var animated by remember { mutableStateOf(false) }
     val rotation = remember { Animatable(initialValue = 360f) }
     var visible by remember { mutableStateOf(false) }

@@ -1,4 +1,4 @@
-package com.example.nonameapp.ui.cart
+package com.example.nonameapp.viewModels
 
 import androidx.lifecycle.ViewModel
 import com.example.nonameapp.ui.carte.FoodDishUIModel

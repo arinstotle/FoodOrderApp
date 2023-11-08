@@ -35,7 +35,7 @@ fun CustomBottomNavigation(
     Row(
         modifier= Modifier
             .background(MaterialTheme.colorScheme.background)
-            .padding(8.dp, 8.dp, 8.dp, 50.dp)
+            .padding(8.dp)
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
