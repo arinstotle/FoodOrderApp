@@ -21,10 +21,12 @@ sealed class Screen(val route : String, val icon : Int, val title : String) {
         title = "Splash", icon = R.drawable.google_icon)
     object MapScreen : Screen("map_screen",
         title = "Map", icon = R.drawable.google_icon)
+    object ReservationScreen : Screen("reservation_screen",
+        title = "Tables", icon = R.drawable.google_icon)
 
     object Items{
         val list = listOf(
-            MainScreen, ProfileScreen, CarteScreen, MapScreen
+            MainScreen, ProfileScreen, CarteScreen, MapScreen, ReservationScreen
         )
     }
 }
