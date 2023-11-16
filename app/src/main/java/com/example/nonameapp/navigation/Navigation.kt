@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.nonameapp.reservation.ReservationComposable
 import com.example.nonameapp.ui.mainscreen.MainScreen
 import com.example.nonameapp.ui.cart.CartScreen
 import com.example.nonameapp.ui.carte.CarteScreen
@@ -53,6 +54,9 @@ fun Navigation(navController: NavHostController, context: Context) {
         }
         composable(route = Screen.MapScreen.route) {
             MapScreen(navController = navController, mapController = MapController(context))
+        }
+        composable(route = Screen.ReservationScreen.route) {
+            ReservationComposable(context = context)
         }
     }
 }
