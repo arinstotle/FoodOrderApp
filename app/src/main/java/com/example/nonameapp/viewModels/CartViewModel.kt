@@ -1,24 +1,47 @@
 package com.example.nonameapp.viewModels
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.nonameapp.ui.carte.FoodDishUIModel
 import com.example.nonameapp.ui.carte.FoodDishesDataSource
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
+import java.util.concurrent.Flow
 
 class CartViewModel: ViewModel() {
 
-    private var dishesInCart: List<FoodDishUIModel> = FoodDishesDataSource.listOfFoodDishes.dropLast(4)
+    // Backing property to avoid state updates from other classes
+    private val _dishesInCart = MutableStateFlow(FoodDishesDataSource.listOfFoodDishes.dropLast(4))
+    private val _totalCartSum = MutableStateFlow(0)
 
-    fun getItemsInCart(): List<FoodDishUIModel> = dishesInCart
+    // The UI collects from this StateFlow to get its state updates
+    val dishesInCart: StateFlow<List<FoodDishUIModel>> = _dishesInCart
+    val totalCartSum: StateFlow<Int> = _totalCartSum
 
-    fun getTotalCartSum(): Int {
-        var sum = 0
-        dishesInCart.forEach {dish ->
-            sum += dish.price.toInt()
-        }
-        return sum
+    init {
+        calculateTotalCartSum()
     }
 
+    fun getItemsInCart(): List<FoodDishUIModel> = _dishesInCart.value
+
+    private fun calculateTotalCartSum() {
+        var sum = 0
+
+        dishesInCart.value.forEach {dish ->
+            sum += dish.price.toInt()
+        }
+
+        _totalCartSum.value = sum
+    }
+
+    fun addDishToCart(foodDishUIModel: FoodDishUIModel){
+        _dishesInCart.value = _dishesInCart.value.plus(foodDishUIModel)
+        calculateTotalCartSum()
+    }
     fun removeDishFromCart(idDish: String){
-        dishesInCart = dishesInCart.filter { it.id != idDish }
+        _dishesInCart.value = _dishesInCart.value.filter { it.id != idDish }
+        calculateTotalCartSum()
     }
 }

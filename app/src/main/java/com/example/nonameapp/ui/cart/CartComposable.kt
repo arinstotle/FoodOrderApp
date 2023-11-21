@@ -10,8 +10,10 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,6 +30,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -35,6 +38,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -42,15 +46,17 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.nonameapp.ui.carte.FoodDishUIModel
 import com.example.nonameapp.viewModels.CartViewModel
+import kotlinx.coroutines.flow.collect
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CartScreen(
     navController: NavController,
-    mViewModel: CartViewModel = CartViewModel()
+    mViewModel: CartViewModel
 ) {
-    var itemsInCart: List<FoodDishUIModel> by remember { mutableStateOf(mViewModel.getItemsInCart()) }
-    var totalSum: Int by remember { mutableIntStateOf(mViewModel.getTotalCartSum()) }
+    val itemsInCart: List<FoodDishUIModel> by mViewModel.dishesInCart.collectAsState()
+    val totalSum: Int by mViewModel.totalCartSum.collectAsState()
+
     Scaffold(
     ) {
         Column(
@@ -70,6 +76,9 @@ fun CartScreen(
 //                            mViewModel = mViewModel,
 //                            navController = navController,
                             foodDish = foodDish,
+                            onRemoveDish = { id ->
+                                mViewModel.removeDishFromCart(id)
+                            }
                         )
                     }
                 }
@@ -97,7 +106,7 @@ fun CartScreen(
                 )
 
                 Text(
-                    text = mViewModel.getTotalCartSum().toString() + " руб.",
+                    text = "$totalSum руб.",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary
@@ -127,24 +136,19 @@ fun CartScreen(
     }
 }
 
-//@Preview(showSystemUi = true)
-//@Composable
-//fun CartScreenPreview(){
-//    CartScreen()
-//}
-
 @Composable
 fun TinyDishCardInCart(
 //    mViewModel: CartViewModel,
 //    navController: NavController,
-    foodDish: FoodDishUIModel
+    foodDish: FoodDishUIModel,
+    onRemoveDish: (foodId: String) -> Unit
 ) {
     Surface(
         shape = RoundedCornerShape(15.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .height(130.dp)
-            .padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
+            .height(150.dp)
+            .padding(top = 10.dp, start = 20.dp, end = 20.dp, bottom = 15.dp)
             .clickable { /*TODO:Click on Dish in the Cart*/ },
         color = MaterialTheme.colorScheme.secondary,
         shadowElevation = 10.dp
@@ -155,14 +159,16 @@ fun TinyDishCardInCart(
         ) {
             Box(
                 modifier = Modifier
-                    .width(110.dp),
+                    .fillMaxHeight()
+                    .width(110.dp)
+                    .padding(start = 10.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
                     painter = painterResource(id = foodDish.image),
                     contentDescription = foodDish.description,
+                    contentScale = ContentScale.Inside,
                     modifier = Modifier
-                        .padding(start = 5.dp, top = 10.dp, bottom = 10.dp, end = 5.dp)
                 )
             }
 
@@ -189,7 +195,7 @@ fun TinyDishCardInCart(
                     IconButton(
                         modifier = Modifier
                             .padding(end = 10.dp),
-                        onClick = { /*TODO:Remove Dish from cart*/ }
+                        onClick = { onRemoveDish(foodDish.id) }
                     ) {
                         Icon(
                             imageVector = Icons.Default.Clear,

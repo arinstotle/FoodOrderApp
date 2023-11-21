@@ -66,10 +66,13 @@ import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.IntOffset
 import com.example.nonameapp.ui.cart.CartScreen
+import com.example.nonameapp.util.DebugObject
+import com.example.nonameapp.viewModels.CartViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -88,6 +91,8 @@ fun CarteScreen(
 
     var showDishBottomSheet by remember { mutableStateOf(false) }
     var showCartBottomSheet by remember { mutableStateOf(false) }
+
+    var currentDishUIModel: FoodDishUIModel? by remember { mutableStateOf(null) }
 
     val list = FoodDishesDataSource.listOfFoodDishes
     Scaffold(
@@ -127,17 +132,20 @@ fun CarteScreen(
                 backgroundColor = MaterialTheme.colorScheme.primary
             )
         }
-    ) { padding ->
+    ) { paddingTopAppBar ->
         if (showDishBottomSheet || showCartBottomSheet) {
             ModalBottomSheet(
                 shape = RoundedCornerShape(4.dp),
                 containerColor = MaterialTheme.colorScheme.background,
                 modifier = Modifier.fillMaxSize(),
                 onDismissRequest = {
-                    if(showDishBottomSheet)
+                    if(showDishBottomSheet) {
                         showDishBottomSheet = false
-                    else
+                        currentDishUIModel = null
+                    }
+                    else {
                         showCartBottomSheet = false
+                    }
                 },
                 sheetState = if(showDishBottomSheet) dishSheetState else cartSheetState,
                 content = {
@@ -149,9 +157,15 @@ fun CarteScreen(
                     }
 
                     if(showDishBottomSheet)
-                        DishCardInfoComposable(foodDish = FoodDishesDataSource.listOfFoodDishes[0])
+                        DishCardInfoComposable(
+                            foodDish = currentDishUIModel ?: FoodDishesDataSource.listOfFoodDishes[0],
+                            mViewModel = DebugObject.cartViewModel
+                        )
                     else
-                        CartScreen(navController = navController)
+                        CartScreen(
+                            navController = navController,
+                            mViewModel = DebugObject.cartViewModel
+                        )
                 }
             )
         }
@@ -159,7 +173,7 @@ fun CarteScreen(
             state = rememberLazyGridState(),
             columns = GridCells.Fixed(2),
             modifier = Modifier
-                .padding(0.dp),
+                .padding(paddingTopAppBar),
             contentPadding = PaddingValues(10.dp)
         ) {
             itemsIndexed(
@@ -170,6 +184,7 @@ fun CarteScreen(
             ) { _, item ->
                 TinyFoodDishCard(item){
                     showDishBottomSheet = true
+                    currentDishUIModel = item
                 }
             }
         }
@@ -254,9 +269,13 @@ fun TinyFoodDishCard(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DishCardInfoComposable(foodDish: FoodDishUIModel) {
+fun DishCardInfoComposable(
+    mViewModel: CartViewModel,
+    foodDish: FoodDishUIModel
+) {
     val scrollState = rememberLazyListState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+
     Scaffold(
         containerColor = Color.White,
         topBar = {
@@ -267,7 +286,11 @@ fun DishCardInfoComposable(foodDish: FoodDishUIModel) {
             .fillMaxSize()
             .background(Color.White)
             .padding(contentPadding)) {
-            DishContent(foodDish, scrollState)
+            DishContent(
+                mViewModel = mViewModel,
+                foodDish = foodDish,
+                scrollState = scrollState,
+            )
         }
     }
 }
@@ -275,12 +298,18 @@ fun DishCardInfoComposable(foodDish: FoodDishUIModel) {
 @Preview
 @Composable
 fun DishCardInfoComposablePreview() {
-    DishCardInfoComposable(foodDish =
-    FoodDishesDataSource.listOfFoodDishes[0])
+    DishCardInfoComposable(
+        mViewModel = CartViewModel(),
+        foodDish = FoodDishesDataSource.listOfFoodDishes[0]
+    )
 }
 
 @Composable
-fun DishContent(foodDish: FoodDishUIModel, scrollState: LazyListState) {
+fun DishContent(
+    mViewModel: CartViewModel,
+    foodDish: FoodDishUIModel,
+    scrollState: LazyListState
+) {
     LazyColumn(
       state = scrollState
     ) {
@@ -292,7 +321,9 @@ fun DishContent(foodDish: FoodDishUIModel, scrollState: LazyListState) {
             CustomRatingBarView()
             IngredientsSection()
             IngredientList(foodDish)
-            AddToCartButton()
+            AddToCartButton(){
+                mViewModel.addDishToCart(foodDish)
+            }
             ReviewsSection(foodDish)
         }
     }
@@ -337,8 +368,10 @@ fun ReviewsSection(foodDish: FoodDishUIModel) {
 }
 
 @Composable
-fun AddToCartButton() {
-    Button(onClick = { /*TODO*/ },
+fun AddToCartButton(
+    onClick: () -> Unit
+) {
+    Button(onClick = { onClick() },
         elevation = null,
         shape = RoundedCornerShape(20.dp),
         colors = ButtonDefaults.buttonColors(
