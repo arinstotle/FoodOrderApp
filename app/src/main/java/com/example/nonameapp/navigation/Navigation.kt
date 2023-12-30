@@ -19,6 +19,8 @@ import com.example.nonameapp.ui.settings.SettingsScreen
 import com.example.nonameapp.ui.signUp.AuthorizationScreen
 import com.example.nonameapp.ui.splashscreen.LogoWithShimmer
 import com.example.nonameapp.ui.splashscreen.SplashScreen
+import com.example.nonameapp.util.DebugObject
+import com.example.nonameapp.viewModels.CartViewModel
 
 object NavigationRouter {
     var currentScreen: MutableState<Screen> = mutableStateOf(Screen.SplashScreen)
@@ -26,7 +28,7 @@ object NavigationRouter {
 
 @Composable
 fun Navigation(navController: NavHostController, context: Context) {
-    NavHost(navController = navController, startDestination = Screen.SplashScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.AuthorizationScreen.route) {
         composable(route = Screen.OnboardingScreen.route) {
             OnboardingScreen(navController = navController)
         }
@@ -47,7 +49,7 @@ fun Navigation(navController: NavHostController, context: Context) {
             CarteScreen(navController = navController)
         }
         composable(route = Screen.CartScreen.route) {
-            CartScreen(navController = navController)
+            CartScreen(navController = navController, mViewModel = DebugObject.cartViewModel)
         }
         composable(route = Screen.SplashScreen.route) {
             LogoWithShimmer(navController = navController)

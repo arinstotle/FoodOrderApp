@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.serialization")
+    id("kotlinx-serialization")
     id("org.jetbrains.dokka") version "1.9.10"
 }
 
@@ -42,7 +44,7 @@ android {
         viewBinding = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.5.4"
     }
     packaging {
         resources {
@@ -79,4 +81,18 @@ dependencies {
     implementation("com.github.skydoves:cloudy:0.1.2")
     implementation ("com.yandex.android:maps.mobile:4.4.0-lite")
     implementation("androidx.compose.ui:ui-viewbinding")
+
+    // OkHTTP3
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.11.0"))
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okhttp3:logging-interceptor")
+
+    // Ktor Client
+    implementation("io.ktor:ktor-client-android:2.3.5")
+    implementation("io.ktor:ktor-client-serialization:2.3.5")
+    implementation("io.ktor:ktor-client-logging:2.3.5")
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.5")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.5")
+    implementation("io.ktor:ktor-client-logging:2.3.5")
+    implementation("com.google.code.gson:gson:2.9.0")
 }

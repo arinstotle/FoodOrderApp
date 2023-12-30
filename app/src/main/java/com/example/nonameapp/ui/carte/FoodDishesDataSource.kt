@@ -21,7 +21,7 @@ object FoodDishesDataSource {
             fats = "12",
             carbohydrates = "5",
             allergens = listOf<String>("Allerg1", "Allerg2", "Allerg3"),
-            image = R.drawable.borsh,
+            image = R.drawable.mushroom_soup,
             ingredients = listOf(
                 Ingredient(
                     image = R.drawable.meat_ingredient,
@@ -308,7 +308,7 @@ object FoodDishesDataSource {
         FoodDishUIModel(
             id = "6",
             title = "Borsh",
-            image = R.drawable.borsh,
+            image = R.drawable.mushroom_soup,
             description = "Tasty borsh",
             price = "300",
             category = FoodCategories.SOUPS,
