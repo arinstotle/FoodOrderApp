@@ -28,7 +28,7 @@ object NavigationRouter {
 
 @Composable
 fun Navigation(navController: NavHostController, context: Context) {
-    NavHost(navController = navController, startDestination = Screen.SplashScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.AuthorizationScreen.route) {
         composable(route = Screen.OnboardingScreen.route) {
             OnboardingScreen(navController = navController)
         }

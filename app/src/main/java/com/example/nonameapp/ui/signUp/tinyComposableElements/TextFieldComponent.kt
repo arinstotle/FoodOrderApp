@@ -32,11 +32,12 @@ import com.example.nonameapp.ui.theme.ReemKufi
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TextFieldComponent(textValueStart : String = "",
-                       labelValue : String,
-                       onChangeTextAction: (String) -> Unit,
-                       keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-                       iconResource : @Composable () -> Unit
+fun TextFieldComponent(
+    textValueStart: String = "",
+    labelValue: String,
+    onChangeTextAction: (String) -> Unit,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    iconResource: @Composable () -> Unit
 ) {
     val textValue = remember {
         mutableStateOf(textValueStart)
@@ -44,11 +45,13 @@ fun TextFieldComponent(textValueStart : String = "",
     OutlinedTextField(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp)
-        ,
+            .padding(start = 16.dp, end = 16.dp),
         leadingIcon = iconResource,
         value = textValue.value,
-        onValueChange = { textValue.value = it },
+        onValueChange = {
+            textValue.value = it
+            onChangeTextAction(it)
+        },
         shape = RoundedCornerShape(20.dp),
         textStyle = MaterialTheme.typography.titleMedium.copy(
             color = Color.White
@@ -72,10 +75,12 @@ fun TextFieldComponent(textValueStart : String = "",
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PasswordTextFieldComponent(passwordStart : String = "",
-                       labelValue : String,
-                       onChangeTextAction: (String) -> Unit,
-                       keyboardOptions: KeyboardOptions = KeyboardOptions.Default, ) {
+fun PasswordTextFieldComponent(
+    passwordStart: String = "",
+    labelValue: String,
+    onChangeTextAction: (String) -> Unit,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+) {
     val password = remember {
         mutableStateOf(passwordStart)
     }
@@ -85,13 +90,15 @@ fun PasswordTextFieldComponent(passwordStart : String = "",
     OutlinedTextField(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp)
-        ,
+            .padding(start = 16.dp, end = 16.dp),
         leadingIcon = {
-        Icon( painter = painterResource(id = R.drawable.password_icon), contentDescription = "")
+            Icon(painter = painterResource(id = R.drawable.password_icon), contentDescription = "")
         },
         value = password.value,
-        onValueChange = { password.value = it },
+        onValueChange = {
+            password.value = it
+            onChangeTextAction(it)
+        },
         shape = RoundedCornerShape(20.dp),
         textStyle = MaterialTheme.typography.titleMedium.copy(
             color = Color.White
@@ -105,17 +112,22 @@ fun PasswordTextFieldComponent(passwordStart : String = "",
             containerColor = Black1_28_Transparent_50
         ),
         trailingIcon = {
-            when(isVisible.value) {
-                true -> IconButton( onClick = { isVisible.value = !isVisible.value }) {
+            when (isVisible.value) {
+                true -> IconButton(onClick = { isVisible.value = !isVisible.value }) {
                     Icon(
-                    tint = Color.Gray,
-                    painter = painterResource(id = R.drawable.eye_open_icon),
-                    contentDescription = stringResource(id = R.string.password_show)) }
-                false -> IconButton( onClick = { isVisible.value = !isVisible.value } ) {
+                        tint = Color.Gray,
+                        painter = painterResource(id = R.drawable.eye_open_icon),
+                        contentDescription = stringResource(id = R.string.password_show)
+                    )
+                }
+
+                false -> IconButton(onClick = { isVisible.value = !isVisible.value }) {
                     Icon(
-                    tint = Color.Gray,
-                    painter = painterResource(id = R.drawable.eye_closed_icon),
-                    contentDescription = stringResource(id = R.string.password_hide)) }
+                        tint = Color.Gray,
+                        painter = painterResource(id = R.drawable.eye_closed_icon),
+                        contentDescription = stringResource(id = R.string.password_hide)
+                    )
+                }
             }
         },
         label = {

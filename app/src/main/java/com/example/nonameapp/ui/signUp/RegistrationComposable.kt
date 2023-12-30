@@ -42,9 +42,13 @@ import com.example.nonameapp.ui.signUp.tinyComposableElements.TextFieldComponent
 import com.example.nonameapp.ui.signUp.tinyComposableElements.ToLoginTextComponent
 import com.example.nonameapp.ui.theme.Black1_28
 import com.example.nonameapp.ui.theme.MainInterfaceColor
+import com.example.nonameapp.viewModels.AuthorizationViewModel
 
 @Composable
-fun RegistrationComposable(afterRegistrationAction : () -> Unit) {
+fun RegistrationComposable(
+    mViewModel: AuthorizationViewModel,
+    afterRegistrationAction : () -> Unit
+) {
     Surface(
         modifier = Modifier
             .fillMaxSize()

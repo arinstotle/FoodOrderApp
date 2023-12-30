@@ -169,25 +169,25 @@ fun CarteScreen(
                 }
             )
         }
-        LazyVerticalGrid(
-            state = rememberLazyGridState(),
-            columns = GridCells.Fixed(2),
-            modifier = Modifier
-                .padding(paddingTopAppBar),
-            contentPadding = PaddingValues(10.dp)
-        ) {
-            itemsIndexed(
-                items = list,
-                key = { _: Int, item: FoodDishUIModel ->
-                    item.hashCode()
-                }
-            ) { _, item ->
-                TinyFoodDishCard(item){
-                    showDishBottomSheet = true
-                    currentDishUIModel = item
-                }
-            }
-        }
+                    LazyVerticalGrid(
+                        state = rememberLazyGridState(),
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier
+                            .padding(paddingTopAppBar),
+                        contentPadding = PaddingValues(10.dp)
+                    ) {
+                        itemsIndexed(
+                            items = list,
+                            key = { _: Int, item: FoodDishUIModel ->
+                                item.hashCode()
+                            }
+                        ) { _, item ->
+                            TinyFoodDishCard(item){
+                                showDishBottomSheet = true
+                                currentDishUIModel = item
+                            }
+                        }
+                    }
     }
 
 }
