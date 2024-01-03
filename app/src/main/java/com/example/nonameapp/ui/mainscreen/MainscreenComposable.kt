@@ -111,7 +111,9 @@ fun MainScreen(navController: NavController) {
                     com.example.nonameapp.Chip(
                         "Alcohol",
                         R.drawable.chip_alco)
-                ))
+                )){
+
+                }
             }
             val promotions = listOf(
                 Promotion(

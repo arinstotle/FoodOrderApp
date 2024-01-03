@@ -13,7 +13,7 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.http.isSuccess
 
 class ApiServiceImpl(private val client: HttpClient): ApiService {
-    override suspend fun login(loginData: LoginRequestSerialization): Boolean {
+    override suspend fun login(loginData: LoginRequestSerialization): Int {
         try {
             Log.i("login()", "email: ${loginData.email}, password: ${loginData.password}")
             val response: HttpResponse = client.post {
@@ -21,7 +21,7 @@ class ApiServiceImpl(private val client: HttpClient): ApiService {
                 setBody(loginData)
             }
 
-            return response.status.isSuccess()
+            return response.status.value
 
         } catch (ex: RedirectResponseException) {
             throw Exception("Redirect error: ${ex.response.status.description}")

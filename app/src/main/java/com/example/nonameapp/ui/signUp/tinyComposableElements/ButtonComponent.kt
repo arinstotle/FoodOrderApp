@@ -18,10 +18,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.nonameapp.ui.theme.FoodOnboardingBackground
-import com.example.nonameapp.ui.theme.FoodOnboardingText
-import com.example.nonameapp.ui.theme.MainInterfaceColor
-import com.example.nonameapp.ui.theme.MainInterfaceColor_Red
+import com.example.nonameapp.ui.theme.OrangeD8
+import com.example.nonameapp.ui.theme.RedD8
 import com.example.nonameapp.ui.theme.ReemKufi
 
 @Composable
@@ -39,7 +37,7 @@ fun ButtonComponent(text : String, onClickHandler : () -> Unit) {
             modifier = Modifier.fillMaxWidth()
                 .heightIn(48.dp)
                 .background(
-                    brush = Brush.horizontalGradient(listOf(MainInterfaceColor_Red, MainInterfaceColor)),
+                    brush = Brush.horizontalGradient(listOf(RedD8, OrangeD8)),
                     shape = RoundedCornerShape(20.dp)
                 ),
             contentAlignment = Alignment.Center

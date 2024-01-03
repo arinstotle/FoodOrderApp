@@ -10,10 +10,9 @@ class MainRepository {
         ApiService.create()
     }
 
-
-    suspend fun loginIntoAccount(email: String, password: String): Boolean {
-        val isSuccessful = apiService.login(LoginRequestSerialization(email, password))
-        Log.i("loginIntoAccount()","isSuccessful: $isSuccessful")
-        return isSuccessful
+    suspend fun loginIntoAccount(email: String, password: String): Int {
+        val responseCode = apiService.login(LoginRequestSerialization(email, password))
+        Log.i("loginIntoAccount()","isSuccessful: $responseCode")
+        return responseCode
     }
 }

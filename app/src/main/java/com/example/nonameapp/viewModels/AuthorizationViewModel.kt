@@ -9,7 +9,7 @@ class AuthorizationViewModel : ViewModel() {
 
     private val repository = MainRepository()
 
-    suspend fun loginIntoAccount(email: String, password: String): Boolean{
+    suspend fun loginIntoAccount(email: String, password: String): Int {
         return repository.loginIntoAccount(email, password)
     }
 }

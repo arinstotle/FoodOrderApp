@@ -23,13 +23,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,7 +35,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.example.nonameapp.R
-import com.example.nonameapp.ui.theme.MainInterfaceColor_Red
+import com.example.nonameapp.ui.theme.RedD8
 import com.example.nonameapp.ui.theme.White
 
 
@@ -196,7 +194,7 @@ fun SegmentedControl(
 fun Table(
     idTable: Int,
     isReserved: Boolean,
-    reservedTableColor: Color = MainInterfaceColor_Red,
+    reservedTableColor: Color = RedD8,
     freeTableColor: Color = Color.Green,
 ){
     Box(
