@@ -1,15 +1,16 @@
 package com.example.nonameapp.ui.carte
 
+import android.util.Log
 import androidx.compose.runtime.saveable.*
 import androidx.compose.runtime.*
 import androidx.compose.foundation.layout.*
 import android.view.MotionEvent
-import android.view.WindowInsets
-import android.view.WindowInsetsController
 import androidx.annotation.DrawableRes
 import androidx.annotation.FloatRange
 import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.grid.*
@@ -66,18 +67,23 @@ import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.ModalBottomSheetLayout
-import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerDefaults
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.example.nonameapp.ui.cart.CartScreen
+import com.example.nonameapp.ui.mainscreen.tinyComposableElements.ChipSection
 import com.example.nonameapp.util.DebugObject
 import com.example.nonameapp.viewModels.CartViewModel
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
+@Deprecated("Old CarteScreen with BottomSheets")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CarteScreen(
+fun CarteScreenOld(
     navController: NavController
 ) {
     val scope = rememberCoroutineScope()
@@ -139,26 +145,26 @@ fun CarteScreen(
                 containerColor = MaterialTheme.colorScheme.background,
                 modifier = Modifier.fillMaxSize(),
                 onDismissRequest = {
-                    if(showDishBottomSheet) {
+                    if (showDishBottomSheet) {
                         showDishBottomSheet = false
                         currentDishUIModel = null
-                    }
-                    else {
+                    } else {
                         showCartBottomSheet = false
                     }
                 },
-                sheetState = if(showDishBottomSheet) dishSheetState else cartSheetState,
+                sheetState = if (showDishBottomSheet) dishSheetState else cartSheetState,
                 content = {
                     scope.launch {
-                        if(showDishBottomSheet)
+                        if (showDishBottomSheet)
                             dishSheetState.expand()
                         else
                             cartSheetState.expand()
                     }
 
-                    if(showDishBottomSheet)
+                    if (showDishBottomSheet)
                         DishCardInfoComposable(
-                            foodDish = currentDishUIModel ?: FoodDishesDataSource.listOfFoodDishes[0],
+                            foodDish = currentDishUIModel
+                                ?: FoodDishesDataSource.listOfFoodDishes[0],
                             mViewModel = DebugObject.cartViewModel
                         )
                     else
@@ -169,27 +175,266 @@ fun CarteScreen(
                 }
             )
         }
-                    LazyVerticalGrid(
-                        state = rememberLazyGridState(),
-                        columns = GridCells.Fixed(2),
-                        modifier = Modifier
-                            .padding(paddingTopAppBar),
-                        contentPadding = PaddingValues(10.dp)
-                    ) {
-                        itemsIndexed(
-                            items = list,
-                            key = { _: Int, item: FoodDishUIModel ->
-                                item.hashCode()
-                            }
-                        ) { _, item ->
-                            TinyFoodDishCard(item){
-                                showDishBottomSheet = true
-                                currentDishUIModel = item
-                            }
-                        }
-                    }
+        LazyVerticalGrid(
+            state = rememberLazyGridState(),
+            columns = GridCells.Fixed(2),
+            modifier = Modifier
+                .padding(paddingTopAppBar),
+            contentPadding = PaddingValues(10.dp)
+        ) {
+            itemsIndexed(
+                items = list,
+                key = { _: Int, item: FoodDishUIModel ->
+                    item.hashCode()
+                }
+            ) { _, item ->
+                TinyFoodDishCard(item) {
+                    showDishBottomSheet = true
+                    currentDishUIModel = item
+                }
+            }
+        }
     }
 
+}
+
+@OptIn(
+    ExperimentalMaterial3Api::class,
+    ExperimentalFoundationApi::class
+)
+@Composable
+fun CarteScreen(
+    navController: NavController?
+) {
+    val scope = rememberCoroutineScope()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
+    Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = {
+                    Text(
+                        text = "Carte",
+                        fontFamily = ReemKufi,
+                    )
+                },
+                scrollBehavior = scrollBehavior,
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background,
+                    scrolledContainerColor = MaterialTheme.colorScheme.background
+                ),
+                modifier = Modifier
+                    .border(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.surface,
+                        shape = RoundedCornerShape(
+                            bottomStart = 15.dp,
+                            bottomEnd = 15.dp
+                        ))
+            )
+        },
+        modifier = Modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
+    ) {
+        val globalScrollState = rememberScrollState()
+        Column(
+            modifier = Modifier
+                .padding(it)
+                .padding(start = 25.dp, end = 25.dp)
+                .fillMaxWidth()
+                .verticalScroll(globalScrollState)
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                    .padding(top = 30.dp)
+                    .fillMaxWidth()
+            ) {
+
+                // Search Card
+                ElevatedCard(
+                    onClick = {
+
+                    },
+                    shape = RoundedCornerShape(15.dp),
+                    colors = CardDefaults.elevatedCardColors(
+                        containerColor = MaterialTheme.colorScheme.surface
+                    ),
+                    modifier = Modifier
+                        .height(54.dp)
+                        .fillMaxWidth(0.78f)
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxHeight(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.search_icon),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onPrimary,
+                            modifier = Modifier
+                                .padding(start = 15.dp)
+                        )
+                        Text(
+                            text = "Search",
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontFamily = ReemKufi,
+                            modifier = Modifier
+                                .padding(start = 10.dp)
+                        )
+                    }
+                }
+
+                // Filter Button
+                ElevatedCard(
+                    onClick = {
+
+                    },
+                    shape = RoundedCornerShape(15.dp),
+                    colors = CardDefaults.elevatedCardColors(
+                        containerColor = MaterialTheme.colorScheme.primary
+                    ),
+                    modifier = Modifier
+                        .size(54.dp)
+                ) {
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .fillMaxSize()
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.filter),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onPrimary,
+                        )
+                    }
+
+                }
+            }
+
+            val pagerState = rememberPagerState(pageCount = { 10 })
+            val chipSelectionState = rememberLazyListState()
+
+            ChipSection(
+                chips = listOf(
+                    com.example.nonameapp.Chip(
+                        "Snacks",
+                        R.drawable.chip_snacks
+                    ),
+                    com.example.nonameapp.Chip(
+                        "Salads",
+                        R.drawable.chip_salad
+                    ),
+                    com.example.nonameapp.Chip(
+                        "Soups",
+                        R.drawable.chip_soup
+                    ),
+                    com.example.nonameapp.Chip(
+                        "Roman pizza",
+                        R.drawable.chip_pizza
+                    ),
+                    com.example.nonameapp.Chip(
+                        "Josper",
+                        R.drawable.chip_pizza
+                    ),
+                    com.example.nonameapp.Chip(
+                        "Other",
+                        R.drawable.chip_pizza
+                    ),
+                    com.example.nonameapp.Chip(
+                        "Prime",
+                        R.drawable.chip_pizza
+                    ),
+                    com.example.nonameapp.Chip(
+                        "Burgers",
+                        R.drawable.chip_burger
+                    ),
+                    com.example.nonameapp.Chip(
+                        "Side dishes",
+                        R.drawable.chip_sd
+                    ),
+                    com.example.nonameapp.Chip(
+                        "Sauces",
+                        R.drawable.chip_sauce
+                    ),
+                    com.example.nonameapp.Chip(
+                        "Desserts",
+                        R.drawable.chip_dessert
+                    ),
+                    com.example.nonameapp.Chip(
+                        "Drinks",
+                        R.drawable.chip_drink
+                    ),
+                    com.example.nonameapp.Chip(
+                        "Alcohol",
+                        R.drawable.chip_alco
+                    )
+                ),
+                padding = PaddingValues(top = 42.dp),
+                state = chipSelectionState,
+                selectedChipIndex = pagerState.currentPage,
+                onChipClick = { newSelectedChipIndex ->
+                    scope.launch {
+                        pagerState.scrollToPage(newSelectedChipIndex)
+                    }
+                }
+            )
+
+            LaunchedEffect(pagerState.targetPage) {
+                // Collect from the a snapshotFlow reading the currentPage
+                snapshotFlow { pagerState.targetPage }.distinctUntilChanged().collect { page ->
+                    // Do something with each page change, for example:
+                    // viewModel.sendPageSelectedEvent(page)
+
+                    if(globalScrollState.value > 200)
+                        globalScrollState.scrollTo(0)
+
+                    if(page > 0)
+                        chipSelectionState.animateScrollToItem(page-1)
+                }
+            }
+
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier
+                    .padding(top = 21.dp)
+                    .fillMaxSize()
+            ) { page ->
+                // Our page content
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            color = if (page % 2 == 0)
+                                MaterialTheme.colorScheme.surface
+                            else
+                                MaterialTheme.colorScheme.onPrimary
+                        )
+                ) {
+                    Column {
+                        repeat(50) {
+                            Text(
+                                text = "Page: $page",
+                                color = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier
+                                    .padding(top = 30.dp)
+                            )
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+    }
+}
+
+@Preview
+@Composable
+fun CartePreview() {
+    CarteScreen(navController = null)
 }
 
 @Composable
@@ -282,10 +527,12 @@ fun DishCardInfoComposable(
             ParallaxToolbar(foodDish = foodDish, scrollState = scrollState)
         }
     ) { contentPadding ->
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .padding(contentPadding)) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White)
+                .padding(contentPadding)
+        ) {
             DishContent(
                 mViewModel = mViewModel,
                 foodDish = foodDish,
@@ -295,14 +542,14 @@ fun DishCardInfoComposable(
     }
 }
 
-@Preview
-@Composable
-fun DishCardInfoComposablePreview() {
-    DishCardInfoComposable(
-        mViewModel = CartViewModel(),
-        foodDish = FoodDishesDataSource.listOfFoodDishes[0]
-    )
-}
+//@Preview
+//@Composable
+//fun DishCardInfoComposablePreview() {
+//    DishCardInfoComposable(
+//        mViewModel = CartViewModel(),
+//        foodDish = FoodDishesDataSource.listOfFoodDishes[0]
+//    )
+//}
 
 @Composable
 fun DishContent(
@@ -311,7 +558,7 @@ fun DishContent(
     scrollState: LazyListState
 ) {
     LazyColumn(
-      state = scrollState
+        state = scrollState
     ) {
         item {
             BasicInfo(foodDish)
@@ -321,7 +568,7 @@ fun DishContent(
             CustomRatingBarView()
             IngredientsSection()
             IngredientList(foodDish)
-            AddToCartButton(){
+            AddToCartButton() {
                 mViewModel.addDishToCart(foodDish)
             }
             ReviewsSection(foodDish)
@@ -341,27 +588,36 @@ fun ReviewsSection(foodDish: FoodDishUIModel) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column {
-            Text(text = "Reviews",
+            Text(
+                text = "Reviews",
                 fontFamily = ReemKufi,
-                fontWeight = FontWeight.Bold)
-            Text(text = foodDish.reviews,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = foodDish.reviews,
                 fontFamily = ReemKufi,
                 color = Color.LightGray,
-                fontWeight = FontWeight.Bold)
+                fontWeight = FontWeight.Bold
+            )
         }
-        Button(onClick = { /*TODO*/ },
+        Button(
+            onClick = { /*TODO*/ },
             shape = RoundedCornerShape(20.dp),
             colors = ButtonDefaults.buttonColors(
                 contentColor = Color.White,
                 containerColor = Color.Red
             ),
-            elevation = null) {
+            elevation = null
+        ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(modifier = Modifier.padding(8.dp), text = "See all", fontFamily = ReemKufi)
-                Icon(modifier = Modifier.padding(8.dp), painter = painterResource(id = R.drawable.arrow_right),
-                    contentDescription = null)
+                Icon(
+                    modifier = Modifier.padding(8.dp),
+                    painter = painterResource(id = R.drawable.arrow_right),
+                    contentDescription = null
+                )
             }
         }
     }
@@ -371,13 +627,14 @@ fun ReviewsSection(foodDish: FoodDishUIModel) {
 fun AddToCartButton(
     onClick: () -> Unit
 ) {
-    Button(onClick = { onClick() },
+    Button(
+        onClick = { onClick() },
         elevation = null,
         shape = RoundedCornerShape(20.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.LightGray,
             contentColor = Color.Black
-        ), 
+        ),
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 0.dp, start = 16.dp, end = 16.dp, bottom = 16.dp)
@@ -387,9 +644,11 @@ fun AddToCartButton(
 }
 
 @Composable
-fun <T> ElementsGrid(columnsCount : Int,
-                     items : List<T>,
-                     content : @Composable (T) -> Unit) {
+fun <T> ElementsGrid(
+    columnsCount: Int,
+    items: List<T>,
+    content: @Composable (T) -> Unit
+) {
     Column(modifier = Modifier.padding(16.dp)) {
         for (i in items.indices step columnsCount) {
             Row {
@@ -473,11 +732,13 @@ fun IngredientsSection() {
             .background(Color.LightGray)
             .padding(horizontal = 16.dp)
     ) {
-        Text(text = "Ingredients:",
+        Text(
+            text = "Ingredients:",
             fontFamily = ReemKufi,
             fontSize = 16.sp,
             modifier = Modifier,
-            fontWeight = FontWeight.Bold)
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 
@@ -497,25 +758,33 @@ fun ServingCalculator() {
             .background(Color.LightGray)
             .padding(horizontal = 16.dp)
     ) {
-        Text(text = "Serving",
+        Text(
+            text = "Serving",
             fontFamily = ReemKufi,
             modifier = Modifier
                 .weight(1f),
-            fontWeight = FontWeight.Medium)
-        CircularButton(iconResource = R.drawable.minus_icon,
+            fontWeight = FontWeight.Medium
+        )
+        CircularButton(
+            iconResource = R.drawable.minus_icon,
             elevation = null,
-            color = Color.Red) {
+            color = Color.Red
+        ) {
             if (counter > 0)
                 counter--
         }
-        Text(text = "$counter",
+        Text(
+            text = "$counter",
             modifier = Modifier
                 .padding(16.dp),
             fontFamily = ReemKufi,
-            fontWeight = FontWeight.Medium)
-        CircularButton(iconResource = R.drawable.plus_icon,
+            fontWeight = FontWeight.Medium
+        )
+        CircularButton(
+            iconResource = R.drawable.plus_icon,
             elevation = null,
-            color = Color.Red) {
+            color = Color.Red
+        ) {
             counter++
         }
     }
@@ -523,11 +792,14 @@ fun ServingCalculator() {
 
 @Composable
 fun Description(foodDish: FoodDishUIModel) {
-    Text(text = foodDish.description,
+    Text(
+        text = foodDish.description,
         fontFamily = ReemKufi,
         fontWeight = FontWeight.Medium,
-        modifier = Modifier.padding(horizontal = 16.dp,
-            vertical = 16.dp)
+        modifier = Modifier.padding(
+            horizontal = 16.dp,
+            vertical = 16.dp
+        )
     )
 }
 
@@ -548,8 +820,8 @@ fun BasicInfo(foodDish: FoodDishUIModel) {
 @Composable
 fun InfoColumn(
     @DrawableRes
-    painResource : Int,
-    text : String
+    painResource: Int,
+    text: String
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
@@ -560,9 +832,11 @@ fun InfoColumn(
             tint = Color.Red,
             modifier = Modifier.height(24.dp)
         )
-        Text(text = text,
+        Text(
+            text = text,
             fontFamily = ReemKufi,
-            fontWeight = FontWeight.Bold)
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 
@@ -600,10 +874,12 @@ fun ParallaxToolbar(foodDish: FoodDishUIModel, scrollState: LazyListState) {
                             )
                         )
                 )
-                Row(modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                    verticalAlignment = Alignment.Bottom) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    verticalAlignment = Alignment.Bottom
+                ) {
                     Text(
                         text = foodDish.category.name,
                         color = Color.White,
@@ -624,11 +900,11 @@ fun ParallaxToolbar(foodDish: FoodDishUIModel, scrollState: LazyListState) {
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                text = foodDish.title,
-                fontSize = 26.sp,
-                fontFamily = ReemKufi,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                    text = foodDish.title,
+                    fontSize = 26.sp,
+                    fontFamily = ReemKufi,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(horizontal = 16.dp)
                 )
                 Text(
                     text = foodDish.title,
@@ -658,12 +934,13 @@ fun ParallaxToolbar(foodDish: FoodDishUIModel, scrollState: LazyListState) {
 @Composable
 fun CircularButton(
     @DrawableRes
-    iconResource : Int,
+    iconResource: Int,
     color: Color = Color.Gray,
     elevation: ButtonElevation? = ButtonDefaults.buttonElevation(),
-    onClick : () -> Unit = {}
+    onClick: () -> Unit = {}
 ) {
-    Button(onClick = { /*TODO*/ },
+    Button(
+        onClick = { /*TODO*/ },
         contentPadding = PaddingValues(),
         shape = Shapes.small,
         colors = ButtonDefaults.buttonColors(
@@ -678,6 +955,7 @@ fun CircularButton(
         Icon(painterResource(id = iconResource), null)
     }
 }
+
 @Composable
 fun RatingBarView() {
     var rating by rememberSaveable { mutableStateOf(0.0f) }
@@ -809,10 +1087,12 @@ fun ComposeStars(
                 remainingRating == 0f -> {
                     0f
                 }
+
                 remainingRating >= ratingPerStar -> {
                     remainingRating -= ratingPerStar
                     1f
                 }
+
                 else -> {
                     val fraction = remainingRating / ratingPerStar
                     remainingRating = 0f
@@ -835,6 +1115,7 @@ fun ComposeStars(
         }
     }
 }
+
 @Stable
 class FractionalRectangleShape(
     @FloatRange(from = 0.0, to = 1.0) private val startFraction: Float,
@@ -909,6 +1190,7 @@ class RatingBarConfig {
         private set
     var hideInactiveStars: Boolean = false
         private set
+
     fun style(value: RatingBarStyle): RatingBarConfig =
         apply { style = value }
 }

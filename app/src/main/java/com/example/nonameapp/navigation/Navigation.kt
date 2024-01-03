@@ -11,6 +11,7 @@ import com.example.nonameapp.reservation.ReservationComposable
 import com.example.nonameapp.ui.mainscreen.MainScreen
 import com.example.nonameapp.ui.cart.CartScreen
 import com.example.nonameapp.ui.carte.CarteScreen
+import com.example.nonameapp.ui.carte.CarteScreenOld
 import com.example.nonameapp.ui.map.MapController
 import com.example.nonameapp.ui.map.MapScreen
 import com.example.nonameapp.ui.onboarding.OnboardingScreen
@@ -18,9 +19,7 @@ import com.example.nonameapp.ui.profile.ProfileScreen
 import com.example.nonameapp.ui.settings.SettingsScreen
 import com.example.nonameapp.ui.signUp.AuthorizationScreen
 import com.example.nonameapp.ui.splashscreen.LogoWithShimmer
-import com.example.nonameapp.ui.splashscreen.SplashScreen
 import com.example.nonameapp.util.DebugObject
-import com.example.nonameapp.viewModels.CartViewModel
 
 object NavigationRouter {
     var currentScreen: MutableState<Screen> = mutableStateOf(Screen.SplashScreen)
@@ -28,7 +27,7 @@ object NavigationRouter {
 
 @Composable
 fun Navigation(navController: NavHostController, context: Context) {
-    NavHost(navController = navController, startDestination = Screen.AuthorizationScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.CarteScreen.route) {
         composable(route = Screen.OnboardingScreen.route) {
             OnboardingScreen(navController = navController)
         }

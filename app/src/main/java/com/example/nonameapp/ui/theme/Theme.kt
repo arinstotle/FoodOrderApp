@@ -10,30 +10,23 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
-private val darkPalette = darkColorScheme(
-    primary = MainInterfaceColor,
-    onPrimary = WhiteFC,
-    secondary = Color.Black,
-    background = Black1_28,
-    tertiary = CardColor
-)
 
 private val lightPalette = lightColorScheme(
-    primary = MainInterfaceColor,
-    onPrimary = Black14,
+    primary = OrangeD8,
+    onPrimary = Teal,
     secondary = White,
+    tertiary = Black14,
     background = WhiteFC,
-    tertiary = GrayColorWithAlpha,
+    surface = Black33
+)
 
-
-    /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
+private val darkPalette = darkColorScheme(
+    primary = OrangeD8,
+    onPrimary = Teal,
+    secondary = Color.Black,
+    tertiary = WhiteFC,
+    background = Black1_28,
+    surface = Black33
 )
 
 //@Composable

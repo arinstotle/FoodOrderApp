@@ -1,6 +1,5 @@
 package com.example.nonameapp.ui.signUp
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
@@ -14,7 +13,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -23,7 +24,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
@@ -38,16 +38,13 @@ import com.example.nonameapp.ui.signUp.signUpNavigation.SignUpRouter
 import com.example.nonameapp.ui.signUp.signUpNavigation.SignUpScreen
 import com.example.nonameapp.ui.signUp.tinyComposableElements.ButtonComponent
 import com.example.nonameapp.ui.signUp.tinyComposableElements.DividerComponent
-import com.example.nonameapp.ui.signUp.tinyComposableElements.FeatureListComponent
-import com.example.nonameapp.ui.signUp.tinyComposableElements.FeaturePicture
 import com.example.nonameapp.ui.signUp.tinyComposableElements.OrdinaryTextComponent
 import com.example.nonameapp.ui.signUp.tinyComposableElements.PasswordTextFieldComponent
 import com.example.nonameapp.ui.signUp.tinyComposableElements.SocialNetworksComponent
 import com.example.nonameapp.ui.signUp.tinyComposableElements.TextFieldComponent
-import com.example.nonameapp.ui.signUp.tinyComposableElements.ToLoginTextComponent
 import com.example.nonameapp.ui.signUp.tinyComposableElements.ToRegisterTextComponent
 import com.example.nonameapp.ui.theme.Black1_28
-import com.example.nonameapp.ui.theme.MainInterfaceColor
+import com.example.nonameapp.ui.theme.OrangeD8
 import com.example.nonameapp.viewModels.AuthorizationViewModel
 import kotlinx.coroutines.launch
 
@@ -91,11 +88,13 @@ fun LoginComposable(
 
                 var emailString by remember { mutableStateOf("") }
                 var passwordString by remember { mutableStateOf("") }
+                var showError by remember { mutableStateOf(false) }
+                var errorMessage by remember { mutableStateOf("") }
 
                 OrdinaryTextComponent(
                     content = stringResource(id = R.string.hello),
                     topPadding = 24,
-                    color = MainInterfaceColor
+                    color = OrangeD8
                 )
                 OrdinaryTextComponent(
                     content = stringResource(id = R.string.welcome), topPadding = 8,
@@ -124,15 +123,34 @@ fun LoginComposable(
                         passwordString = it
                     }
                 )
+                if(showError){
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = errorMessage,
+                        modifier = Modifier
+                            .padding(start = 16.dp, end = 16.dp),
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+                Spacer(modifier = Modifier.height(16.dp))
                 ButtonComponent(text = stringResource(id = R.string.login_button)) {
-                    scope.launch {
-                        val isSuccess = mViewModel.loginIntoAccount(emailString, passwordString)
+                    showError = false
 
-                        if(isSuccess){
-                            afterLoginAction()
-                        }
-                        else{
-                            Log.i("Authorization", "Invalid password!")
+                    scope.launch {
+                        val responseCode = mViewModel.loginIntoAccount(emailString, passwordString)
+
+                        when (responseCode) {
+                            200 -> {
+                                afterLoginAction()
+                            }
+                            400 -> {
+                                showError = true
+                                errorMessage = "Invalid password!"
+                            }
+                            else -> {
+                                showError = true
+                                errorMessage = "Error! ($responseCode)"
+                            }
                         }
                     }
                 }

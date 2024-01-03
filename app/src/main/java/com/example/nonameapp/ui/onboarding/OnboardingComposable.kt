@@ -117,7 +117,7 @@ fun OnBoardingPager(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = 16.dp, end = 16.dp),
-                            color = MainInterfaceColor,
+                            color = OrangeD8,
                             fontFamily = ReemKufi,
                             textAlign = TextAlign.Right,
                             fontSize = 26.sp,
@@ -150,7 +150,7 @@ fun OnBoardingPager(
                                 }) {
                                     Text(
                                         text = "Skip Now",
-                                        color = MainInterfaceColor,
+                                        color = OrangeD8,
                                         fontFamily = ReemKufi,
                                         textAlign = TextAlign.Right,
                                         fontSize = 14.sp,
@@ -168,16 +168,16 @@ fun OnBoardingPager(
                                     },
                                     border = BorderStroke(
                                         14.dp,
-                                        MainInterfaceColor
+                                        OrangeD8
                                     ),
                                     shape = RoundedCornerShape(50),
-                                    colors = ButtonDefaults.outlinedButtonColors(contentColor = MainInterfaceColor),
+                                    colors = ButtonDefaults.outlinedButtonColors(contentColor = OrangeD8),
                                     modifier = Modifier.size(65.dp)
                                 ) {
                                     Icon(
                                         painter = painterResource(id = R.drawable.arrow_right),
                                         contentDescription = "",
-                                        tint = MainInterfaceColor,
+                                        tint = OrangeD8,
                                         modifier = Modifier.size(20.dp)
                                     )
                                 }
@@ -202,7 +202,7 @@ fun PagerIndicator(currentPage: Int, items: List<OnBoardingData>) {
         modifier = Modifier.padding(top = 20.dp)
     ) {
         repeat(items.size) {
-            Indicator(isSelected = it == currentPage, color = MainInterfaceColor)
+            Indicator(isSelected = it == currentPage, color = OrangeD8)
         }
     }
 }
@@ -243,8 +243,8 @@ fun MyButton(navController: NavController) {
                 .background(
                     brush = Brush.horizontalGradient(
                         listOf(
-                            MainInterfaceColor,
-                            MainInterfaceColor_Red
+                            OrangeD8,
+                            RedD8
                         )
                     ),
                     shape = RoundedCornerShape(50.dp)

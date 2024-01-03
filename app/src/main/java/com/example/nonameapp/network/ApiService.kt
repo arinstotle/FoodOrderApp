@@ -19,7 +19,7 @@ import kotlinx.serialization.json.Json
 
 interface ApiService {
 
-    suspend fun login(loginData: LoginRequestSerialization): Boolean
+    suspend fun login(loginData: LoginRequestSerialization): Int
 
     companion object {
         fun create(): ApiServiceImpl {

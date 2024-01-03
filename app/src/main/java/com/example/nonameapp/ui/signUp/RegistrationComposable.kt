@@ -17,7 +17,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
@@ -26,14 +25,12 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.example.nonameapp.ui.signUp.tinyComposableElements.FeatureListComponent
 import com.example.nonameapp.R
 import com.example.nonameapp.ui.signUp.signUpNavigation.BackHandler
 import com.example.nonameapp.ui.signUp.signUpNavigation.SignUpRouter
 import com.example.nonameapp.ui.signUp.signUpNavigation.SignUpScreen
 import com.example.nonameapp.ui.signUp.tinyComposableElements.ButtonComponent
 import com.example.nonameapp.ui.signUp.tinyComposableElements.DividerComponent
-import com.example.nonameapp.ui.signUp.tinyComposableElements.FeaturePicture
 import com.example.nonameapp.ui.signUp.tinyComposableElements.OrdinaryTextComponent
 import com.example.nonameapp.ui.signUp.tinyComposableElements.PasswordTextFieldComponent
 import com.example.nonameapp.ui.signUp.tinyComposableElements.SocialNetworksComponent
@@ -41,7 +38,7 @@ import com.example.nonameapp.ui.signUp.tinyComposableElements.TermsSectorCompone
 import com.example.nonameapp.ui.signUp.tinyComposableElements.TextFieldComponent
 import com.example.nonameapp.ui.signUp.tinyComposableElements.ToLoginTextComponent
 import com.example.nonameapp.ui.theme.Black1_28
-import com.example.nonameapp.ui.theme.MainInterfaceColor
+import com.example.nonameapp.ui.theme.OrangeD8
 import com.example.nonameapp.viewModels.AuthorizationViewModel
 
 @Composable
@@ -81,7 +78,7 @@ fun RegistrationComposable(
                 OrdinaryTextComponent(
                     content = stringResource(id = R.string.hello),
                     topPadding = 24,
-                    color = MainInterfaceColor
+                    color = OrangeD8
                 )
                 OrdinaryTextComponent(
                     content = stringResource(id = R.string.create_account), topPadding = 8,
