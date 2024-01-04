@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -81,12 +82,13 @@ fun OnBoardingPager(
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.Crop,
                         painter = painterResource(id = item[page].image),
-                        contentDescription = item[page].title,
+                        contentDescription = stringResource(id = item[page].titleResource),
                     )
                 }
             }
         }
-        Box(modifier = Modifier.align(Alignment.BottomCenter)
+        Box(modifier = Modifier
+            .align(Alignment.BottomCenter)
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(Color.Transparent, Color.White.copy(alpha = 0.1f)),
@@ -113,7 +115,7 @@ fun OnBoardingPager(
                     ) {
                         PagerIndicator(items = item, currentPage = pagerState.currentPage)
                         Text(
-                            text = item[pagerState.currentPage].title,
+                            text = stringResource(id = item[pagerState.currentPage].titleResource),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = 16.dp, end = 16.dp),
@@ -124,7 +126,7 @@ fun OnBoardingPager(
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = item[pagerState.currentPage].desc,
+                            text = stringResource(id = item[pagerState.currentPage].descResource),
                             modifier = Modifier.padding(16.dp),
                             color = Color.Gray,
                             fontFamily = ReemKufi,
@@ -146,10 +148,10 @@ fun OnBoardingPager(
                             val scope = rememberCoroutineScope()
                             if (pagerState.currentPage != 2) {
                                 TextButton(onClick = {
-
-                                }) {
+                                    NavigationRouter.currentScreen.value = Screen.AuthorizationScreen
+                                    navController.navigate(Screen.AuthorizationScreen.route)                                }) {
                                     Text(
-                                        text = "Skip Now",
+                                        text = stringResource(id = R.string.skip_now),
                                         color = OrangeD8,
                                         fontFamily = ReemKufi,
                                         textAlign = TextAlign.Right,
@@ -252,7 +254,7 @@ fun MyButton(navController: NavController) {
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "Start!",
+                text = stringResource(id = R.string.start),
                 fontFamily = ReemKufi,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,

@@ -3,23 +3,23 @@ package com.example.nonameapp.ui.onboarding
 import com.example.nonameapp.R
 
 data class OnBoardingData(
-    val image: Int, val title: String,
-    val desc: String,
+    val image: Int, val titleResource: Int,
+    val descResource: Int,
 )
 
 val items = listOf<OnBoardingData>(OnBoardingData(
     R.drawable.burger_onboarding,
-    "Text1",
-    "Tiny text1",
+    R.string.part1_title_onboarding,
+    R.string.part1_content_onboarding,
 ),
     OnBoardingData(
         R.drawable.stew_onboarding,
-        "Text2",
-        "Tiny text2",
+        R.string.part2_title_onboarding,
+        R.string.part2_content_onboarding,
     ),
     OnBoardingData(
         R.drawable.meat_onboarding,
-        "Text3",
-        "Tiny text2",
+        R.string.part3_title_onboarding,
+        R.string.part3_content_onboarding,
     )
 )

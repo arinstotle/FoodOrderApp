@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">NonameApp</string>
 
+    <!--onboarding-->
+    <string name="part1_title_onboarding">Save your time</string>
+    <string name="part1_content_onboarding">Reserve tables at your favorite restaurant</string>
+    <string name="part2_title_onboarding">Make an order</string>
+    <string name="part2_content_onboarding">With fantastically delicious dishes!</string>
+    <string name="part3_title_onboarding">More profitable with us</string>
+    <string name="part3_content_onboarding">Watch promotions and get points</string>
+    <string name="start">Start!</string>
+    <string name="skip_now">Skip now</string>
+
+
     <!--registration-->
     <string name="hello">Hey there, </string>
     <string name="slogan">Ready to explore new delicious horizons? Let\'s begin!</string>
@@ -25,5 +36,7 @@
     <string name="login_button">Login</string>
     <string name="do_not_have_account">Don\'t have an account yet?</string>
     <string name="to_register">Register</string>
+
+
 
 </resources>

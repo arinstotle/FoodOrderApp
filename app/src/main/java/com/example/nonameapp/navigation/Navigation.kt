@@ -7,7 +7,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.nonameapp.reservation.ReservationComposable
+import com.example.nonameapp.data.SharedPreferenceHelper
+import com.example.nonameapp.ui.reservation.ReservationComposable
 import com.example.nonameapp.ui.mainscreen.MainScreen
 import com.example.nonameapp.ui.cart.CartScreen
 import com.example.nonameapp.ui.carte.CarteScreen
@@ -18,22 +19,26 @@ import com.example.nonameapp.ui.onboarding.OnboardingScreen
 import com.example.nonameapp.ui.profile.ProfileScreen
 import com.example.nonameapp.ui.settings.SettingsScreen
 import com.example.nonameapp.ui.signUp.AuthorizationScreen
-import com.example.nonameapp.ui.splashscreen.LogoWithShimmer
+import com.example.nonameapp.ui.splashscreen.SplashScreen
 import com.example.nonameapp.util.DebugObject
+import com.example.nonameapp.viewModels.MainViewModel
 
 object NavigationRouter {
     var currentScreen: MutableState<Screen> = mutableStateOf(Screen.SplashScreen)
 }
 
 @Composable
-fun Navigation(navController: NavHostController, context: Context) {
-    NavHost(navController = navController, startDestination = Screen.CarteScreen.route) {
+fun Navigation(navController: NavHostController,
+               context: Context,
+               sharedPreferenceHelper: SharedPreferenceHelper,
+               mainViewModel: MainViewModel
+               ) {
+    NavHost(navController = navController, startDestination = Screen.SplashScreen.route) {
         composable(route = Screen.OnboardingScreen.route) {
             OnboardingScreen(navController = navController)
         }
         composable(route = Screen.MainScreen.route) {
-            // i can add arguments here
-            MainScreen(navController = navController)
+            MainScreen(navController = navController, mainViewModel)
         }
         composable(route = Screen.AuthorizationScreen.route) {
             AuthorizationScreen(navController = navController)
@@ -51,7 +56,7 @@ fun Navigation(navController: NavHostController, context: Context) {
             CartScreen(navController = navController, mViewModel = DebugObject.cartViewModel)
         }
         composable(route = Screen.SplashScreen.route) {
-            LogoWithShimmer(navController = navController)
+            SplashScreen(navController = navController, sharedPreferenceHelper)
         }
         composable(route = Screen.MapScreen.route) {
             MapScreen(navController = navController, mapController = MapController(context))

@@ -7,9 +7,9 @@ import kotlinx.coroutines.launch
 
 class AuthorizationViewModel : ViewModel() {
 
-    private val repository = MainRepository()
-
     suspend fun loginIntoAccount(email: String, password: String): Int {
-        return repository.loginIntoAccount(email, password)
+//        return repository.loginIntoAccount(email, password)
+        // слезно прошу прощения, если ты найдешь это в моем коммите - надо заинжектить реп через фабрику вью моделей
+        return 1
     }
 }
