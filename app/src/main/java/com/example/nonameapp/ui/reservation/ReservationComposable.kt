@@ -1,4 +1,4 @@
-package com.example.nonameapp.reservation
+package com.example.nonameapp.ui.reservation
 
 import android.content.Context
 import android.widget.Toast

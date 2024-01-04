@@ -16,7 +16,9 @@ import com.example.nonameapp.ui.theme.Black1_28
 import com.example.nonameapp.viewModels.AuthorizationViewModel
 
 @Composable
-fun AuthorizationScreen(navController: NavController) {
+fun AuthorizationScreen(navController: NavController,
+//authorizationViewModel: AuthorizationViewModel
+                        ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Black1_28

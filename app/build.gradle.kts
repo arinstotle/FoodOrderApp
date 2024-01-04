@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.serialization")
     id("kotlinx-serialization")
+    id("org.jetbrains.kotlin.kapt")
     id("org.jetbrains.dokka") version "1.9.10"
 }
 
@@ -95,4 +96,14 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.5")
     implementation("io.ktor:ktor-client-logging:2.3.5")
     implementation("com.google.code.gson:gson:2.9.0")
+
+    // DI
+    implementation ("com.google.dagger:dagger:2.50")
+    implementation ("com.google.dagger:dagger-android:2.50")
+    implementation ("com.google.dagger:dagger-android-support:2.50")
+    kapt("com.google.dagger:dagger-compiler:2.50")
+    kotlin("kapt")
+
+    // memory leaks
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 }

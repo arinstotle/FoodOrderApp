@@ -1,6 +1,5 @@
 package com.example.nonameapp.ui.mainscreen
 
-import androidx.activity.ComponentActivity
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
@@ -12,17 +11,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.*
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.*
-import androidx.core.view.WindowCompat
 import androidx.navigation.NavController
 import com.example.nonameapp.Feature
 import com.example.nonameapp.Promotion
@@ -33,12 +28,12 @@ import com.example.nonameapp.ui.mainscreen.tinyComposableElements.GreetingSectio
 import com.example.nonameapp.ui.mainscreen.tinyComposableElements.PromotionListComponent
 import com.example.nonameapp.ui.mainscreen.tinyComposableElements.TicketComposable
 import com.example.nonameapp.ui.theme.*
-import com.skydoves.cloudy.Cloudy
+import com.example.nonameapp.viewModels.MainViewModel
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MainScreen(navController: NavController) {
+fun MainScreen(navController: NavController, mainViewModel: MainViewModel) {
     var isLoading by remember {
         mutableStateOf(true)
     }

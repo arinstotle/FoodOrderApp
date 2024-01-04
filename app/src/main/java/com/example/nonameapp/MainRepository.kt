@@ -1,10 +1,12 @@
 package com.example.nonameapp
 
 import android.util.Log
+import com.example.nonameapp.data.SharedPreferenceHelper
 import com.example.nonameapp.network.ApiService
 import com.example.nonameapp.network.serializable.LoginRequestSerialization
+import javax.inject.Inject
 
-class MainRepository {
+class MainRepository @Inject constructor(preferenceHelper: SharedPreferenceHelper) {
 
     private val apiService by lazy {
         ApiService.create()
