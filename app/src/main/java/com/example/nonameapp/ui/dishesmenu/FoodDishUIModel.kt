@@ -1,4 +1,4 @@
-package com.example.nonameapp.ui.carte
+package com.example.nonameapp.ui.dishesmenu
 
 import androidx.annotation.DrawableRes
 import com.example.nonameapp.FoodCategories

@@ -1,6 +1,5 @@
-package com.example.nonameapp.ui.carte
+package com.example.nonameapp.ui.dishesmenu
 
-import android.util.Log
 import androidx.compose.runtime.saveable.*
 import androidx.compose.runtime.*
 import androidx.compose.foundation.layout.*
@@ -8,9 +7,7 @@ import android.view.MotionEvent
 import androidx.annotation.DrawableRes
 import androidx.annotation.FloatRange
 import androidx.compose.foundation.*
-import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.grid.*
@@ -19,7 +16,6 @@ import androidx.compose.foundation.shape.*
 import androidx.compose.material3.*
 import androidx.compose.material.ExtendedFloatingActionButton
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.ui.*
 import androidx.compose.ui.draw.clip
@@ -56,8 +52,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavController
 import com.example.nonameapp.R
-import com.example.nonameapp.ui.carte.RatingBarUtils.stepSized
-import com.example.nonameapp.ui.theme.FoodOnboardingGradient
+import com.example.nonameapp.ui.dishesmenu.RatingBarUtils.stepSized
 import com.example.nonameapp.ui.theme.ReemKufi
 import com.example.nonameapp.ui.theme.Shapes
 import com.example.nonameapp.util.AppBarCollapsedHeight
@@ -67,154 +62,34 @@ import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import com.example.nonameapp.ui.cart.CartScreen
 import com.example.nonameapp.ui.mainscreen.tinyComposableElements.ChipSection
-import com.example.nonameapp.util.DebugObject
+import com.example.nonameapp.ui.theme.RedD8
 import com.example.nonameapp.viewModels.CartViewModel
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
-
-@Deprecated("Old CarteScreen with BottomSheets")
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun CarteScreenOld(
-    navController: NavController
-) {
-    val scope = rememberCoroutineScope()
-
-    val dishSheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true
-    )
-    val cartSheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true
-    )
-
-    var showDishBottomSheet by remember { mutableStateOf(false) }
-    var showCartBottomSheet by remember { mutableStateOf(false) }
-
-    var currentDishUIModel: FoodDishUIModel? by remember { mutableStateOf(null) }
-
-    val list = FoodDishesDataSource.listOfFoodDishes
-    Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(
-                        text = "Soups",
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.primary,
-                        fontWeight = FontWeight.Bold
-                    )
-                },
-                navigationIcon = {
-                    IconButton(
-                        onClick = { /*TODO: Navigate to %screen%*/ }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = null,
-                            tint = FoodOnboardingGradient
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background
-                ),
-            )
-        },
-        floatingActionButton = {
-            ExtendedFloatingActionButton(
-                text = { Text("Cart") },
-                icon = { Icon(Icons.Filled.ShoppingCart, contentDescription = "") },
-                onClick = {
-                    showCartBottomSheet = true
-                },
-                backgroundColor = MaterialTheme.colorScheme.primary
-            )
-        }
-    ) { paddingTopAppBar ->
-        if (showDishBottomSheet || showCartBottomSheet) {
-            ModalBottomSheet(
-                shape = RoundedCornerShape(4.dp),
-                containerColor = MaterialTheme.colorScheme.background,
-                modifier = Modifier.fillMaxSize(),
-                onDismissRequest = {
-                    if (showDishBottomSheet) {
-                        showDishBottomSheet = false
-                        currentDishUIModel = null
-                    } else {
-                        showCartBottomSheet = false
-                    }
-                },
-                sheetState = if (showDishBottomSheet) dishSheetState else cartSheetState,
-                content = {
-                    scope.launch {
-                        if (showDishBottomSheet)
-                            dishSheetState.expand()
-                        else
-                            cartSheetState.expand()
-                    }
-
-                    if (showDishBottomSheet)
-                        DishCardInfoComposable(
-                            foodDish = currentDishUIModel
-                                ?: FoodDishesDataSource.listOfFoodDishes[0],
-                            mViewModel = DebugObject.cartViewModel
-                        )
-                    else
-                        CartScreen(
-                            navController = navController,
-                            mViewModel = DebugObject.cartViewModel
-                        )
-                }
-            )
-        }
-        LazyVerticalGrid(
-            state = rememberLazyGridState(),
-            columns = GridCells.Fixed(2),
-            modifier = Modifier
-                .padding(paddingTopAppBar),
-            contentPadding = PaddingValues(10.dp)
-        ) {
-            itemsIndexed(
-                items = list,
-                key = { _: Int, item: FoodDishUIModel ->
-                    item.hashCode()
-                }
-            ) { _, item ->
-                TinyFoodDishCard(item) {
-                    showDishBottomSheet = true
-                    currentDishUIModel = item
-                }
-            }
-        }
-    }
-
-}
 
 @OptIn(
     ExperimentalMaterial3Api::class,
     ExperimentalFoundationApi::class
 )
 @Composable
-fun CarteScreen(
+fun DishesMenuScreen(
     navController: NavController?
 ) {
     val scope = rememberCoroutineScope()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val listOfFoodDishes = FoodDishesDataSource.listOfFoodDishes
 
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        text = "Carte",
+                        text = "Dishes",
                         fontFamily = ReemKufi,
                     )
                 },
@@ -230,7 +105,38 @@ fun CarteScreen(
                         shape = RoundedCornerShape(
                             bottomStart = 15.dp,
                             bottomEnd = 15.dp
-                        ))
+                        )
+                    ),
+
+            )
+        },
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                text = { Text(
+                    text = "Cart",
+                    fontWeight = FontWeight.Bold
+                ) },
+                icon = {
+                    BadgedBox(badge = {
+                        Badge(
+                            containerColor = RedD8,
+                            modifier = Modifier
+                                .size(14.dp)
+                        ) {
+                            Text(
+                                text = "2",
+                                color = MaterialTheme.colorScheme.onPrimary
+                            )
+                        }
+                    }) {
+                        Icon(Icons.Filled.ShoppingCart, contentDescription = "")
+                    }
+
+                       },
+                onClick = {
+                    /* TODO:Navigate to Cart Screen */
+                },
+                backgroundColor = MaterialTheme.colorScheme.surface
             )
         },
         modifier = Modifier
@@ -240,7 +146,6 @@ fun CarteScreen(
         Column(
             modifier = Modifier
                 .padding(it)
-                .padding(start = 25.dp, end = 25.dp)
                 .fillMaxWidth()
                 .verticalScroll(globalScrollState)
         ) {
@@ -249,10 +154,11 @@ fun CarteScreen(
                 modifier = Modifier
                     .padding(top = 30.dp)
                     .fillMaxWidth()
+                    .padding(start = 25.dp, end = 25.dp)
             ) {
 
                 // Search Card
-                ElevatedCard(
+                Card(
                     onClick = {
 
                     },
@@ -313,65 +219,12 @@ fun CarteScreen(
                 }
             }
 
-            val pagerState = rememberPagerState(pageCount = { 10 })
+            val pagerState = rememberPagerState(pageCount = { FoodDishesDataSource.listOfChips.size })
             val chipSelectionState = rememberLazyListState()
 
             ChipSection(
-                chips = listOf(
-                    com.example.nonameapp.Chip(
-                        "Snacks",
-                        R.drawable.chip_snacks
-                    ),
-                    com.example.nonameapp.Chip(
-                        "Salads",
-                        R.drawable.chip_salad
-                    ),
-                    com.example.nonameapp.Chip(
-                        "Soups",
-                        R.drawable.chip_soup
-                    ),
-                    com.example.nonameapp.Chip(
-                        "Roman pizza",
-                        R.drawable.chip_pizza
-                    ),
-                    com.example.nonameapp.Chip(
-                        "Josper",
-                        R.drawable.chip_pizza
-                    ),
-                    com.example.nonameapp.Chip(
-                        "Other",
-                        R.drawable.chip_pizza
-                    ),
-                    com.example.nonameapp.Chip(
-                        "Prime",
-                        R.drawable.chip_pizza
-                    ),
-                    com.example.nonameapp.Chip(
-                        "Burgers",
-                        R.drawable.chip_burger
-                    ),
-                    com.example.nonameapp.Chip(
-                        "Side dishes",
-                        R.drawable.chip_sd
-                    ),
-                    com.example.nonameapp.Chip(
-                        "Sauces",
-                        R.drawable.chip_sauce
-                    ),
-                    com.example.nonameapp.Chip(
-                        "Desserts",
-                        R.drawable.chip_dessert
-                    ),
-                    com.example.nonameapp.Chip(
-                        "Drinks",
-                        R.drawable.chip_drink
-                    ),
-                    com.example.nonameapp.Chip(
-                        "Alcohol",
-                        R.drawable.chip_alco
-                    )
-                ),
-                padding = PaddingValues(top = 42.dp),
+                chips = FoodDishesDataSource.listOfChips,
+                paddingOut = PaddingValues(start = 25.dp, end = 25.dp, top = 42.dp),
                 state = chipSelectionState,
                 selectedChipIndex = pagerState.currentPage,
                 onChipClick = { newSelectedChipIndex ->
@@ -387,128 +240,175 @@ fun CarteScreen(
                     // Do something with each page change, for example:
                     // viewModel.sendPageSelectedEvent(page)
 
-                    if(globalScrollState.value > 200)
+                    if (globalScrollState.value > 200)
                         globalScrollState.scrollTo(0)
 
-                    if(page > 0)
-                        chipSelectionState.animateScrollToItem(page-1)
+                    if (page > 0)
+                        chipSelectionState.animateScrollToItem(page - 1)
                 }
             }
 
             HorizontalPager(
                 state = pagerState,
                 modifier = Modifier
-                    .padding(top = 21.dp)
+                    .padding(top = 21.dp, bottom = 21.dp)
                     .fillMaxSize()
             ) { page ->
                 // Our page content
-                Box(
+
+                Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(
-                            color = if (page % 2 == 0)
-                                MaterialTheme.colorScheme.surface
-                            else
-                                MaterialTheme.colorScheme.onPrimary
-                        )
+                        .padding(start = 25.dp, end = 25.dp)
                 ) {
-                    Column {
-                        repeat(50) {
-                            Text(
-                                text = "Page: $page",
-                                color = MaterialTheme.colorScheme.primary,
+                    var index = 0
+                    while (index < listOfFoodDishes.size) {
+                        Row(
+                            modifier = Modifier
+                                .padding(top = 25.dp)
+                                .fillMaxWidth()
+                        ) {
+                            TinyFoodDishCard(
+                                foodDish = FoodDishesDataSource.listOfFoodDishes[(page + index++)%5],
                                 modifier = Modifier
-                                    .padding(top = 30.dp)
+                                    .weight(0.4f),
+                                onClick = { }
+                            )
+                            Spacer(modifier = Modifier.weight(0.05f))
+                            TinyFoodDishCard(
+                                foodDish = FoodDishesDataSource.listOfFoodDishes[(page + index++)%5],
+                                modifier = Modifier
+                                    .weight(0.4f),
+                                onClick = { }
                             )
                         }
                     }
-
                 }
 
             }
+
+
         }
 
     }
 }
 
-@Preview
-@Composable
-fun CartePreview() {
-    CarteScreen(navController = null)
-}
+//@Preview
+//@Composable
+//fun CartePreview() {
+//    CarteScreen(navController = null)
+//}
 
+
+@Preview(widthDp = 400, heightDp = 200)
+@Composable
+fun TinyFoodRow(){
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
+        TinyFoodDishCard(
+            foodDish = FoodDishesDataSource.listOfFoodDishes[0],
+            modifier = Modifier
+                .weight(0.5f)
+                .padding(start = 15.dp, end = 15.dp, top = 10.dp),
+            onClick = { }
+        )
+        TinyFoodDishCard(
+            foodDish = FoodDishesDataSource.listOfFoodDishes[1],
+            modifier = Modifier
+                .weight(0.5f)
+                .padding(start = 15.dp, end = 15.dp, top = 10.dp),
+            onClick = { }
+        )
+    }
+}
 @Composable
 fun TinyFoodDishCard(
     foodDish: FoodDishUIModel,
+    modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    Box(
-        modifier = Modifier
-            .height(250.dp)
-            .padding(10.dp)
-            .clickable {
-                onClick()
-            }
-    ) {
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(fraction = 0.75f)
-                .align(Alignment.BottomCenter),
-            shape = RoundedCornerShape(20.dp),
-            elevation = CardDefaults.elevatedCardElevation(
-                defaultElevation = 5.dp
+    Card(
+        shape = RoundedCornerShape(30.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        modifier = modifier
+            .shadow(
+                elevation = 4.dp,
+                shape = RoundedCornerShape(30.dp)
             )
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(bottom = 12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
+            Image(
+                painter = painterResource(id = foodDish.image),
+                contentDescription = foodDish.description,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(start = 15.dp, end = 15.dp, bottom = 20.dp),
-                verticalArrangement = Arrangement.Bottom,
+                    .fillMaxWidth()
+                    .height(160.dp)
+                    .shadow(
+                        elevation = 4.dp,
+                        shape = RoundedCornerShape(30.dp)
+                    )
+                    .clip(RoundedCornerShape(30.dp))
+            )
+            Text(
+                text = foodDish.title,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.ExtraBold,
+                color = MaterialTheme.colorScheme.primary,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier
+                    .padding(top = 14.dp)
+            )
+            Text(
+                text = foodDish.description,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onPrimary,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier
+                    .padding(top = 0.dp)
+            )
+            Row(
+                modifier = Modifier
+                    .padding(top = 10.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.Bottom
             ) {
                 Text(
-                    text = foodDish.title,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.ExtraBold,
-                    color = MaterialTheme.colorScheme.primary,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier
-                        .padding(top = 5.dp)
-                )
-                Text(
-                    text = foodDish.description,
+                    text = "${foodDish.weight} g.",
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.primary,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
+                    fontWeight = FontWeight.Normal,
                     modifier = Modifier
-                        .padding(top = 5.dp)
+                        .padding(start = 15.dp)
                 )
                 Text(
-                    text = foodDish.price.toString() + " руб.",
-                    style = MaterialTheme.typography.titleMedium,
+                    text = "${foodDish.price} ₽",
+                    style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.primary,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     fontWeight = FontWeight.ExtraBold,
                     modifier = Modifier
-                        .padding(top = 5.dp)
+                        .padding(end = 15.dp)
                 )
             }
 
         }
-        Image(
-            painter = painterResource(id = foodDish.image),
-            contentDescription = foodDish.description,
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .shadow(
-                    elevation = 5.dp,
-                    shape = CircleShape,
-                    clip = false
-                )
-        )
+
+
     }
 }
 

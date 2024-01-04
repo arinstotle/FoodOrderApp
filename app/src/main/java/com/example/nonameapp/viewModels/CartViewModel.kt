@@ -1,14 +1,10 @@
 package com.example.nonameapp.viewModels
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.nonameapp.ui.carte.FoodDishUIModel
-import com.example.nonameapp.ui.carte.FoodDishesDataSource
+import com.example.nonameapp.ui.dishesmenu.FoodDishUIModel
+import com.example.nonameapp.ui.dishesmenu.FoodDishesDataSource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
-import java.util.concurrent.Flow
 
 class CartViewModel: ViewModel() {
 

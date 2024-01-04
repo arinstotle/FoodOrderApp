@@ -10,8 +10,7 @@ import androidx.navigation.compose.composable
 import com.example.nonameapp.reservation.ReservationComposable
 import com.example.nonameapp.ui.mainscreen.MainScreen
 import com.example.nonameapp.ui.cart.CartScreen
-import com.example.nonameapp.ui.carte.CarteScreen
-import com.example.nonameapp.ui.carte.CarteScreenOld
+import com.example.nonameapp.ui.dishesmenu.DishesMenuScreen
 import com.example.nonameapp.ui.map.MapController
 import com.example.nonameapp.ui.map.MapScreen
 import com.example.nonameapp.ui.onboarding.OnboardingScreen
@@ -27,7 +26,7 @@ object NavigationRouter {
 
 @Composable
 fun Navigation(navController: NavHostController, context: Context) {
-    NavHost(navController = navController, startDestination = Screen.CarteScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.OnboardingScreen.route) {
         composable(route = Screen.OnboardingScreen.route) {
             OnboardingScreen(navController = navController)
         }
@@ -44,8 +43,8 @@ fun Navigation(navController: NavHostController, context: Context) {
         composable(route = Screen.SettingsScreen.route) {
             SettingsScreen(navController = navController)
         }
-        composable(route = Screen.CarteScreen.route) {
-            CarteScreen(navController = navController)
+        composable(route = Screen.DishesMenuScreen.route) {
+            DishesMenuScreen(navController = navController)
         }
         composable(route = Screen.CartScreen.route) {
             CartScreen(navController = navController, mViewModel = DebugObject.cartViewModel)

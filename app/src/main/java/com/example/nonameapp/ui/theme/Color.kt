@@ -23,6 +23,8 @@ val PillsOnboardingGradient = Color(0xFF0A1E3C)
 val PillsOnboardingText = Color(0xFF375888)
 
 val Teal = Color(0xFFF0E3D2)
+val Teal_Transparent40 = Color(0x66F0E3D2)
+
 val GrayColorWithAlpha = Color(0.5f, 0.5f, 0.5f, alpha = 0.5f)
 
 val almostTransparentBlack = Color(0x33000000) // Почти прозрачный черный (33% прозрачности)
@@ -35,6 +37,7 @@ val Yellow = Color(0xFFF1C745)
 val Orange = Color(0xFFDF781E)
 val Black14 = Color(0xFF140F1F)
 val OrangeD8 = Color(0xFFD85420)
+
 val RedD8 = Color(0xFFD81616)
 val Black1_28 = Color(0xFF282726)
 val Black1_28_Transparent_50 = Color(0x80282726)

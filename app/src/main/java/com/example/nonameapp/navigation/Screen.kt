@@ -13,8 +13,8 @@ sealed class Screen(val route : String, val icon : Int, val title : String) {
         title = "Profile", icon = R.drawable.google_icon)
     object SettingsScreen : Screen("settings_screen",
         title = "Settings", icon = R.drawable.google_icon)
-    object CarteScreen : Screen("carte_screen",
-        title = "Carte", icon = R.drawable.google_icon)
+    object DishesMenuScreen : Screen("dishes_menu_screen",
+        title = "Menu", icon = R.drawable.google_icon)
     object CartScreen : Screen("cart_screen",
         title = "Cart", icon = R.drawable.google_icon)
     object SplashScreen : Screen("splash_screen",
@@ -26,7 +26,7 @@ sealed class Screen(val route : String, val icon : Int, val title : String) {
 
     object Items{
         val list = listOf(
-            MainScreen, ProfileScreen, CarteScreen, MapScreen, ReservationScreen
+            MainScreen, ProfileScreen, DishesMenuScreen, MapScreen, ReservationScreen
         )
     }
 }

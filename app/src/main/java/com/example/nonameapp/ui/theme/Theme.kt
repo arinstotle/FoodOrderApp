@@ -13,11 +13,11 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val lightPalette = lightColorScheme(
     primary = OrangeD8,
-    onPrimary = Teal,
+    onPrimary = Black33,
     secondary = White,
     tertiary = Black14,
     background = WhiteFC,
-    surface = Black33
+    surface = White
 )
 
 private val darkPalette = darkColorScheme(
