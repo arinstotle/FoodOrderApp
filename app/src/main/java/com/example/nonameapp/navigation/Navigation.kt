@@ -32,7 +32,7 @@ fun Navigation(navController: NavHostController,
                sharedPreferenceHelper: SharedPreferenceHelper,
                mainViewModel: MainViewModel
                ) {
-    NavHost(navController = navController, startDestination = Screen.SplashScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
         composable(route = Screen.OnboardingScreen.route) {
             OnboardingScreen(navController = navController)
         }
