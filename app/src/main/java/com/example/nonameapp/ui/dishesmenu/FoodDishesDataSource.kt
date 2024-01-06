@@ -2,6 +2,7 @@ package com.example.nonameapp.ui.dishesmenu
 
 import com.example.nonameapp.FoodCategories
 import com.example.nonameapp.R
+import com.example.nonameapp.ui.cart.CartDishUIModel
 
 object FoodDishesDataSource {
     val listOfFoodDishes = listOf(
@@ -358,6 +359,72 @@ object FoodDishesDataSource {
         com.example.nonameapp.Chip(
             "Alcohol",
             R.drawable.chip_alco
+        )
+    )
+    val listOfCartDishes = mutableListOf(
+        CartDishUIModel(
+            id = "0",
+            title = "Green Pasta",
+            image = R.drawable.dish_green_pasta,
+            weight = "350",
+            price = "390",
+            quantity = 2,
+        ),
+        CartDishUIModel(
+            id = "1",
+            title = "Pork set",
+            image = R.drawable.dish_pork_set,
+            weight = "350",
+            price = "300",
+            quantity = 1,
+        ),
+        CartDishUIModel(
+            id = "2",
+            title = "Meat salad",
+            image = R.drawable.dish_meat_salad,
+            weight = "160",
+            price = "250",
+            quantity = 4,
+        ),
+        CartDishUIModel(
+            id = "3",
+            title = "Italian pasta",
+            image = R.drawable.dish_italian_pasta,
+            weight = "350",
+            price = "300",
+            quantity = 1,
+        ),
+        CartDishUIModel(
+            id = "4",
+            title = "Green Pasta",
+            image = R.drawable.dish_green_pasta,
+            weight = "350",
+            price = "390",
+            quantity = 2,
+        ),
+        CartDishUIModel(
+            id = "5",
+            title = "Pork set",
+            image = R.drawable.dish_pork_set,
+            weight = "350",
+            price = "300",
+            quantity = 1,
+        ),
+        CartDishUIModel(
+            id = "6",
+            title = "Meat salad",
+            image = R.drawable.dish_meat_salad,
+            weight = "160",
+            price = "250",
+            quantity = 4,
+        ),
+        CartDishUIModel(
+            id = "7",
+            title = "Italian pasta",
+            image = R.drawable.dish_italian_pasta,
+            weight = "350",
+            price = "300",
+            quantity = 1,
         )
     )
 }

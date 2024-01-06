@@ -66,6 +66,10 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
+import com.example.nonameapp.navigation.NavigationRouter
+import com.example.nonameapp.navigation.Screen
+import com.example.nonameapp.ui.CustomTopAppBarComposable
 import com.example.nonameapp.ui.mainscreen.tinyComposableElements.ChipSection
 import com.example.nonameapp.ui.theme.RedD8
 import com.example.nonameapp.viewModels.CartViewModel
@@ -78,7 +82,7 @@ import kotlinx.coroutines.launch
 )
 @Composable
 fun DishesMenuScreen(
-    navController: NavController?
+    navController: NavController
 ) {
     val scope = rememberCoroutineScope()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -86,36 +90,20 @@ fun DishesMenuScreen(
 
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(
-                        text = "Dishes",
-                        fontFamily = ReemKufi,
-                    )
-                },
+            CustomTopAppBarComposable(
+                titleText = stringResource(id = R.string.dishes_menu_top_app_bar_title),
                 scrollBehavior = scrollBehavior,
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                    scrolledContainerColor = MaterialTheme.colorScheme.background
-                ),
-                modifier = Modifier
-                    .border(
-                        width = 1.dp,
-                        color = MaterialTheme.colorScheme.surface,
-                        shape = RoundedCornerShape(
-                            bottomStart = 15.dp,
-                            bottomEnd = 15.dp
-                        )
-                    ),
-
+                isHaveNavIcon = false
             )
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
-                text = { Text(
-                    text = "Cart",
-                    fontWeight = FontWeight.Bold
-                ) },
+                text = {
+                    Text(
+                        text = stringResource(id = R.string.dishes_menu_cart),
+                        fontWeight = FontWeight.Bold
+                    )
+                },
                 icon = {
                     BadgedBox(badge = {
                         Badge(
@@ -131,10 +119,10 @@ fun DishesMenuScreen(
                     }) {
                         Icon(Icons.Filled.ShoppingCart, contentDescription = "")
                     }
-
-                       },
+                },
                 onClick = {
-                    /* TODO:Navigate to Cart Screen */
+                    navController.navigate(Screen.CartScreen.route)
+                    NavigationRouter.currentScreen.value = Screen.CartScreen
                 },
                 backgroundColor = MaterialTheme.colorScheme.surface
             )
@@ -219,7 +207,8 @@ fun DishesMenuScreen(
                 }
             }
 
-            val pagerState = rememberPagerState(pageCount = { FoodDishesDataSource.listOfChips.size })
+            val pagerState =
+                rememberPagerState(pageCount = { FoodDishesDataSource.listOfChips.size })
             val chipSelectionState = rememberLazyListState()
 
             ChipSection(
@@ -269,14 +258,14 @@ fun DishesMenuScreen(
                                 .fillMaxWidth()
                         ) {
                             TinyFoodDishCard(
-                                foodDish = FoodDishesDataSource.listOfFoodDishes[(page + index++)%5],
+                                foodDish = FoodDishesDataSource.listOfFoodDishes[(page + index++) % 5],
                                 modifier = Modifier
                                     .weight(0.4f),
                                 onClick = { }
                             )
                             Spacer(modifier = Modifier.weight(0.05f))
                             TinyFoodDishCard(
-                                foodDish = FoodDishesDataSource.listOfFoodDishes[(page + index++)%5],
+                                foodDish = FoodDishesDataSource.listOfFoodDishes[(page + index++) % 5],
                                 modifier = Modifier
                                     .weight(0.4f),
                                 onClick = { }
@@ -302,7 +291,7 @@ fun DishesMenuScreen(
 
 @Preview(widthDp = 400, heightDp = 200)
 @Composable
-fun TinyFoodRow(){
+fun TinyFoodRow() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -323,6 +312,7 @@ fun TinyFoodRow(){
         )
     }
 }
+
 @Composable
 fun TinyFoodDishCard(
     foodDish: FoodDishUIModel,
@@ -363,6 +353,7 @@ fun TinyFoodDishCard(
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.ExtraBold,
                 color = MaterialTheme.colorScheme.primary,
+                fontFamily = ReemKufi,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
@@ -372,6 +363,7 @@ fun TinyFoodDishCard(
                 text = foodDish.description,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onPrimary,
+                fontFamily = ReemKufi,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
@@ -389,6 +381,7 @@ fun TinyFoodDishCard(
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onPrimary,
                     maxLines = 1,
+                    fontFamily = ReemKufi,
                     overflow = TextOverflow.Ellipsis,
                     fontWeight = FontWeight.Normal,
                     modifier = Modifier
@@ -399,6 +392,7 @@ fun TinyFoodDishCard(
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.primary,
                     maxLines = 1,
+                    fontFamily = ReemKufi,
                     overflow = TextOverflow.Ellipsis,
                     fontWeight = FontWeight.ExtraBold,
                     modifier = Modifier
@@ -469,7 +463,7 @@ fun DishContent(
             IngredientsSection()
             IngredientList(foodDish)
             AddToCartButton() {
-                mViewModel.addDishToCart(foodDish)
+                mViewModel.addDishToCart(foodDish.convertToCartUIModel().also { it.quantity = 1 })
             }
             ReviewsSection(foodDish)
         }

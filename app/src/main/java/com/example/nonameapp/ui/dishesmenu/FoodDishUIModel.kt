@@ -2,6 +2,7 @@ package com.example.nonameapp.ui.dishesmenu
 
 import androidx.annotation.DrawableRes
 import com.example.nonameapp.FoodCategories
+import com.example.nonameapp.ui.cart.CartDishUIModel
 
 data class FoodDishUIModel(
     val id : String,
@@ -22,7 +23,18 @@ data class FoodDishUIModel(
     val image: Int,
     val allergens : List<String>,
     val ingredients : List<Ingredient>
-)
+) {
+    fun convertToCartUIModel(): CartDishUIModel {
+        return CartDishUIModel(
+            id = id,
+            title = title,
+            image = image,
+            weight = weight,
+            price = price,
+            quantity = 0
+        )
+    }
+}
 
 data class Ingredient(
     val title: String,

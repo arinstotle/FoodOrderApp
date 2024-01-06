@@ -1,6 +1,8 @@
 package com.example.nonameapp.navigation
 
 import android.content.Context
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf

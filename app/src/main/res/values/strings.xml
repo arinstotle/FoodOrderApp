@@ -37,6 +37,14 @@
     <string name="do_not_have_account">Don\'t have an account yet?</string>
     <string name="to_register">Register</string>
 
+    <!--DishesMenu-->
+    <string name="dishes_menu_top_app_bar_title">Dishes</string>
+    <string name="dishes_menu_cart">Cart</string>
 
+    <!--Cart-->
+    <string name="cart_top_app_bar_title">Cart</string>
+    <string name="cart_total">Total</string>
+    <string name="cart_checkout">Checkout</string>
+    <string name="cart_grams">grams</string>
 
 </resources>

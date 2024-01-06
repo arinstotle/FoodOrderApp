@@ -80,7 +80,7 @@ class MainActivity : ComponentActivity() {
                         bottomBar = {
                             when (NavigationRouter.currentScreen.value) {
                                 Screen.OnboardingScreen, Screen.SettingsScreen,
-                                Screen.AuthorizationScreen, Screen.SplashScreen -> null
+                                Screen.AuthorizationScreen, Screen.SplashScreen, Screen.CartScreen -> null
                                 else -> {
                                     CustomBottomNavigation(currentScreenRoute = NavigationRouter.currentScreen.value.route) { screen ->
                                         if (screen.route != NavigationRouter.currentScreen.value.route) {

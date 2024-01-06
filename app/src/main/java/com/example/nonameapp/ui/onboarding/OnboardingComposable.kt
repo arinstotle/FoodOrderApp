@@ -63,7 +63,7 @@ fun OnboardingScreen(navController: NavController) {
 @ExperimentalPagerApi
 @Composable
 fun OnBoardingPager(
-    item: List<OnBoardingData>,
+    item: List<OnboardingData>,
     pagerState: PagerState,
     modifier: Modifier = Modifier,
     navController: NavController
@@ -198,7 +198,7 @@ fun OnBoardingPager(
 
 
 @Composable
-fun PagerIndicator(currentPage: Int, items: List<OnBoardingData>) {
+fun PagerIndicator(currentPage: Int, items: List<OnboardingData>) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.padding(top = 20.dp)
