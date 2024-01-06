@@ -30,6 +30,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -40,6 +42,7 @@ import com.example.nonameapp.ui.dishesmenu.FoodDishUIModel
 import com.example.nonameapp.ui.dishesmenu.TinyFoodDishCard
 import com.example.nonameapp.ui.mainscreen.shimmerEffect
 import com.example.nonameapp.ui.theme.ReemKufi
+import com.example.nonameapp.ui.theme.Teal
 import com.example.nonameapp.util.standardQuadFromTo
 
 @Composable
@@ -148,27 +151,36 @@ fun FeatureItem(
 @ExperimentalFoundationApi
 @Composable
 fun FeatureSection(dishes: List<FoodDishUIModel>, isLoading : Boolean) {
-    Column(modifier = Modifier.size(400.dp)) {
-        Text(
-            color = Color.White,
-            text = "Popular",
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(10.dp)
-        )
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            modifier = Modifier,
-            contentPadding = PaddingValues(start = 8.dp,
-                end = 8.dp, bottom = 50.dp)
-        ) {
-            items(dishes.size) {
-                ShimmerListItem(isLoading = isLoading, contentAfterLoading = {
-                    TinyFoodDishCard(foodDish = dishes[it],
-                        modifier = Modifier
-                            .weight(0.5f)
-                            .padding(start = 15.dp, end = 15.dp, top = 10.dp),
-                        onClick = { })
-                })
+    Box() {
+        Image(modifier = Modifier.size(400.dp).align(Alignment.Center),
+            painter = painterResource(id = R.drawable.bull),
+            contentDescription = "")
+        Column(modifier = Modifier.size(600.dp)) {
+            Text(
+                color = Teal,
+                text = "Popular",
+                fontFamily = ReemKufi,
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = 22.sp,
+                modifier = Modifier.padding(10.dp)
+            )
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier,
+                contentPadding = PaddingValues(
+                    start = 8.dp,
+                    end = 8.dp, bottom = 50.dp
+                )
+            ) {
+                items(dishes.size) {
+                    ShimmerListItem(isLoading = isLoading, contentAfterLoading = {
+                        TinyFoodDishCard(foodDish = dishes[it],
+                            modifier = Modifier
+                                .weight(0.5f)
+                                .padding(start = 15.dp, end = 15.dp, top = 10.dp),
+                            onClick = { })
+                    })
+                }
             }
         }
     }
@@ -185,45 +197,11 @@ fun ShimmerListItem(
         modifier
             .padding(7.5.dp)
             .aspectRatio(1f)
-            .background(Color.Gray, shape = RoundedCornerShape(10.dp))
+            .background(Color.Gray, shape = RoundedCornerShape(20.dp))
             .fillMaxSize()
+            .shimmerEffect()
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(15.dp)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(26.dp)
-                        .padding(8.dp)
-                        .shimmerEffect()
-                        .align(Alignment.TopStart)
-                )
-                Icon(
-                    painter = painterResource(id = R.drawable.arrow_right),
-                    contentDescription = "",
-                    tint = Color.Transparent,
-                    modifier = Modifier
-                        .align(Alignment.BottomStart)
-                        .shimmerEffect()
-                )
-                Text(
-                    text = "Start",
-                    color = Color.Transparent,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .clickable {
-                        }
-                        .align(Alignment.BottomEnd)
-                        .clip(RoundedCornerShape(10.dp))
-                        .padding(vertical = 6.dp, horizontal = 15.dp)
-                        .shimmerEffect()
-                )
 
-            }
         }
     } else {
         contentAfterLoading()

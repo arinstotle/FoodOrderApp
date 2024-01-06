@@ -21,7 +21,6 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.*
 import androidx.navigation.NavController
-import com.example.nonameapp.Feature
 import com.example.nonameapp.R
 import com.example.nonameapp.ui.dishesmenu.FoodDishesDataSource
 import com.example.nonameapp.ui.mainscreen.tinyComposableElements.FeatureSection
@@ -35,7 +34,6 @@ import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.yield
 import java.lang.Math.abs
 import kotlin.math.absoluteValue
 
@@ -52,6 +50,15 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel) {
         mutableIntStateOf(4)
     }
     val pagerState = rememberPagerState(promotions, 0)
+    LaunchedEffect(Unit){
+        while (true) {
+            delay(2000)
+            pagerState.animateScrollToPage(
+                page = (pagerState.currentPage + 1) % (pagerState.pageCount),
+                animationSpec = tween(600)
+            )
+        }
+    }
     var scrollState by remember { mutableStateOf(ScrollState(0)) }
     LaunchedEffect(key1 = true) {
         delay(10000)
@@ -85,9 +92,11 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel) {
             }
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                color = Color.White,
+                color = Teal,
                 text = "Promotions",
-                style = MaterialTheme.typography.titleLarge,
+                fontFamily = ReemKufi,
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = 22.sp,
                 modifier = Modifier.padding(10.dp)
             )
             Column(
@@ -95,15 +104,6 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel) {
                     .fillMaxWidth()
                     .background(Black1_28),
             ) {
-                LaunchedEffect(Unit){
-                    while (true) {
-                        delay(2000)
-                        pagerState.animateScrollToPage(
-                            page = (pagerState.currentPage + 1) % (pagerState.pageCount),
-                            animationSpec = tween(600)
-                        )
-                    }
-                }
                 com.google.accompanist.pager.HorizontalPager(
                     state = pagerState,
                     modifier = Modifier
@@ -111,24 +111,24 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel) {
                         .background(Black1_28)
                 ) { page ->
                     Box(modifier = Modifier
-                            .graphicsLayer {
-                        if (!scrollState.canScrollBackward) {
-                            val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
-                            lerp(
-                                start = 0.85f,
-                                stop = 1f,
-                                fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                            ).also { scale ->
-                                scaleX = scale
-                                scaleY = scale
+                        .graphicsLayer {
+                            if (!scrollState.canScrollBackward) {
+                                val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
+                                lerp(
+                                    start = 0.85f,
+                                    stop = 1f,
+                                    fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                                ).also { scale ->
+                                    scaleX = scale
+                                    scaleY = scale
+                                }
+                                alpha = lerp(
+                                    start = 0.5f,
+                                    stop = 1f,
+                                    fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                                )
                             }
-                            alpha = lerp(
-                                start = 0.5f,
-                                stop = 1f,
-                                fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                            )
                         }
-                    }
                         .fillMaxSize()
                         .background(Black1_28)) {
                             TicketComposable(
@@ -145,7 +145,8 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel) {
                     CustomPagerIndicator(pagerState = pagerState)
                 }
             }
-            RoundedBoxesComposition()
+            FirstBonusesBlock()
+            SecondBonusesBlock()
             FeatureSection(
                 isLoading = isLoading,
                 dishes = FoodDishesDataSource.listOfFoodDishes
@@ -170,13 +171,14 @@ fun Modifier.shimmerEffect(): Modifier = composed {
     background(
         brush = Brush.linearGradient(
             colors = listOf(
-                Color(0xFFB8B5B5),
-                Color(0xFF8F8B8B),
-                Color(0xFFB8B5B5),
+                Color(0xFF414141),
+                Color(0xFF5F5F5F),
+                Color(0xFF414141)
             ),
             start = Offset(startOffsetX, 0f),
             end = Offset(startOffsetX + size.width.toFloat(), size.height.toFloat())
-        )
+        ),
+        RoundedCornerShape(15.dp)
     )
         .onGloballyPositioned {
             size = it.size
@@ -221,13 +223,15 @@ private val spacing = 10.dp
 private val height = 8.dp
 
 @Composable
-fun RoundedBoxesComposition() {
+fun FirstBonusesBlock() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 8.dp,
+            .padding(
+                start = 8.dp,
                 end = 8.dp,
-                top = 16.dp)
+                top = 16.dp
+            )
     ) {
         Box(
             modifier = Modifier
@@ -254,7 +258,8 @@ fun RoundedBoxesComposition() {
 
                 }
         ) {
-            Row(modifier = Modifier.fillMaxSize()
+            Row(modifier = Modifier
+                .fillMaxSize()
                 .clip(RoundedCornerShape(15.dp))
                 .align(Alignment.Center)
             ) {
@@ -265,11 +270,13 @@ fun RoundedBoxesComposition() {
                     Text(
                         color = Teal,
                         text = "More bonuses",
+                        fontFamily = ReemKufi,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
                         )
                     Text(
                         color = TextGray,
+                        fontFamily = ReemKufi,
                         text = "Enter a promocode",
                         fontSize = 15.sp,
                     )
@@ -284,6 +291,125 @@ fun RoundedBoxesComposition() {
                     ,
                     tint = TextGray
                 )
+            }
+        }
+    }
+}
+
+@Composable
+fun SecondBonusesBlock(userBonuses: String = "50") {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                start = 16.dp,
+                end = 16.dp,
+                top = 10.dp
+            )
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .height(100.dp)
+                .background(Black33, RoundedCornerShape(15.dp))
+                .padding(10.dp)
+        ) {
+           Column(modifier = Modifier
+               .align(Alignment.Center)) {
+               Text(
+                   color = Teal,
+                   text = "Available",
+                   fontFamily = ReemKufi,
+                   fontSize = 20.sp,
+                   fontWeight = FontWeight.Bold,
+               )
+               Row(modifier = Modifier
+                   .align(Alignment.CenterHorizontally)
+               ) {
+                   Text(
+                       color = OrangeD8,
+                       text = userBonuses,
+                       fontFamily = ReemKufi,
+                       fontSize = 25.sp,
+                       fontWeight = FontWeight.ExtraBold,
+                   )
+                   Box(modifier = Modifier
+                       .padding(start = 8.dp)
+                       .align(Alignment.CenterVertically)
+                   ) {
+                       Text(
+                           color = OrangeD8,
+                           text = "bonuses",
+                           fontFamily = ReemKufi,
+                           fontSize = 18.sp,
+                           fontWeight = FontWeight.Medium,
+                       )
+                   }
+                   Box(modifier = Modifier
+                       .padding(start = 8.dp)
+                       .align(Alignment.CenterVertically)
+                   ) {
+                       Icon(
+                           imageVector =
+                           ImageVector.vectorResource(id = R.drawable.coins),
+                           contentDescription = null,
+                           modifier = Modifier
+                               .size(34.dp)
+                               .align(Alignment.BottomEnd),
+                           tint = RedD8
+                       )
+                   }
+               }
+           }
+        }
+        Spacer(modifier = Modifier.width(16.dp))
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .height(100.dp)
+                .background(Black33, RoundedCornerShape(15.dp))
+                .padding(10.dp)
+        ) {
+            Column(modifier = Modifier
+                .align(Alignment.Center)) {
+                Text(
+                    color = Teal,
+                    text = "Get bonuses",
+                    fontFamily = ReemKufi,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                )
+                Row(modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                ) {
+                    Box(modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                    ) {
+                        Text(
+                            color = TextGray,
+                            text = "for the order",
+                            fontFamily = ReemKufi,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                        )
+                    }
+                    Box(modifier = Modifier
+                        .padding(start = 8.dp)
+                        .align(Alignment.CenterVertically)
+                    ) {
+                        Icon(
+                            imageVector =
+                            ImageVector.vectorResource(id = R.drawable.scan_code_qr),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(34.dp)
+                                .align(Alignment.BottomEnd),
+                            tint = RedD8
+                        )
+                    }
+                }
             }
         }
     }
