@@ -39,9 +39,11 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.nonameapp.R
 import com.example.nonameapp.ui.theme.Black33
 import com.example.nonameapp.ui.theme.OrangeD8
+import com.example.nonameapp.ui.theme.RedD8
 import com.example.nonameapp.ui.theme.ReemKufi
 import com.example.nonameapp.ui.theme.Teal
 import com.example.nonameapp.ui.theme.TextGray
@@ -92,6 +94,7 @@ fun GreetingSection(
                     Text(
                         text = restaurantAddress,
                         Modifier.padding(start = 8.dp, end = 8.dp),
+                        fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
                         fontFamily = ReemKufi,
                         color = TextGray
@@ -103,7 +106,7 @@ fun GreetingSection(
                             .clickable {
 
                             }
-                            .size(16.dp),
+                            .size(12.dp),
                         tint = TextGray
                     )
                 }
@@ -201,7 +204,14 @@ fun CustomIconButton(infiniteTransition: InfiniteTransition,
 @Composable
 fun BadgeContent(number: Int) {
     Badge(
-        content = { Text(text = number.toString()) },
+        containerColor = RedD8,
+        content = {
+                Text(
+                    text = number.toString(),
+                    fontFamily = ReemKufi,
+                    color = Teal,
+                    fontSize = 9.sp
+                ) },
         modifier = Modifier.size(16.dp)
     )
 }

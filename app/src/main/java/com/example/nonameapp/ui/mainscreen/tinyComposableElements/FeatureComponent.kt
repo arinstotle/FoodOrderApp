@@ -161,8 +161,8 @@ fun FeatureSection(dishes: List<FoodDishUIModel>, isLoading : Boolean) {
                 text = "Popular",
                 fontFamily = ReemKufi,
                 fontWeight = FontWeight.ExtraBold,
-                fontSize = 22.sp,
-                modifier = Modifier.padding(10.dp)
+                fontSize = 20.sp,
+                modifier = Modifier.padding(start = 16.dp, end = 10.dp, top = 10.dp, bottom = 10.dp)
             )
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),

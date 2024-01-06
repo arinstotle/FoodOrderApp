@@ -96,8 +96,8 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel) {
                 text = "Promotions",
                 fontFamily = ReemKufi,
                 fontWeight = FontWeight.ExtraBold,
-                fontSize = 22.sp,
-                modifier = Modifier.padding(10.dp)
+                fontSize = 20.sp,
+                modifier = Modifier.padding(start = 16.dp, end = 10.dp, top = 10.dp, bottom = 10.dp)
             )
             Column(
                 modifier = Modifier
@@ -133,7 +133,8 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel) {
                         .background(Black1_28)) {
                             TicketComposable(
                                 modifier = Modifier
-                                    .padding(16.dp)
+                                    .padding(start = 16.dp, end = 16.dp, bottom = 16.dp, top = 8.dp)
+                                    .align(Alignment.Center)
                             )
                     }
                 }
@@ -271,14 +272,14 @@ fun FirstBonusesBlock() {
                         color = Teal,
                         text = "More bonuses",
                         fontFamily = ReemKufi,
-                        fontSize = 16.sp,
+                        fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         )
                     Text(
                         color = TextGray,
                         fontFamily = ReemKufi,
                         text = "Enter a promocode",
-                        fontSize = 15.sp,
+                        fontSize = 12.sp,
                     )
                 }
                 Icon(
@@ -321,7 +322,7 @@ fun SecondBonusesBlock(userBonuses: String = "50") {
                    color = Teal,
                    text = "Available",
                    fontFamily = ReemKufi,
-                   fontSize = 20.sp,
+                   fontSize = 18.sp,
                    fontWeight = FontWeight.Bold,
                )
                Row(modifier = Modifier
@@ -331,7 +332,7 @@ fun SecondBonusesBlock(userBonuses: String = "50") {
                        color = OrangeD8,
                        text = userBonuses,
                        fontFamily = ReemKufi,
-                       fontSize = 25.sp,
+                       fontSize = 22.sp,
                        fontWeight = FontWeight.ExtraBold,
                    )
                    Box(modifier = Modifier
@@ -342,7 +343,7 @@ fun SecondBonusesBlock(userBonuses: String = "50") {
                            color = OrangeD8,
                            text = "bonuses",
                            fontFamily = ReemKufi,
-                           fontSize = 18.sp,
+                           fontSize = 16.sp,
                            fontWeight = FontWeight.Medium,
                        )
                    }
@@ -378,7 +379,7 @@ fun SecondBonusesBlock(userBonuses: String = "50") {
                     color = Teal,
                     text = "Get bonuses",
                     fontFamily = ReemKufi,
-                    fontSize = 20.sp,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                 )
                 Row(modifier = Modifier
@@ -391,7 +392,7 @@ fun SecondBonusesBlock(userBonuses: String = "50") {
                             color = TextGray,
                             text = "for the order",
                             fontFamily = ReemKufi,
-                            fontSize = 16.sp,
+                            fontSize = 14.sp,
                             fontWeight = FontWeight.Bold,
                         )
                     }
