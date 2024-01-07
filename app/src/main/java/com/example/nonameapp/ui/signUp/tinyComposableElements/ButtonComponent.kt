@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import com.example.nonameapp.ui.theme.OrangeD8
 import com.example.nonameapp.ui.theme.RedD8
 import com.example.nonameapp.ui.theme.ReemKufi
+import com.example.nonameapp.ui.theme.Teal
 
 @Composable
 fun ButtonComponent(text : String, onClickHandler : () -> Unit) {
@@ -44,6 +45,7 @@ fun ButtonComponent(text : String, onClickHandler : () -> Unit) {
         ) {
             Text(
                 text = text,
+                color = Teal,
                 fontFamily = ReemKufi,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
