@@ -1,12 +1,19 @@
 package com.example.nonameapp.ui.mainscreen.tinyComposableElements
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
@@ -14,18 +21,28 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
+import coil.request.ImageRequest
+import com.example.nonameapp.R
 import com.example.nonameapp.ui.theme.ReemKufi
+import org.jetbrains.annotations.Async
 
 class TicketShape(private val cornerRadius: Float) : Shape {
     override fun createOutline(
@@ -40,40 +57,35 @@ class TicketShape(private val cornerRadius: Float) : Shape {
 }
 
 @Composable
-fun TicketComposable(modifier: Modifier) {
+fun TicketComposable(modifier: Modifier = Modifier,
+                     imagePath: String? = null,
+                     imageDescription: String = "Sample description",
+                     action: () -> Unit = {
+
+                     }
+                     ) {
     Box(
         modifier = modifier
-            .wrapContentSize()
+            .height(150.dp)
+            .width(350.dp)
             .graphicsLayer {
-                shadowElevation = 8.dp.toPx()
-                shape = TicketShape(24.dp.toPx())
+                shadowElevation = 15.dp.toPx()
+                shape = TicketShape(25.dp.toPx())
                 clip = true
             }
             .background(color = Color.Gray)
-            .drawBehind {
-                scale(scale = 0.9f) {
-                    drawPath(
-                        path = drawTicketPath(size = size, cornerRadius = 24.dp.toPx()),
-                        color = Color.Red,
-                        style = Stroke(
-                            width = 2.dp.toPx(),
-                            pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f))
-                        )
-                    )
-                }
-            }
-            .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 16.dp)
     ) {
-        Text(
-            text = "Акция дня",
-            style = TextStyle(
-                color = Color.White,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Normal,
-                fontFamily = ReemKufi
-            ),
-            textAlign = TextAlign.Start,
-            modifier = Modifier.padding(16.dp)
+        AsyncImage(modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
+            onLoading = null,
+            onSuccess = null,
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(imagePath ?: R.drawable.promotion_placeholder)
+                .crossfade(true)
+                .build(),
+            contentDescription = imageDescription,
+            placeholder = painterResource(id = R.drawable.promotion_placeholder),
+            fallback = painterResource(id = R.drawable.promotion_placeholder)
         )
     }
 }
@@ -93,7 +105,6 @@ fun drawTicketPath(size: Size, cornerRadius: Float): Path {
             forceMoveTo = false
         )
         lineTo(x = size.width - cornerRadius, y = 0f)
-        // Top right arc
         arcTo(
             rect = Rect(
                 left = size.width - cornerRadius,
@@ -106,7 +117,6 @@ fun drawTicketPath(size: Size, cornerRadius: Float): Path {
             forceMoveTo = false
         )
         lineTo(x = size.width, y = size.height - cornerRadius)
-        // Bottom right arc
         arcTo(
             rect = Rect(
                 left = size.width - cornerRadius,

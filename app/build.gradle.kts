@@ -104,6 +104,7 @@ dependencies {
     kapt("com.google.dagger:dagger-compiler:2.50")
     kotlin("kapt")
 
-    // memory leaks
-//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+    implementation("io.coil-kt:coil-compose:2.5.0")
+
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
 }

@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -28,14 +30,19 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.nonameapp.Feature
 import com.example.nonameapp.R
+import com.example.nonameapp.ui.dishesmenu.FoodDishUIModel
+import com.example.nonameapp.ui.dishesmenu.TinyFoodDishCard
 import com.example.nonameapp.ui.mainscreen.shimmerEffect
 import com.example.nonameapp.ui.theme.ReemKufi
+import com.example.nonameapp.ui.theme.Teal
 import com.example.nonameapp.util.standardQuadFromTo
 
 @Composable
@@ -143,24 +150,37 @@ fun FeatureItem(
 
 @ExperimentalFoundationApi
 @Composable
-fun FeatureSection(features: List<Feature>, isLoading : Boolean) {
-    Column(modifier = Modifier.size(400.dp)) {
-        Text(
-            color = Color.White,
-            text = "Hot",
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(10.dp)
-        )
-        LazyRow(
-            modifier = Modifier.size(400.dp),
-            contentPadding = PaddingValues(start = 7.5.dp, end = 7.5.dp, bottom = 100.dp)
-        ) {
-            items(features.size) {
-                ShimmerListItem(isLoading = isLoading, contentAfterLoading = {
-                    FeatureItem(
-                        feature = features[it]
-                    )
-                })
+fun FeatureSection(dishes: List<FoodDishUIModel>, isLoading : Boolean) {
+    Box() {
+        Image(modifier = Modifier.size(400.dp).align(Alignment.Center),
+            painter = painterResource(id = R.drawable.bull),
+            contentDescription = "")
+        Column(modifier = Modifier.size(600.dp)) {
+            Text(
+                color = Teal,
+                text = "Popular",
+                fontFamily = ReemKufi,
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = 20.sp,
+                modifier = Modifier.padding(start = 16.dp, end = 10.dp, top = 10.dp, bottom = 10.dp)
+            )
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier,
+                contentPadding = PaddingValues(
+                    start = 8.dp,
+                    end = 8.dp, bottom = 50.dp
+                )
+            ) {
+                items(dishes.size) {
+                    ShimmerListItem(isLoading = isLoading, contentAfterLoading = {
+                        TinyFoodDishCard(foodDish = dishes[it],
+                            modifier = Modifier
+                                .weight(0.5f)
+                                .padding(start = 15.dp, end = 15.dp, top = 10.dp),
+                            onClick = { })
+                    })
+                }
             }
         }
     }
@@ -177,45 +197,11 @@ fun ShimmerListItem(
         modifier
             .padding(7.5.dp)
             .aspectRatio(1f)
-            .background(Color.Gray, shape = RoundedCornerShape(10.dp))
+            .background(Color.Gray, shape = RoundedCornerShape(20.dp))
             .fillMaxSize()
+            .shimmerEffect()
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(15.dp)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(26.dp)
-                        .padding(8.dp)
-                        .shimmerEffect()
-                        .align(Alignment.TopStart)
-                )
-                Icon(
-                    painter = painterResource(id = R.drawable.arrow_right),
-                    contentDescription = "",
-                    tint = Color.Transparent,
-                    modifier = Modifier
-                        .align(Alignment.BottomStart)
-                        .shimmerEffect()
-                )
-                Text(
-                    text = "Start",
-                    color = Color.Transparent,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .clickable {
-                        }
-                        .align(Alignment.BottomEnd)
-                        .clip(RoundedCornerShape(10.dp))
-                        .padding(vertical = 6.dp, horizontal = 15.dp)
-                        .shimmerEffect()
-                )
 
-            }
         }
     } else {
         contentAfterLoading()

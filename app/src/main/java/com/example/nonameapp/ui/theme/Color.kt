@@ -46,3 +46,8 @@ val Black2_54 = Color(0xFF54504C)
 val Black3_86 = Color(0xFF86817C)
 
 val Black33 = Color(0xFF333333)
+
+val TextGray = Color(0xFF7B7B7B)
+
+val OrangeTransparent = Color(0x59D85420)
+
