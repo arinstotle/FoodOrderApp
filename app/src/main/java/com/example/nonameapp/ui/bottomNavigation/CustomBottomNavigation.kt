@@ -77,7 +77,7 @@ fun CustomButtonNavigationItem(
             Icon(
                 modifier = Modifier.size(20.dp),
                 imageVector = ImageVector.vectorResource(id = item.icon),
-                contentDescription =null,
+                contentDescription = null,
                 tint = contentColor,
             )
             AnimatedVisibility(visible = isSelected) {

@@ -67,6 +67,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import com.example.nonameapp.data.FoodDishesDataSource
 import com.example.nonameapp.navigation.NavigationRouter
 import com.example.nonameapp.navigation.Screen
 import com.example.nonameapp.ui.CustomTopAppBarComposable
