@@ -22,7 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.*
 import androidx.navigation.NavController
 import com.example.nonameapp.R
-import com.example.nonameapp.ui.dishesmenu.FoodDishesDataSource
+import com.example.nonameapp.data.FoodDishesDataSource
 import com.example.nonameapp.ui.mainscreen.tinyComposableElements.FeatureSection
 import com.example.nonameapp.ui.mainscreen.tinyComposableElements.GreetingSection
 import com.example.nonameapp.ui.mainscreen.tinyComposableElements.TicketComposable

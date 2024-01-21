@@ -47,6 +47,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.nonameapp.R
 import com.example.nonameapp.navigation.NavigationRouter
 import com.example.nonameapp.navigation.Screen
@@ -138,9 +139,10 @@ fun CartScreen(
                 )
             }
 
-            // Button "Order now"
+            // Button "Checkout"
             Button(
                 onClick = {
+                    navController.navigate(Screen.CheckoutScreen.route)
                 },
                 modifier = Modifier
                     .padding(start = 20.dp, end = 20.dp, top = 40.dp, bottom = 10.dp)

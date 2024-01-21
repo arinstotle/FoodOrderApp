@@ -47,4 +47,29 @@
     <string name="cart_checkout">Checkout</string>
     <string name="cart_grams">grams</string>
 
+    <!--Checkout-->
+    <string name="checkout_top_app_bar_title">Checkout</string>
+    <string name="checkout_cart_title">Cart</string>
+    <string name="checkout_restaurant_title">Restaurant</string>
+    <string name="checkout_edit_button">Edit</string>
+    <string name="checkout_table_title">Table</string>
+    <string name="checkout_payment_method_title">Payment method</string>
+    <string name="checkout_swipe_to_pay">Swipe to pay</string>
+    <string name="checkout_bonus_title">Bonus</string>
+    <string name="checkout_bonus_text_first">You have</string>
+    <string name="checkout_bonus_text_last">bonus rubles</string>
+    <string name="checkout_promo_code_title">Promo code</string>
+    <string name="checkout_promo_code_apply">Apply</string>
+    <string name="checkout_subtotal">Subtotal</string>
+    <string name="checkout_discount">Discount</string>
+    <string name="checkout_discount_promo_code">Promo code</string>
+    <string name="checkout_total">Total</string>
+    <string name="checkout_choose_card">Choose card</string>
+    <string name="checkout_promo_code_success">Successfully!</string>
+    <string name="checkout_promo_code_failure">Incorrect promo code!</string>
+
+    <!--New card-->
+    <string name="new_card_top_app_bar_title">New card</string>
+    <string name="new_card_add_new_card">Add new card</string>
+
 </resources>

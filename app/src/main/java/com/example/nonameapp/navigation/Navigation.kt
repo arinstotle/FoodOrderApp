@@ -13,9 +13,11 @@ import com.example.nonameapp.data.SharedPreferenceHelper
 import com.example.nonameapp.ui.reservation.ReservationComposable
 import com.example.nonameapp.ui.mainscreen.MainScreen
 import com.example.nonameapp.ui.cart.CartScreen
+import com.example.nonameapp.ui.checkout.CheckoutScreen
 import com.example.nonameapp.ui.dishesmenu.DishesMenuScreen
 import com.example.nonameapp.ui.map.MapController
 import com.example.nonameapp.ui.map.MapScreen
+import com.example.nonameapp.ui.newcard.NewCardScreen
 import com.example.nonameapp.ui.onboarding.OnboardingScreen
 import com.example.nonameapp.ui.profile.ProfileScreen
 import com.example.nonameapp.ui.settings.SettingsScreen
@@ -34,36 +36,54 @@ fun Navigation(navController: NavHostController,
                sharedPreferenceHelper: SharedPreferenceHelper,
                mainViewModel: MainViewModel
                ) {
-    NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.SplashScreen.route) {
+        composable(route = Screen.SplashScreen.route) {
+            NavigationRouter.currentScreen.value = Screen.SplashScreen
+            SplashScreen(navController = navController, sharedPreferenceHelper)
+        }
         composable(route = Screen.OnboardingScreen.route) {
+            NavigationRouter.currentScreen.value = Screen.OnboardingScreen
             OnboardingScreen(navController = navController)
         }
         composable(route = Screen.MainScreen.route) {
+            NavigationRouter.currentScreen.value = Screen.MainScreen
             MainScreen(navController = navController, mainViewModel)
         }
         composable(route = Screen.AuthorizationScreen.route) {
+            NavigationRouter.currentScreen.value = Screen.AuthorizationScreen
             AuthorizationScreen(navController = navController)
         }
         composable(route = Screen.ProfileScreen.route) {
+            NavigationRouter.currentScreen.value = Screen.ProfileScreen
             ProfileScreen(navController = navController)
         }
         composable(route = Screen.SettingsScreen.route) {
+            NavigationRouter.currentScreen.value = Screen.SettingsScreen
             SettingsScreen(navController = navController)
         }
         composable(route = Screen.DishesMenuScreen.route) {
+            NavigationRouter.currentScreen.value = Screen.DishesMenuScreen
             DishesMenuScreen(navController = navController)
         }
         composable(route = Screen.CartScreen.route) {
+            NavigationRouter.currentScreen.value = Screen.CartScreen
             CartScreen(navController = navController, mViewModel = DebugObject.cartViewModel)
         }
-        composable(route = Screen.SplashScreen.route) {
-            SplashScreen(navController = navController, sharedPreferenceHelper)
-        }
         composable(route = Screen.MapScreen.route) {
+            NavigationRouter.currentScreen.value = Screen.MapScreen
             MapScreen(navController = navController, mapController = MapController(context))
         }
         composable(route = Screen.ReservationScreen.route) {
+            NavigationRouter.currentScreen.value = Screen.ReservationScreen
             ReservationComposable(context = context)
+        }
+        composable(route = Screen.CheckoutScreen.route) {
+            NavigationRouter.currentScreen.value = Screen.CheckoutScreen
+            CheckoutScreen(navController = navController)
+        }
+        composable(route = Screen.NewCardScreen.route) {
+            NavigationRouter.currentScreen.value = Screen.NewCardScreen
+            NewCardScreen(navController = navController)
         }
     }
 }
