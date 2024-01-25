@@ -57,7 +57,7 @@ fun CheckoutScreen(
     Scaffold(
         topBar = {
             CustomTopAppBarComposable(
-                titleText = stringResource(id = R.string.checkout_top_app_bar_title),
+                titleText = stringResource(id = R.string.checkout_top_bar_title),
                 scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(),
                 isHaveNavIcon = true,
                 onNavIconClick = {

@@ -1,8 +1,6 @@
 package com.example.nonameapp.navigation
 
 import android.content.Context
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.OnBackPressedDispatcher
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -15,6 +13,7 @@ import com.example.nonameapp.ui.mainscreen.MainScreen
 import com.example.nonameapp.ui.cart.CartScreen
 import com.example.nonameapp.ui.checkout.CheckoutScreen
 import com.example.nonameapp.ui.dishesmenu.DishesMenuScreen
+import com.example.nonameapp.ui.filters.FiltersComposable
 import com.example.nonameapp.ui.map.MapController
 import com.example.nonameapp.ui.map.MapScreen
 import com.example.nonameapp.ui.newcard.NewCardScreen
@@ -27,16 +26,17 @@ import com.example.nonameapp.util.DebugObject
 import com.example.nonameapp.viewModels.MainViewModel
 
 object NavigationRouter {
-    var currentScreen: MutableState<Screen> = mutableStateOf(Screen.SplashScreen)
+    var currentScreen: MutableState<Screen> = mutableStateOf(Screen.MainScreen)
 }
 
 @Composable
-fun Navigation(navController: NavHostController,
-               context: Context,
-               sharedPreferenceHelper: SharedPreferenceHelper,
-               mainViewModel: MainViewModel
-               ) {
-    NavHost(navController = navController, startDestination = Screen.SplashScreen.route) {
+fun Navigation(
+    navController: NavHostController,
+    context: Context,
+    sharedPreferenceHelper: SharedPreferenceHelper,
+    mainViewModel: MainViewModel
+) {
+    NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
         composable(route = Screen.SplashScreen.route) {
             NavigationRouter.currentScreen.value = Screen.SplashScreen
             SplashScreen(navController = navController, sharedPreferenceHelper)
@@ -84,6 +84,10 @@ fun Navigation(navController: NavHostController,
         composable(route = Screen.NewCardScreen.route) {
             NavigationRouter.currentScreen.value = Screen.NewCardScreen
             NewCardScreen(navController = navController)
+        }
+        composable(route = Screen.FiltersScreen.route) {
+            NavigationRouter.currentScreen.value = Screen.FiltersScreen
+            FiltersComposable(navController = navController)
         }
     }
 }

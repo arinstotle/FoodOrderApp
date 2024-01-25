@@ -17,8 +17,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
@@ -33,7 +31,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -47,7 +44,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.example.nonameapp.R
 import com.example.nonameapp.navigation.NavigationRouter
 import com.example.nonameapp.navigation.Screen
@@ -67,7 +63,7 @@ fun CartScreen(
     Scaffold(
         topBar = {
             CustomTopAppBarComposable(
-                titleText = stringResource(id = R.string.cart_top_app_bar_title),
+                titleText = stringResource(id = R.string.cart_top_bar_title),
                 scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(),
                 isHaveNavIcon = true,
                 onNavIconClick = {

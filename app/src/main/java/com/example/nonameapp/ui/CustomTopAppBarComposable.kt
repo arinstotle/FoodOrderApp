@@ -1,6 +1,7 @@
 package com.example.nonameapp.ui
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
@@ -24,7 +25,8 @@ fun CustomTopAppBarComposable(
     titleText: String,
     scrollBehavior: TopAppBarScrollBehavior,
     isHaveNavIcon: Boolean = false,
-    onNavIconClick: () -> Unit = { }
+    onNavIconClick: () -> Unit = { },
+    actions: @Composable() (RowScope.() -> Unit) = {}
 ) {
     CenterAlignedTopAppBar(
         title = {
@@ -48,6 +50,7 @@ fun CustomTopAppBarComposable(
                 }
             }
         },
+        actions = actions,
         modifier = Modifier
             .border(
                 width = 1.dp,

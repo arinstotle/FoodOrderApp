@@ -72,6 +72,7 @@ import com.example.nonameapp.navigation.NavigationRouter
 import com.example.nonameapp.navigation.Screen
 import com.example.nonameapp.ui.CustomTopAppBarComposable
 import com.example.nonameapp.ui.mainscreen.tinyComposableElements.ChipSection
+import com.example.nonameapp.ui.theme.OrangeD8
 import com.example.nonameapp.ui.theme.RedD8
 import com.example.nonameapp.viewModels.CartViewModel
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -92,7 +93,7 @@ fun DishesMenuScreen(
     Scaffold(
         topBar = {
             CustomTopAppBarComposable(
-                titleText = stringResource(id = R.string.dishes_menu_top_app_bar_title),
+                titleText = stringResource(id = R.string.dishes_menu_top_bar_title),
                 scrollBehavior = scrollBehavior,
                 isHaveNavIcon = false
             )
@@ -184,12 +185,9 @@ fun DishesMenuScreen(
                 // Filter Button
                 ElevatedCard(
                     onClick = {
-
+                        navController.navigate(Screen.FiltersScreen.route)
                     },
                     shape = RoundedCornerShape(15.dp),
-                    colors = CardDefaults.elevatedCardColors(
-                        containerColor = MaterialTheme.colorScheme.primary
-                    ),
                     modifier = Modifier
                         .size(54.dp)
                 ) {
@@ -197,6 +195,10 @@ fun DishesMenuScreen(
                         contentAlignment = Alignment.Center,
                         modifier = Modifier
                             .fillMaxSize()
+                            .background(
+                                brush = Brush.horizontalGradient(listOf(OrangeD8, RedD8)),
+                                shape = RoundedCornerShape(15.dp)
+                            )
                     ) {
                         Icon(
                             painter = painterResource(id = R.drawable.filter),

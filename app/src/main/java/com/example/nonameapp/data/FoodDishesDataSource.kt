@@ -1,5 +1,6 @@
 package com.example.nonameapp.data
 
+import com.example.nonameapp.Chip
 import com.example.nonameapp.FoodCategories
 import com.example.nonameapp.R
 import com.example.nonameapp.ui.cart.CartDishUIModel
@@ -428,5 +429,33 @@ object FoodDishesDataSource {
             price = "300",
             quantity = 1,
         )
+    )
+
+    val listOfCookingTime = listOf(
+        Chip("Under 15 mins"),
+        Chip("Under 30 mins"),
+        Chip("Under 45 mins"),
+        Chip("Under 60 mins")
+    )
+
+    val listOfDiet = listOf(
+        Chip("Vegetarian"),
+        Chip("Sugarless")
+    )
+
+    val listOfKitchen = listOf(
+        Chip("Asian"),
+        Chip("American"),
+        Chip("Arabic"),
+        Chip("BBQ"),
+        Chip("British"),
+        Chip("European")
+    )
+
+    val listOfSort = listOf(
+        Chip("Price asc"),
+        Chip("Price desc"),
+        Chip("Rating"),
+        Chip("todo")
     )
 }

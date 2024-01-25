@@ -82,7 +82,7 @@ class MainActivity : ComponentActivity() {
                                 Screen.OnboardingScreen, Screen.SettingsScreen,
                                 Screen.AuthorizationScreen, Screen.SplashScreen,
                                 Screen.CartScreen, Screen.CheckoutScreen,
-                                Screen.NewCardScreen -> null
+                                Screen.NewCardScreen, Screen.FiltersScreen -> null
                                 else -> {
                                     CustomBottomNavigation(currentScreenRoute = NavigationRouter.currentScreen.value.route) { screen ->
                                         if (screen.route != NavigationRouter.currentScreen.value.route) {

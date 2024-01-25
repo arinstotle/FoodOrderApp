@@ -38,17 +38,17 @@
     <string name="to_register">Register</string>
 
     <!--DishesMenu-->
-    <string name="dishes_menu_top_app_bar_title">Dishes</string>
+    <string name="dishes_menu_top_bar_title">Dishes</string>
     <string name="dishes_menu_cart">Cart</string>
 
     <!--Cart-->
-    <string name="cart_top_app_bar_title">Cart</string>
+    <string name="cart_top_bar_title">Cart</string>
     <string name="cart_total">Total</string>
     <string name="cart_checkout">Checkout</string>
     <string name="cart_grams">grams</string>
 
     <!--Checkout-->
-    <string name="checkout_top_app_bar_title">Checkout</string>
+    <string name="checkout_top_bar_title">Checkout</string>
     <string name="checkout_cart_title">Cart</string>
     <string name="checkout_restaurant_title">Restaurant</string>
     <string name="checkout_edit_button">Edit</string>
@@ -69,7 +69,15 @@
     <string name="checkout_promo_code_failure">Incorrect promo code!</string>
 
     <!--New card-->
-    <string name="new_card_top_app_bar_title">New card</string>
+    <string name="new_card_top_bar_title">New card</string>
     <string name="new_card_add_new_card">Add new card</string>
+
+    <!--Filters-->
+    <string name="filters_top_bar_title">Filters</string>
+    <string name="filters_category_title">Category</string>
+    <string name="filters_cooking_time_title">Cooking time</string>
+    <string name="filters_diet_title">Diet</string>
+    <string name="filters_kitchen_title">Kitchen</string>
+    <string name="filters_sort_by_title">Sort by</string>
 
 </resources>
