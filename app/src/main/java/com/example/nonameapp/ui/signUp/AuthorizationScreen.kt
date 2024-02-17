@@ -14,11 +14,13 @@ import com.example.nonameapp.ui.signUp.signUpNavigation.SignUpRouter
 import com.example.nonameapp.ui.signUp.signUpNavigation.SignUpScreen
 import com.example.nonameapp.ui.theme.Black1_28
 import com.example.nonameapp.viewModels.AuthorizationViewModel
+import com.example.nonameapp.viewModels.ViewModelFactory
 
 @Composable
-fun AuthorizationScreen(navController: NavController,
-//authorizationViewModel: AuthorizationViewModel
-                        ) {
+fun AuthorizationScreen(
+    navController: NavController,
+    authorizationViewModel: AuthorizationViewModel
+) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Black1_28
@@ -27,7 +29,7 @@ fun AuthorizationScreen(navController: NavController,
             when(currentState.value) {
                 is SignUpScreen.RegistrationScreen -> {
                     RegistrationComposable(
-                        viewModel()
+                        mViewModel = authorizationViewModel
                     ) {
                         NavigationRouter.currentScreen.value = Screen.MainScreen
                         navController.navigate(Screen.MainScreen.route)
@@ -38,7 +40,7 @@ fun AuthorizationScreen(navController: NavController,
                 }
                 is SignUpScreen.LoginScreen -> {
                     LoginComposable(
-                        viewModel()
+                        mViewModel = authorizationViewModel
                     ){
                         NavigationRouter.currentScreen.value = Screen.MainScreen
                         navController.navigate(Screen.MainScreen.route)

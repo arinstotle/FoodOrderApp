@@ -311,55 +311,55 @@ object FoodDishesDataSource {
         )
     )
     val listOfChips = listOf(
-        com.example.nonameapp.Chip(
+        Chip(
             "Snacks",
             R.drawable.chip_snacks
         ),
-        com.example.nonameapp.Chip(
+        Chip(
             "Salads",
             R.drawable.chip_salad
         ),
-        com.example.nonameapp.Chip(
+        Chip(
             "Soups",
             R.drawable.chip_soup
         ),
-        com.example.nonameapp.Chip(
+        Chip(
             "Roman pizza",
             R.drawable.chip_pizza
         ),
-        com.example.nonameapp.Chip(
+        Chip(
             "Josper",
             R.drawable.chip_pizza
         ),
-        com.example.nonameapp.Chip(
+        Chip(
             "Other",
             R.drawable.chip_pizza
         ),
-        com.example.nonameapp.Chip(
+        Chip(
             "Prime",
             R.drawable.chip_pizza
         ),
-        com.example.nonameapp.Chip(
+        Chip(
             "Burgers",
             R.drawable.chip_burger
         ),
-        com.example.nonameapp.Chip(
+        Chip(
             "Side dishes",
             R.drawable.chip_sd
         ),
-        com.example.nonameapp.Chip(
+        Chip(
             "Sauces",
             R.drawable.chip_sauce
         ),
-        com.example.nonameapp.Chip(
+        Chip(
             "Desserts",
             R.drawable.chip_dessert
         ),
-        com.example.nonameapp.Chip(
+        Chip(
             "Drinks",
             R.drawable.chip_drink
         ),
-        com.example.nonameapp.Chip(
+        Chip(
             "Alcohol",
             R.drawable.chip_alco
         )

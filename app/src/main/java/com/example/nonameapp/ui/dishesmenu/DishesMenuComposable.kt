@@ -66,15 +66,24 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.nonameapp.data.FoodDishesDataSource
 import com.example.nonameapp.navigation.NavigationRouter
 import com.example.nonameapp.navigation.Screen
 import com.example.nonameapp.ui.CustomTopAppBarComposable
+import com.example.nonameapp.ui.dishesmenu.components.TinyFoodDishCard
+import com.example.nonameapp.ui.mainscreen.shimmerEffect
 import com.example.nonameapp.ui.mainscreen.tinyComposableElements.ChipSection
+import com.example.nonameapp.ui.mainscreen.tinyComposableElements.ShimmerListItem
+import com.example.nonameapp.ui.theme.AppTheme
 import com.example.nonameapp.ui.theme.OrangeD8
 import com.example.nonameapp.ui.theme.RedD8
 import com.example.nonameapp.viewModels.CartViewModel
+import com.example.nonameapp.viewModels.DishesMenuViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
@@ -84,11 +93,19 @@ import kotlinx.coroutines.launch
 )
 @Composable
 fun DishesMenuScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: DishesMenuViewModel
 ) {
     val scope = rememberCoroutineScope()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    val listOfFoodDishes = FoodDishesDataSource.listOfFoodDishes
+    val listOfFoodDishes by viewModel.listOfDishes.collectAsState(initial = null)
+
+    var isLoading by remember { mutableStateOf(true) }
+    LaunchedEffect(key1 = true) {
+        delay(5000)
+        isLoading = false
+    }
+
 
     Scaffold(
         topBar = {
@@ -247,43 +264,91 @@ fun DishesMenuScreen(
                     .fillMaxSize()
             ) { page ->
                 // Our page content
-
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(start = 25.dp, end = 25.dp)
                 ) {
-                    var index = 0
-                    while (index < listOfFoodDishes.size) {
-                        Row(
-                            modifier = Modifier
-                                .padding(top = 25.dp)
-                                .fillMaxWidth()
-                        ) {
-                            TinyFoodDishCard(
-                                foodDish = FoodDishesDataSource.listOfFoodDishes[(page + index++) % 5],
-                                modifier = Modifier
-                                    .weight(0.4f),
-                                onClick = { }
-                            )
-                            Spacer(modifier = Modifier.weight(0.05f))
-                            TinyFoodDishCard(
-                                foodDish = FoodDishesDataSource.listOfFoodDishes[(page + index++) % 5],
-                                modifier = Modifier
-                                    .weight(0.4f),
-                                onClick = { }
-                            )
-                        }
-                    }
+                    TinyFoodItems(
+                        listOfFoodDishes = listOfFoodDishes,
+                        isLoading = isLoading
+                    )
                 }
-
             }
-
-
         }
-
     }
 }
+
+
+
+@Composable
+fun TinyFoodItems(
+    listOfFoodDishes: List<DishUIModel>?,
+    isLoading: Boolean
+){
+    var index = 0
+    while (index < (listOfFoodDishes?.size ?: 6)) {
+        Row(
+            modifier = Modifier
+                .padding(top = 25.dp)
+                .fillMaxWidth()
+        ) {
+            if(listOfFoodDishes == null){
+                Box(modifier = Modifier
+                    .fillMaxSize()
+                    .weight(0.4f)
+                    .height(184.dp)
+                    .background(Color.Gray, shape = RoundedCornerShape(30.dp))
+                    .shimmerEffect()
+                )
+
+                index++
+                if(index < 6) {
+                    Spacer(modifier = Modifier.weight(0.05f))
+                    Box(modifier = Modifier
+                        .fillMaxSize()
+                        .weight(0.4f)
+                        .height(184.dp)
+                        .background(Color.Gray, shape = RoundedCornerShape(30.dp))
+                        .shimmerEffect()
+                    )
+                }
+                index++
+            }
+            else{
+                TinyFoodDishCard(
+                    foodDish = listOfFoodDishes[index++],
+                    modifier = Modifier
+                        .weight(0.4f),
+                    onClick = { }
+                )
+                if(index < listOfFoodDishes.size) {
+                    Spacer(modifier = Modifier.weight(0.05f))
+                    TinyFoodDishCard(
+                        foodDish = listOfFoodDishes[index++],
+                        modifier = Modifier
+                            .weight(0.4f),
+                        onClick = { }
+                    )
+                }
+            }
+        }
+    }
+}
+
+//@Preview(widthDp = 400, heightDp = 200)
+//@Composable
+//fun TinyFoodItemsPreviewLoading() {
+//    AppTheme {
+//        TinyFoodItems(FoodDishesDataSource.listOfFoodDishes, true)
+//    }
+//}
+//
+//@Preview(widthDp = 400, heightDp = 200)
+//@Composable
+//fun TinyFoodItemsPreviewLoaded() {
+//    TinyFoodItems(FoodDishesDataSource.listOfFoodDishes, false)
+//}
 
 //@Preview
 //@Composable
@@ -291,123 +356,31 @@ fun DishesMenuScreen(
 //    CarteScreen(navController = null)
 //}
 
-
-@Preview(widthDp = 400, heightDp = 200)
-@Composable
-fun TinyFoodRow() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-    ) {
-        TinyFoodDishCard(
-            foodDish = FoodDishesDataSource.listOfFoodDishes[0],
-            modifier = Modifier
-                .weight(0.5f)
-                .padding(start = 15.dp, end = 15.dp, top = 10.dp),
-            onClick = { }
-        )
-        TinyFoodDishCard(
-            foodDish = FoodDishesDataSource.listOfFoodDishes[1],
-            modifier = Modifier
-                .weight(0.5f)
-                .padding(start = 15.dp, end = 15.dp, top = 10.dp),
-            onClick = { }
-        )
-    }
-}
-
-@Composable
-fun TinyFoodDishCard(
-    foodDish: FoodDishUIModel,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit
-) {
-    Card(
-        shape = RoundedCornerShape(30.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        ),
-        modifier = modifier
-            .shadow(
-                elevation = 4.dp,
-                shape = RoundedCornerShape(30.dp)
-            )
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(bottom = 12.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Image(
-                painter = painterResource(id = foodDish.image),
-                contentDescription = foodDish.description,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(160.dp)
-                    .shadow(
-                        elevation = 4.dp,
-                        shape = RoundedCornerShape(30.dp)
-                    )
-                    .clip(RoundedCornerShape(30.dp))
-            )
-            Text(
-                text = foodDish.title,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.ExtraBold,
-                color = MaterialTheme.colorScheme.primary,
-                fontFamily = ReemKufi,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier
-                    .padding(top = 14.dp)
-            )
-            Text(
-                text = foodDish.description,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onPrimary,
-                fontFamily = ReemKufi,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier
-                    .padding(top = 0.dp)
-            )
-            Row(
-                modifier = Modifier
-                    .padding(top = 10.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.Bottom
-            ) {
-                Text(
-                    text = "${foodDish.weight} g.",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    maxLines = 1,
-                    fontFamily = ReemKufi,
-                    overflow = TextOverflow.Ellipsis,
-                    fontWeight = FontWeight.Normal,
-                    modifier = Modifier
-                        .padding(start = 15.dp)
-                )
-                Text(
-                    text = "${foodDish.price} ₽",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.primary,
-                    maxLines = 1,
-                    fontFamily = ReemKufi,
-                    overflow = TextOverflow.Ellipsis,
-                    fontWeight = FontWeight.ExtraBold,
-                    modifier = Modifier
-                        .padding(end = 15.dp)
-                )
-            }
-
-        }
+//@Preview(widthDp = 400, heightDp = 200)
+//@Composable
+//fun TinyFoodRowPreview() {
+//    Row(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//    ) {
+//        TinyFoodDishCard(
+//            foodDish = FoodDishesDataSource.listOfFoodDishes[0],
+//            modifier = Modifier
+//                .weight(0.5f)
+//                .padding(start = 15.dp, end = 15.dp, top = 10.dp),
+//            onClick = { }
+//        )
+//        TinyFoodDishCard(
+//            foodDish = FoodDishesDataSource.listOfFoodDishes[1],
+//            modifier = Modifier
+//                .weight(0.5f)
+//                .padding(start = 15.dp, end = 15.dp, top = 10.dp),
+//            onClick = { }
+//        )
+//    }
+//}
 
 
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

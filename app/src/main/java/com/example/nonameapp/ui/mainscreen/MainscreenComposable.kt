@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.*
 import androidx.navigation.NavController
 import com.example.nonameapp.R
 import com.example.nonameapp.data.FoodDishesDataSource
+import com.example.nonameapp.ui.dishesmenu.DishUIModel
 import com.example.nonameapp.ui.mainscreen.tinyComposableElements.FeatureSection
 import com.example.nonameapp.ui.mainscreen.tinyComposableElements.GreetingSection
 import com.example.nonameapp.ui.mainscreen.tinyComposableElements.TicketComposable
@@ -35,6 +36,7 @@ import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.delay
 import java.lang.Math.abs
+import java.util.UUID
 import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
@@ -150,8 +152,21 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel) {
             SecondBonusesBlock()
             FeatureSection(
                 isLoading = isLoading,
-                dishes = FoodDishesDataSource.listOfFoodDishes
+                dishes = listOf(DishUIModel(
+                    id = UUID.randomUUID(),
+                    category = "Soup",
+                    name = "Borsh",
+                    imageSource = "null",
+                    price = 500,
+                    grams = 343,
+                    timeToCook = 45,
+                    rating = 4.2f,
+                    orderedTimes = 10,
+                    description = "pampam",
+                    ingredients = listOf()
                 )
+                )
+            )
         }
     }
     }

@@ -99,7 +99,8 @@ class MainActivity : ComponentActivity() {
                                 Navigation(navController,
                                     applicationContext,
                                     sharedPreferenceHelper,
-                                    mainViewModel)
+                                    mainViewModel,
+                                    viewModelFactory)
                             }
                         }
                     }

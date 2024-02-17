@@ -1,6 +1,10 @@
 package com.example.nonameapp
 
+import java.util.UUID
+
 data class Restaurant (
-    val restaurantId: String,
-    val address: String
+    val id: UUID,
+    val city: String,
+    val street: String,
+    val house: String
 )

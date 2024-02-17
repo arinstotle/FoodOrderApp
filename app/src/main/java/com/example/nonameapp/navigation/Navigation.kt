@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -23,10 +24,14 @@ import com.example.nonameapp.ui.settings.SettingsScreen
 import com.example.nonameapp.ui.signUp.AuthorizationScreen
 import com.example.nonameapp.ui.splashscreen.SplashScreen
 import com.example.nonameapp.util.DebugObject
+import com.example.nonameapp.viewModels.AuthorizationViewModel
+import com.example.nonameapp.viewModels.DishesMenuViewModel
 import com.example.nonameapp.viewModels.MainViewModel
+import com.example.nonameapp.viewModels.ReservationViewModel
+import com.example.nonameapp.viewModels.ViewModelFactory
 
 object NavigationRouter {
-    var currentScreen: MutableState<Screen> = mutableStateOf(Screen.MainScreen)
+    var currentScreen: MutableState<Screen> = mutableStateOf(Screen.DishesMenuScreen)
 }
 
 @Composable
@@ -34,9 +39,10 @@ fun Navigation(
     navController: NavHostController,
     context: Context,
     sharedPreferenceHelper: SharedPreferenceHelper,
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel,
+    viewModelFactory: ViewModelFactory
 ) {
-    NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.DishesMenuScreen.route) {
         composable(route = Screen.SplashScreen.route) {
             NavigationRouter.currentScreen.value = Screen.SplashScreen
             SplashScreen(navController = navController, sharedPreferenceHelper)
@@ -51,7 +57,14 @@ fun Navigation(
         }
         composable(route = Screen.AuthorizationScreen.route) {
             NavigationRouter.currentScreen.value = Screen.AuthorizationScreen
-            AuthorizationScreen(navController = navController)
+
+            val authorizationViewModel: AuthorizationViewModel =
+                ViewModelProvider(it, viewModelFactory)[AuthorizationViewModel::class.java]
+
+            AuthorizationScreen(
+                navController = navController,
+                authorizationViewModel = authorizationViewModel
+            )
         }
         composable(route = Screen.ProfileScreen.route) {
             NavigationRouter.currentScreen.value = Screen.ProfileScreen
@@ -63,7 +76,15 @@ fun Navigation(
         }
         composable(route = Screen.DishesMenuScreen.route) {
             NavigationRouter.currentScreen.value = Screen.DishesMenuScreen
-            DishesMenuScreen(navController = navController)
+
+            val dishesMenuViewModel: DishesMenuViewModel =
+                ViewModelProvider(it, viewModelFactory)[DishesMenuViewModel::class.java]
+
+
+            DishesMenuScreen(
+                navController = navController,
+                viewModel = dishesMenuViewModel
+            )
         }
         composable(route = Screen.CartScreen.route) {
             NavigationRouter.currentScreen.value = Screen.CartScreen
@@ -75,7 +96,11 @@ fun Navigation(
         }
         composable(route = Screen.ReservationScreen.route) {
             NavigationRouter.currentScreen.value = Screen.ReservationScreen
-            ReservationComposable(context = context)
+
+            val reservationViewModel: ReservationViewModel =
+                ViewModelProvider(it, viewModelFactory)[ReservationViewModel::class.java]
+
+            ReservationComposable(navController = navController, viewModel = reservationViewModel)
         }
         composable(route = Screen.CheckoutScreen.route) {
             NavigationRouter.currentScreen.value = Screen.CheckoutScreen

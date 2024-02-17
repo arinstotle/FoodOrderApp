@@ -80,13 +80,15 @@ dependencies {
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     dokkaPlugin("org.jetbrains.dokka:android-documentation-plugin:1.9.10")
     implementation("com.github.skydoves:cloudy:0.1.2")
-    implementation ("com.yandex.android:maps.mobile:4.4.0-lite")
     implementation("androidx.compose.ui:ui-viewbinding")
 
     // OkHTTP3
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.11.0"))
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
+
+    // Ya.Maps
+    implementation ("com.yandex.android:maps.mobile:4.4.0-lite")
 
     // Ktor Client
     implementation("io.ktor:ktor-client-android:2.3.5")
@@ -104,7 +106,9 @@ dependencies {
     kapt("com.google.dagger:dagger-compiler:2.50")
     kotlin("kapt")
 
+    // Coil
     implementation("io.coil-kt:coil-compose:2.5.0")
 
+    // LeakCanary
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
 }

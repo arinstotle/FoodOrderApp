@@ -38,8 +38,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.nonameapp.Feature
 import com.example.nonameapp.R
+import com.example.nonameapp.ui.dishesmenu.DishUIModel
 import com.example.nonameapp.ui.dishesmenu.FoodDishUIModel
-import com.example.nonameapp.ui.dishesmenu.TinyFoodDishCard
+import com.example.nonameapp.ui.dishesmenu.components.TinyFoodDishCard
 import com.example.nonameapp.ui.mainscreen.shimmerEffect
 import com.example.nonameapp.ui.theme.ReemKufi
 import com.example.nonameapp.ui.theme.Teal
@@ -150,7 +151,7 @@ fun FeatureItem(
 
 @ExperimentalFoundationApi
 @Composable
-fun FeatureSection(dishes: List<FoodDishUIModel>, isLoading : Boolean) {
+fun FeatureSection(dishes: List<DishUIModel>, isLoading : Boolean) {
     Box() {
         Image(modifier = Modifier.size(400.dp).align(Alignment.Center),
             painter = painterResource(id = R.drawable.bull),

@@ -17,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,7 +47,6 @@ import com.example.nonameapp.ui.signUp.tinyComposableElements.ToRegisterTextComp
 import com.example.nonameapp.ui.theme.Black1_28
 import com.example.nonameapp.ui.theme.OrangeD8
 import com.example.nonameapp.viewModels.AuthorizationViewModel
-import kotlinx.coroutines.launch
 
 @Composable
 fun LoginComposable(
@@ -54,12 +54,13 @@ fun LoginComposable(
     afterLoginAction : () -> Unit
 ) {
     val scope = rememberCoroutineScope()
+    val responseCodeUiState by mViewModel.responseCode.collectAsState()
 
     Surface(
         modifier = Modifier
             .fillMaxSize()
             .background(
-               Black1_28
+                Black1_28
             )
             .padding(0.dp)
             .verticalScroll(ScrollState(0))
@@ -67,9 +68,12 @@ fun LoginComposable(
         BackHandler {
             SignUpRouter.navigateTo(SignUpScreen.RegistrationScreen)
         }
-        Box(modifier = Modifier.fillMaxSize().background(Black1_28)) {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .background(Black1_28)) {
             Box(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
                     .background(Color.Transparent)
                     .align(Alignment.Center)
                     .size(700.dp)
@@ -123,10 +127,10 @@ fun LoginComposable(
                         passwordString = it
                     }
                 )
-                if(showError){
+                if(responseCodeUiState != -1){
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = errorMessage,
+                        text = "Error! $responseCodeUiState",
                         modifier = Modifier
                             .padding(start = 16.dp, end = 16.dp),
                         color = MaterialTheme.colorScheme.error
@@ -136,23 +140,28 @@ fun LoginComposable(
                 ButtonComponent(text = stringResource(id = R.string.login_button)) {
                     showError = false
 
-                    scope.launch {
-                        val responseCode = mViewModel.loginIntoAccount(emailString, passwordString)
+//                    scope.launch {
+//                        val responseCode = mViewModel.loginIntoAccount(emailString, passwordString)
+//
+//                        when (responseCode) {
+//                            -1 -> {
+//
+//                            }
+//                            200 -> {
+//                                afterLoginAction()
+//                            }
+//                            400 -> {
+//                                showError = true
+//                                errorMessage = "Invalid password!"
+//                            }
+//                            else -> {
+//                                showError = true
+//                                errorMessage = "Error! ($responseCode)"
+//                            }
+//                        }
+//                    }
 
-                        when (responseCode) {
-                            200 -> {
-                                afterLoginAction()
-                            }
-                            400 -> {
-                                showError = true
-                                errorMessage = "Invalid password!"
-                            }
-                            else -> {
-                                showError = true
-                                errorMessage = "Error! ($responseCode)"
-                            }
-                        }
-                    }
+                    mViewModel.loginIntoAccount(email = emailString, password = passwordString)
                 }
                 DividerComponent()
                 SocialNetworksComponent(
