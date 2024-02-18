@@ -90,7 +90,7 @@ fun TinyFoodDishCard(
                     .padding(top = 14.dp)
             )
             Text(
-                text = /*foodDish.description*/ "todo()",
+                text = foodDish.description,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onPrimary,
                 fontFamily = ReemKufi,

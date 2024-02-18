@@ -52,6 +52,10 @@ class MainActivity : ComponentActivity() {
         outState.putBoolean("haveApiKey", true)
     }
 
+    override fun onStart() {
+        super.onStart()
+        MapKitFactory.getInstance().onStart()
+    }
     override fun onStop() {
         MapKitFactory.getInstance().onStop()
         super.onStop()

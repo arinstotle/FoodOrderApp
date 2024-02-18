@@ -27,6 +27,7 @@ import com.example.nonameapp.util.DebugObject
 import com.example.nonameapp.viewModels.AuthorizationViewModel
 import com.example.nonameapp.viewModels.DishesMenuViewModel
 import com.example.nonameapp.viewModels.MainViewModel
+import com.example.nonameapp.viewModels.MapViewModel
 import com.example.nonameapp.viewModels.ReservationViewModel
 import com.example.nonameapp.viewModels.ViewModelFactory
 
@@ -92,7 +93,15 @@ fun Navigation(
         }
         composable(route = Screen.MapScreen.route) {
             NavigationRouter.currentScreen.value = Screen.MapScreen
-            MapScreen(navController = navController, mapController = MapController(context))
+
+            val mapViewModel: MapViewModel =
+                ViewModelProvider(it, viewModelFactory)[MapViewModel::class.java]
+
+            MapScreen(
+                navController = navController,
+                mapController = MapController(context),
+                viewModel = mapViewModel
+            )
         }
         composable(route = Screen.ReservationScreen.route) {
             NavigationRouter.currentScreen.value = Screen.ReservationScreen

@@ -1,9 +1,11 @@
 package com.example.nonameapp.data
 
-import com.example.nonameapp.Restaurant
+import com.example.nonameapp.RestaurantUIModel
 import com.example.nonameapp.ui.dishesmenu.DishUIModel
 
 class CacheSession {
-    var currRestaurant: Restaurant? = null
-    var currDishesList: List<DishUIModel>? = null
+    var cachedRestaurants: List<RestaurantUIModel>? = null
+    var currRestaurant: RestaurantUIModel? = null
+
+    var cachedDishesList: List<DishUIModel>? = null
 }

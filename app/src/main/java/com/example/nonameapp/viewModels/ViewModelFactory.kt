@@ -3,15 +3,21 @@ package com.example.nonameapp.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.nonameapp.domain.GetAllDishesUseCase
+import com.example.nonameapp.domain.GetAllRestaurantsUseCase
 import com.example.nonameapp.domain.GetAllTablesUseCase
+import com.example.nonameapp.domain.GetCurrentRestaurantUseCase
 import com.example.nonameapp.domain.LoginByEmailUseCase
 import com.example.nonameapp.domain.ReserveTableUseCase
+import com.example.nonameapp.domain.SetCurrentRestaurantUseCase
 
 class ViewModelFactory(
     private val loginByEmail: LoginByEmailUseCase,
     private val getAllDishes: GetAllDishesUseCase,
     private val reserveTable: ReserveTableUseCase,
     private val getAllTables: GetAllTablesUseCase,
+    private val getAllRestaurants: GetAllRestaurantsUseCase,
+    private val getCurrentRestaurant: GetCurrentRestaurantUseCase,
+    private val setCurrentRestaurant: SetCurrentRestaurantUseCase
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
@@ -44,6 +50,13 @@ class ViewModelFactory(
                 ReservationViewModel(
                     getAllTables = getAllTables,
                     reserveTable = reserveTable
+                ) as T
+            }
+            modelClass.isAssignableFrom(MapViewModel::class.java) -> {
+                MapViewModel(
+                    getAllRestaurants = getAllRestaurants,
+                    getCurrentRestaurant = getCurrentRestaurant,
+                    setCurrentRestaurant = setCurrentRestaurant
                 ) as T
             }
 

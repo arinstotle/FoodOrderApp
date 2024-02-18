@@ -41,7 +41,7 @@ import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
 @Composable
-fun MainScreen(navController: NavController, mainViewModel: MainViewModel) {
+fun MainScreen(navController: NavController, viewModel: MainViewModel) {
     var isLoading by remember {
         mutableStateOf(true)
     }

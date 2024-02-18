@@ -55,8 +55,6 @@ import com.example.nonameapp.R
 import com.example.nonameapp.ui.dishesmenu.RatingBarUtils.stepSized
 import com.example.nonameapp.ui.theme.ReemKufi
 import com.example.nonameapp.ui.theme.Shapes
-import com.example.nonameapp.util.AppBarCollapsedHeight
-import com.example.nonameapp.util.AppBarExpendedHeight
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.roundToInt
@@ -70,6 +68,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.nonameapp.data.Constants
+import com.example.nonameapp.data.Constants.AppBarExpendedHeight
 import com.example.nonameapp.data.FoodDishesDataSource
 import com.example.nonameapp.navigation.NavigationRouter
 import com.example.nonameapp.navigation.Screen
@@ -712,7 +712,7 @@ fun InfoColumn(
 
 @Composable
 fun ParallaxToolbar(foodDish: FoodDishUIModel, scrollState: LazyListState) {
-    val imageHeight = AppBarExpendedHeight - AppBarCollapsedHeight
+    val imageHeight = Constants.AppBarExpendedHeight - Constants.AppBarCollapsedHeight
     val maxOffset = with(LocalDensity.current) { imageHeight.roundToPx() } - 700
     val offset = kotlin.math.min(scrollState.firstVisibleItemScrollOffset, maxOffset)
     val offsetProgress = kotlin.math.max(0f, offset * 3f - 2f + maxOffset) / maxOffset
@@ -720,7 +720,7 @@ fun ParallaxToolbar(foodDish: FoodDishUIModel, scrollState: LazyListState) {
         contentPadding = PaddingValues(0.dp),
         backgroundColor = Color.White,
         modifier = Modifier
-            .height(AppBarExpendedHeight)
+            .height(Constants.AppBarExpendedHeight)
             .padding(0.dp),
         elevation = if (offset == maxOffset) 4.dp else 0.dp,
     ) {
@@ -766,7 +766,7 @@ fun ParallaxToolbar(foodDish: FoodDishUIModel, scrollState: LazyListState) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(AppBarCollapsedHeight),
+                    .height(Constants.AppBarCollapsedHeight),
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
@@ -793,7 +793,7 @@ fun ParallaxToolbar(foodDish: FoodDishUIModel, scrollState: LazyListState) {
         modifier = Modifier
             .fillMaxWidth()
             .statusBarsPadding()
-            .height(AppBarCollapsedHeight)
+            .height(Constants.AppBarCollapsedHeight)
             .padding(horizontal = 16.dp)
     ) {
         CircularButton(R.drawable.search_icon)

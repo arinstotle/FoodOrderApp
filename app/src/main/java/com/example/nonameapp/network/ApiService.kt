@@ -1,6 +1,7 @@
 package com.example.nonameapp.network
 
 import android.util.Log
+import com.example.nonameapp.RestaurantUIModel
 import com.example.nonameapp.network.serializable.LoginRequestSerialization
 import com.example.nonameapp.network.serializable.TablesRequestChangeIsFreeSerialization
 import com.example.nonameapp.ui.dishesmenu.DishUIModel
@@ -32,6 +33,9 @@ interface ApiService {
     // Tables
     suspend fun updateTableIsFreeById(tableData: TablesRequestChangeIsFreeSerialization): Boolean
     suspend fun getAllTablesByRestaurantId(restaurantId: UUID): List<TableUIModel>?
+
+    // Restaurant
+    suspend fun getAllRestaurants(): List<RestaurantUIModel>?
 
     companion object {
         fun create(): ApiServiceImpl {

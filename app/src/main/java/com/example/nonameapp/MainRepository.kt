@@ -1,5 +1,6 @@
 package com.example.nonameapp
 
+import android.util.Log
 import com.example.nonameapp.data.CacheSession
 import com.example.nonameapp.data.SharedPreferenceHelper
 import com.example.nonameapp.network.ApiService
@@ -7,6 +8,9 @@ import com.example.nonameapp.network.serializable.LoginRequestSerialization
 import com.example.nonameapp.network.serializable.TablesRequestChangeIsFreeSerialization
 import com.example.nonameapp.ui.dishesmenu.DishUIModel
 import com.example.nonameapp.ui.reservation.components.TableUIModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.UUID
 import javax.inject.Inject
 
@@ -14,9 +18,15 @@ class MainRepository @Inject constructor(
     private val preferenceHelper: SharedPreferenceHelper,
     private val cacheSession: CacheSession
 ) {
-
+    private val mCoroutineScope = CoroutineScope(Dispatchers.IO)
     private val apiService by lazy {
         ApiService.create()
+    }
+
+    init {
+        mCoroutineScope.launch {
+            getAllRestaurants()
+        }
     }
 
     // Register/login
@@ -26,11 +36,11 @@ class MainRepository @Inject constructor(
 
     // GetDishes
     suspend fun getAllDishes(): List<DishUIModel>? {
-        return if(cacheSession.currDishesList != null){
-            cacheSession.currDishesList
+        return if(cacheSession.cachedDishesList != null){
+            cacheSession.cachedDishesList
         } else{
             val listOfDishes = apiService.getAllDishes()
-            cacheSession.currDishesList = listOfDishes
+            cacheSession.cachedDishesList = listOfDishes
             listOfDishes
         }
     }
@@ -42,5 +52,22 @@ class MainRepository @Inject constructor(
 
     suspend fun updateTableIsFree(tableData: TablesRequestChangeIsFreeSerialization): Boolean {
         return apiService.updateTableIsFreeById(tableData)
+    }
+
+    // Restaurants
+    suspend fun getAllRestaurants(): List<RestaurantUIModel>? {
+        return if(cacheSession.cachedRestaurants != null){
+            cacheSession.cachedRestaurants
+        } else{
+            val listOfRestaurants = apiService.getAllRestaurants()
+            cacheSession.cachedRestaurants = listOfRestaurants
+            listOfRestaurants
+        }
+    }
+    fun getCurrentRestaurant(): RestaurantUIModel? {
+        return cacheSession.currRestaurant
+    }
+    fun setCurrentRestaurant(restaurant: RestaurantUIModel) {
+        cacheSession.currRestaurant = restaurant
     }
 }

@@ -2,23 +2,21 @@ package com.example.nonameapp.network
 
 import TablesResponseSerialization
 import android.util.Log
+import com.example.nonameapp.RestaurantUIModel
 import com.example.nonameapp.network.serializable.DishResponseSerialization
 import com.example.nonameapp.network.serializable.LoginRequestSerialization
+import com.example.nonameapp.network.serializable.RestaurantsResponseSerialization
 import com.example.nonameapp.network.serializable.TablesRequestChangeIsFreeSerialization
 import com.example.nonameapp.ui.dishesmenu.DishUIModel
 import com.example.nonameapp.ui.reservation.components.TableUIModel
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
-import io.ktor.client.plugins.ClientRequestException
-import io.ktor.client.plugins.RedirectResponseException
-import io.ktor.client.plugins.ServerResponseException
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.request.url
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.HttpStatusCode
-import io.ktor.http.isSuccess
 import java.util.UUID
 
 class ApiServiceImpl(private val client: HttpClient): ApiService {
@@ -80,6 +78,18 @@ class ApiServiceImpl(private val client: HttpClient): ApiService {
             }.body()
 
             tables.map { it.convertToTableUIModel() }
+        } catch (ex: Exception) {
+            null
+        }
+    }
+
+    override suspend fun getAllRestaurants(): List<RestaurantUIModel>? {
+        return try {
+            val restaurants: List<RestaurantsResponseSerialization> = client.get {
+                url(ApiRoutes.BASE_URL + ApiRoutes.RESTAURANTS)
+            }.body()
+
+            restaurants.map { it.convertToRestaurantUIModel() }
         } catch (ex: Exception) {
             null
         }
