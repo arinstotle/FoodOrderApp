@@ -1,4 +1,4 @@
-package com.example.nonameapp.network
+package com.example.nonameapp.network.api
 
 import TablesResponseSerialization
 import android.util.Log
@@ -7,7 +7,7 @@ import com.example.nonameapp.network.serializable.DishResponseSerialization
 import com.example.nonameapp.network.serializable.LoginRequestSerialization
 import com.example.nonameapp.network.serializable.RestaurantsResponseSerialization
 import com.example.nonameapp.network.serializable.TablesRequestChangeIsFreeSerialization
-import com.example.nonameapp.ui.dishesmenu.DishUIModel
+import com.example.nonameapp.data.model.DishUIModel
 import com.example.nonameapp.ui.reservation.components.TableUIModel
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -40,9 +40,6 @@ class ApiServiceImpl(private val client: HttpClient): ApiService {
                 url(ApiRoutes.BASE_URL + ApiRoutes.GET_ALL_DISHES)
             }.body<List<DishResponseSerialization>>()
                 .map { it.convertToDishUIModel() }
-
-    //            dishes.forEach { Log.i("DISHES", "${it.id} ${it.name}") }
-
             dishes
         } catch (ex: Exception) {
             null
@@ -50,11 +47,14 @@ class ApiServiceImpl(private val client: HttpClient): ApiService {
     }
 
     override suspend fun getAllDishesByCategory(category: String): List<DishUIModel>? {
-        try {
-            TODO()
-
+        return try {
+            val dishes: List<DishUIModel> = client.get {
+                url(ApiRoutes.BASE_URL + ApiRoutes.GET_ALL_DISHES + category)
+            }.body<List<DishResponseSerialization>>()
+                .map { it.convertToDishUIModel() }
+            dishes
         } catch (ex: Exception) {
-            return null
+            null
         }
     }
 

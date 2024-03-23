@@ -1,4 +1,4 @@
-package com.example.nonameapp.data
+package com.example.nonameapp.data.model
 
 data class PaymentCardUIModel(
     val number: String,     // using card's number as id

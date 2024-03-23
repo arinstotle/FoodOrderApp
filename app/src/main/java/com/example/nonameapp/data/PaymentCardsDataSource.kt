@@ -1,5 +1,7 @@
 package com.example.nonameapp.data
 
+import com.example.nonameapp.data.model.PaymentCardUIModel
+
 object PaymentCardsDataSource {
     val listPaymentCards = listOf(
         PaymentCardUIModel(

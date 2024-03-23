@@ -2,6 +2,7 @@ package com.example.nonameapp.di.modules
 
 import com.example.nonameapp.MainRepository
 import com.example.nonameapp.di.scopes.ActivityScope
+import com.example.nonameapp.domain.GetAllDishesByCategoryUseCase
 import com.example.nonameapp.domain.GetAllDishesUseCase
 import com.example.nonameapp.domain.GetAllRestaurantsUseCase
 import com.example.nonameapp.domain.GetAllTablesUseCase
@@ -24,6 +25,11 @@ class DomainModule {
     @ActivityScope
     fun provideGetAllDishesUseCase(repository: MainRepository): GetAllDishesUseCase =
         GetAllDishesUseCase(repository)
+
+    @Provides
+    @ActivityScope
+    fun provideGetAllDishesByCategoryUseCase(repository: MainRepository): GetAllDishesByCategoryUseCase =
+        GetAllDishesByCategoryUseCase(repository)
 
     @Provides
     @ActivityScope

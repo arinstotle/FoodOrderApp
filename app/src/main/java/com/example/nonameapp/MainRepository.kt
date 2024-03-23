@@ -3,10 +3,10 @@ package com.example.nonameapp
 import android.util.Log
 import com.example.nonameapp.data.CacheSession
 import com.example.nonameapp.data.SharedPreferenceHelper
-import com.example.nonameapp.network.ApiService
+import com.example.nonameapp.network.api.ApiService
 import com.example.nonameapp.network.serializable.LoginRequestSerialization
 import com.example.nonameapp.network.serializable.TablesRequestChangeIsFreeSerialization
-import com.example.nonameapp.ui.dishesmenu.DishUIModel
+import com.example.nonameapp.data.model.DishUIModel
 import com.example.nonameapp.ui.reservation.components.TableUIModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -34,15 +34,35 @@ class MainRepository @Inject constructor(
         return apiService.login(LoginRequestSerialization(email, password))
     }
 
-    // GetDishes
+    // Dishes
     suspend fun getAllDishes(): List<DishUIModel>? {
-        return if(cacheSession.cachedDishesList != null){
+        return if (cacheSession.cachedDishesList != null) {
             cacheSession.cachedDishesList
-        } else{
+        } else {
             val listOfDishes = apiService.getAllDishes()
             cacheSession.cachedDishesList = listOfDishes
             listOfDishes
         }
+    }
+
+    fun getAllDishesByCategory(category: String): List<DishUIModel>? {
+//        return if (cacheSession.cachedDishesList != null) {
+////            Log.i("MainRepository", "NOT FILTERED")
+////            cacheSession.cachedDishesList?.forEach { Log.i("MainRepository", it.name) }
+//
+//            val filteredList = cacheSession.cachedDishesList?.filter { it.category == category }
+//
+////            Log.i("MainRepository", "FILTERED")
+////            filteredList?.forEach { Log.i("MainRepository", it.name) }
+//
+//            filteredList
+//        } else {
+//            val listOfDishes = apiService.getAllDishes()
+//            cacheSession.cachedDishesList = listOfDishes
+//            listOfDishes?.filter { it.category == category }
+//        }
+
+        return cacheSession.cachedDishesList?.filter { it.category == category }
     }
 
     // Tables
@@ -56,17 +76,19 @@ class MainRepository @Inject constructor(
 
     // Restaurants
     suspend fun getAllRestaurants(): List<RestaurantUIModel>? {
-        return if(cacheSession.cachedRestaurants != null){
+        return if (cacheSession.cachedRestaurants != null) {
             cacheSession.cachedRestaurants
-        } else{
+        } else {
             val listOfRestaurants = apiService.getAllRestaurants()
             cacheSession.cachedRestaurants = listOfRestaurants
             listOfRestaurants
         }
     }
+
     fun getCurrentRestaurant(): RestaurantUIModel? {
         return cacheSession.currRestaurant
     }
+
     fun setCurrentRestaurant(restaurant: RestaurantUIModel) {
         cacheSession.currRestaurant = restaurant
     }

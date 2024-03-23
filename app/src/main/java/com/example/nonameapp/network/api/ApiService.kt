@@ -1,10 +1,10 @@
-package com.example.nonameapp.network
+package com.example.nonameapp.network.api
 
 import android.util.Log
 import com.example.nonameapp.RestaurantUIModel
 import com.example.nonameapp.network.serializable.LoginRequestSerialization
 import com.example.nonameapp.network.serializable.TablesRequestChangeIsFreeSerialization
-import com.example.nonameapp.ui.dishesmenu.DishUIModel
+import com.example.nonameapp.data.model.DishUIModel
 import com.example.nonameapp.ui.reservation.components.TableUIModel
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android

@@ -1,25 +1,30 @@
 package com.example.nonameapp.ui.dishesmenu
 
-import androidx.compose.runtime.saveable.*
-import androidx.compose.runtime.*
-import androidx.compose.foundation.layout.*
+import android.util.Log
 import android.view.MotionEvent
 import androidx.annotation.DrawableRes
 import androidx.annotation.FloatRange
 import androidx.compose.foundation.*
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.*
-import androidx.compose.material3.*
 import androidx.compose.material.ExtendedFloatingActionButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.*
 import androidx.compose.ui.*
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
@@ -29,6 +34,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.input.pointer.consumeAllChanges
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.pointerInteropFilter
@@ -38,12 +44,11 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.SemanticsPropertyKey
 import androidx.compose.ui.semantics.SemanticsPropertyReceiver
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
@@ -52,40 +57,29 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavController
 import com.example.nonameapp.R
-import com.example.nonameapp.ui.dishesmenu.RatingBarUtils.stepSized
-import com.example.nonameapp.ui.theme.ReemKufi
-import com.example.nonameapp.ui.theme.Shapes
-import kotlin.math.PI
-import kotlin.math.cos
-import kotlin.math.roundToInt
-import kotlin.math.sin
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.example.nonameapp.data.Constants
-import com.example.nonameapp.data.Constants.AppBarExpendedHeight
 import com.example.nonameapp.data.FoodDishesDataSource
+import com.example.nonameapp.data.model.DishUIModel
 import com.example.nonameapp.navigation.NavigationRouter
 import com.example.nonameapp.navigation.Screen
 import com.example.nonameapp.ui.CustomTopAppBarComposable
+import com.example.nonameapp.ui.dishesmenu.RatingBarUtils.stepSized
 import com.example.nonameapp.ui.dishesmenu.components.TinyFoodDishCard
 import com.example.nonameapp.ui.mainscreen.shimmerEffect
 import com.example.nonameapp.ui.mainscreen.tinyComposableElements.ChipSection
-import com.example.nonameapp.ui.mainscreen.tinyComposableElements.ShimmerListItem
-import com.example.nonameapp.ui.theme.AppTheme
 import com.example.nonameapp.ui.theme.OrangeD8
 import com.example.nonameapp.ui.theme.RedD8
+import com.example.nonameapp.ui.theme.ReemKufi
+import com.example.nonameapp.ui.theme.Shapes
 import com.example.nonameapp.viewModels.CartViewModel
 import com.example.nonameapp.viewModels.DishesMenuViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
+import kotlin.math.PI
+import kotlin.math.cos
+import kotlin.math.roundToInt
+import kotlin.math.sin
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -98,7 +92,11 @@ fun DishesMenuScreen(
 ) {
     val scope = rememberCoroutineScope()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    val listOfFoodDishes by viewModel.listOfDishes.collectAsState(initial = null)
+
+    var currentCategory by remember { mutableStateOf<String?>(null) }
+
+    val listOfDishes by viewModel.listOfDishes.collectAsState(initial = null)
+    val listOfDishesByCategory by viewModel.listOfDishesByCategory.collectAsState()
 
     var isLoading by remember { mutableStateOf(true) }
     LaunchedEffect(key1 = true) {
@@ -106,6 +104,7 @@ fun DishesMenuScreen(
         isLoading = false
     }
 
+    val globalScrollState = rememberScrollState()
 
     Scaffold(
         topBar = {
@@ -148,8 +147,7 @@ fun DishesMenuScreen(
         },
         modifier = Modifier
             .nestedScroll(scrollBehavior.nestedScrollConnection),
-    ) {
-        val globalScrollState = rememberScrollState()
+    ) { it ->
         Column(
             modifier = Modifier
                 .padding(it)
@@ -237,15 +235,17 @@ fun DishesMenuScreen(
                 state = chipSelectionState,
                 selectedChipIndex = pagerState.currentPage,
                 onChipClick = { newSelectedChipIndex ->
+                    currentCategory =
+                        FoodDishesDataSource.listOfChips[newSelectedChipIndex].chipName
                     scope.launch {
                         pagerState.scrollToPage(newSelectedChipIndex)
                     }
                 }
             )
 
-            LaunchedEffect(pagerState.targetPage) {
+            LaunchedEffect(pagerState) {
                 // Collect from the a snapshotFlow reading the currentPage
-                snapshotFlow { pagerState.targetPage }.distinctUntilChanged().collect { page ->
+                snapshotFlow { pagerState.targetPage }.collect { page ->
                     // Do something with each page change, for example:
                     // viewModel.sendPageSelectedEvent(page)
 
@@ -254,23 +254,29 @@ fun DishesMenuScreen(
 
                     if (page > 0)
                         chipSelectionState.animateScrollToItem(page - 1)
+
+//                    Log.i("DishesMenuComposable", "page changed to $page!")
+//                    Log.i("DishesMenuComposable", "category = ${FoodDishesDataSource.listOfChips[page].chipName}")
+//                    currentCategory = FoodDishesDataSource.listOfChips[page].chipName
+//                    viewModel.performGetAllDishesByCategory(FoodDishesDataSource.listOfChips[page].chipName)
                 }
             }
 
             HorizontalPager(
                 state = pagerState,
                 modifier = Modifier
-                    .padding(top = 21.dp, bottom = 21.dp)
-                    .fillMaxSize()
+                    .padding(top = 21.dp, bottom = 21.dp),
+                userScrollEnabled = false
             ) { page ->
                 // Our page content
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(start = 25.dp, end = 25.dp)
+                        .padding(start = 25.dp, end = 25.dp, bottom = 75.dp)
                 ) {
                     TinyFoodItems(
-                        listOfFoodDishes = listOfFoodDishes,
+//                        listOfFoodDishes = if(listOfDishes != null) viewModel.performGetAllDishesByCategory(page) else listOf(),
+                        listOfFoodDishes = listOfDishes?.filter { it.category == FoodDishesDataSource.listOfChips[page].chipName },
                         isLoading = isLoading
                     )
                 }
@@ -280,12 +286,11 @@ fun DishesMenuScreen(
 }
 
 
-
 @Composable
 fun TinyFoodItems(
     listOfFoodDishes: List<DishUIModel>?,
     isLoading: Boolean
-){
+) {
     var index = 0
     while (index < (listOfFoodDishes?.size ?: 6)) {
         Row(
@@ -293,42 +298,41 @@ fun TinyFoodItems(
                 .padding(top = 25.dp)
                 .fillMaxWidth()
         ) {
-            if(listOfFoodDishes == null){
-                Box(modifier = Modifier
-                    .fillMaxSize()
-                    .weight(0.4f)
-                    .height(184.dp)
-                    .background(Color.Gray, shape = RoundedCornerShape(30.dp))
-                    .shimmerEffect()
-                )
-
-                index++
-                if(index < 6) {
-                    Spacer(modifier = Modifier.weight(0.05f))
-                    Box(modifier = Modifier
+            if (listOfFoodDishes == null) {
+                Box(
+                    modifier = Modifier
                         .fillMaxSize()
                         .weight(0.4f)
                         .height(184.dp)
                         .background(Color.Gray, shape = RoundedCornerShape(30.dp))
                         .shimmerEffect()
+                )
+
+                index++
+                if (index < 6) {
+                    Spacer(modifier = Modifier.weight(0.05f))
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .weight(0.4f)
+                            .height(184.dp)
+                            .background(Color.Gray, shape = RoundedCornerShape(30.dp))
+                            .shimmerEffect()
                     )
                 }
                 index++
-            }
-            else{
+            } else {
                 TinyFoodDishCard(
                     foodDish = listOfFoodDishes[index++],
                     modifier = Modifier
                         .weight(0.4f),
-                    onClick = { }
                 )
-                if(index < listOfFoodDishes.size) {
+                if (index < listOfFoodDishes.size) {
                     Spacer(modifier = Modifier.weight(0.05f))
                     TinyFoodDishCard(
                         foodDish = listOfFoodDishes[index++],
                         modifier = Modifier
                             .weight(0.4f),
-                        onClick = { }
                     )
                 }
             }
@@ -336,50 +340,27 @@ fun TinyFoodItems(
     }
 }
 
-//@Preview(widthDp = 400, heightDp = 200)
 //@Composable
-//fun TinyFoodItemsPreviewLoading() {
-//    AppTheme {
-//        TinyFoodItems(FoodDishesDataSource.listOfFoodDishes, true)
+//fun TinyFoodItems(
+//    listOfFoodDishes: List<DishUIModel>?,
+//    isLoading: Boolean
+//) {
+//    if (listOfFoodDishes != null) {
+//        repeat(listOfFoodDishes.size) { index ->
+//            Row(
+//                modifier = Modifier
+//                    .padding(top = 25.dp)
+//                    .fillMaxWidth()
+//            ) {
+//                TinyFoodDishCard(
+//                    foodDish = listOfFoodDishes[index],
+//                    modifier = Modifier
+//                        .weight(0.4f)
+//                )
+//            }
+//        }
 //    }
 //}
-//
-//@Preview(widthDp = 400, heightDp = 200)
-//@Composable
-//fun TinyFoodItemsPreviewLoaded() {
-//    TinyFoodItems(FoodDishesDataSource.listOfFoodDishes, false)
-//}
-
-//@Preview
-//@Composable
-//fun CartePreview() {
-//    CarteScreen(navController = null)
-//}
-
-//@Preview(widthDp = 400, heightDp = 200)
-//@Composable
-//fun TinyFoodRowPreview() {
-//    Row(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//    ) {
-//        TinyFoodDishCard(
-//            foodDish = FoodDishesDataSource.listOfFoodDishes[0],
-//            modifier = Modifier
-//                .weight(0.5f)
-//                .padding(start = 15.dp, end = 15.dp, top = 10.dp),
-//            onClick = { }
-//        )
-//        TinyFoodDishCard(
-//            foodDish = FoodDishesDataSource.listOfFoodDishes[1],
-//            modifier = Modifier
-//                .weight(0.5f)
-//                .padding(start = 15.dp, end = 15.dp, top = 10.dp),
-//            onClick = { }
-//        )
-//    }
-//}
-
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -412,14 +393,6 @@ fun DishCardInfoComposable(
     }
 }
 
-//@Preview
-//@Composable
-//fun DishCardInfoComposablePreview() {
-//    DishCardInfoComposable(
-//        mViewModel = CartViewModel(),
-//        foodDish = FoodDishesDataSource.listOfFoodDishes[0]
-//    )
-//}
 
 @Composable
 fun DishContent(

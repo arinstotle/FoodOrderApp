@@ -2,6 +2,7 @@ package com.example.nonameapp.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.nonameapp.domain.GetAllDishesByCategoryUseCase
 import com.example.nonameapp.domain.GetAllDishesUseCase
 import com.example.nonameapp.domain.GetAllRestaurantsUseCase
 import com.example.nonameapp.domain.GetAllTablesUseCase
@@ -13,6 +14,7 @@ import com.example.nonameapp.domain.SetCurrentRestaurantUseCase
 class ViewModelFactory(
     private val loginByEmail: LoginByEmailUseCase,
     private val getAllDishes: GetAllDishesUseCase,
+    private val getAllDishesByCategory: GetAllDishesByCategoryUseCase,
     private val reserveTable: ReserveTableUseCase,
     private val getAllTables: GetAllTablesUseCase,
     private val getAllRestaurants: GetAllRestaurantsUseCase,
@@ -43,7 +45,8 @@ class ViewModelFactory(
             }
             modelClass.isAssignableFrom(DishesMenuViewModel::class.java) -> {
                 DishesMenuViewModel(
-                    getAllDishes = getAllDishes
+                    getAllDishes = getAllDishes,
+                    getAllDishesByCategory = getAllDishesByCategory
                 ) as T
             }
             modelClass.isAssignableFrom(ReservationViewModel::class.java) -> {

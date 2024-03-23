@@ -3,7 +3,7 @@ package com.example.nonameapp.data
 import com.example.nonameapp.Chip
 import com.example.nonameapp.FoodCategories
 import com.example.nonameapp.R
-import com.example.nonameapp.ui.cart.CartDishUIModel
+import com.example.nonameapp.data.model.CartDishUIModel
 import com.example.nonameapp.ui.dishesmenu.FoodDishUIModel
 import com.example.nonameapp.ui.dishesmenu.Ingredient
 

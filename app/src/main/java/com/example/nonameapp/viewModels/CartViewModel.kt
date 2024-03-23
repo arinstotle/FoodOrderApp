@@ -1,7 +1,7 @@
 package com.example.nonameapp.viewModels
 
 import androidx.lifecycle.ViewModel
-import com.example.nonameapp.ui.cart.CartDishUIModel
+import com.example.nonameapp.data.model.CartDishUIModel
 import com.example.nonameapp.data.FoodDishesDataSource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -15,7 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.nonameapp.R
-import com.example.nonameapp.ui.cart.CartDishUIModel
+import com.example.nonameapp.data.model.CartDishUIModel
 import com.example.nonameapp.ui.theme.ReemKufi
 
 @Composable

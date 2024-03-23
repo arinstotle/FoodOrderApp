@@ -2,7 +2,7 @@ package com.example.nonameapp.ui.dishesmenu
 
 import androidx.annotation.DrawableRes
 import com.example.nonameapp.FoodCategories
-import com.example.nonameapp.ui.cart.CartDishUIModel
+import com.example.nonameapp.data.model.CartDishUIModel
 
 data class FoodDishUIModel(
     val id : String,

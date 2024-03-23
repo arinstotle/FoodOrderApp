@@ -1,5 +1,7 @@
 package com.example.nonameapp.ui.dishesmenu.components
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,20 +20,21 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.nonameapp.network.ApiRoutes
-import com.example.nonameapp.ui.dishesmenu.DishUIModel
+import com.example.nonameapp.R
+import com.example.nonameapp.network.api.ApiRoutes
+import com.example.nonameapp.data.model.DishUIModel
 import com.example.nonameapp.ui.theme.ReemKufi
 
 @Composable
 fun TinyFoodDishCard(
     foodDish: DishUIModel,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    modifier: Modifier = Modifier
 ) {
     Card(
         shape = RoundedCornerShape(30.dp),
@@ -43,25 +46,15 @@ fun TinyFoodDishCard(
                 elevation = 4.dp,
                 shape = RoundedCornerShape(30.dp)
             )
+            .clickable {
+
+            }
     ) {
         Column(
             modifier = Modifier
                 .padding(bottom = 12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-//            Image(
-//                painter = painterResource(id = foodDish.image),
-//                contentDescription = foodDish.description,
-//                contentScale = ContentScale.Crop,
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .height(160.dp)
-//                    .shadow(
-//                        elevation = 4.dp,
-//                        shape = RoundedCornerShape(30.dp)
-//                    )
-//                    .clip(RoundedCornerShape(30.dp))
-//            )
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(ApiRoutes.BASE_URL + ApiRoutes.FILES_DIRECTORY + foodDish.imageSource)

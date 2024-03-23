@@ -6,7 +6,6 @@ plugins {
 }
 
 val ext = project.extensions
-
 ext.extraProperties["mapkitApiKey"] = getMapkitApiKey()
 
 fun getMapkitApiKey(): String {

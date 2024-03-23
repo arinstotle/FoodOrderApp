@@ -1,6 +1,7 @@
 package com.example.nonameapp.di.modules
 
 import com.example.nonameapp.di.scopes.ActivityScope
+import com.example.nonameapp.domain.GetAllDishesByCategoryUseCase
 import com.example.nonameapp.domain.GetAllDishesUseCase
 import com.example.nonameapp.domain.GetAllRestaurantsUseCase
 import com.example.nonameapp.domain.GetAllTablesUseCase
@@ -19,6 +20,7 @@ class ViewModelModule {
     fun provideTaskViewModelFactory(
         loginByEmail: LoginByEmailUseCase,
         getAllDishes: GetAllDishesUseCase,
+        getAllDishesByCategory: GetAllDishesByCategoryUseCase,
         reserveTable: ReserveTableUseCase,
         getAllTables: GetAllTablesUseCase,
         getAllRestaurants: GetAllRestaurantsUseCase,
@@ -27,6 +29,7 @@ class ViewModelModule {
     ): ViewModelFactory = ViewModelFactory(
         loginByEmail = loginByEmail,
         getAllDishes = getAllDishes,
+        getAllDishesByCategory = getAllDishesByCategory,
         reserveTable = reserveTable,
         getAllTables = getAllTables,
         getAllRestaurants = getAllRestaurants,

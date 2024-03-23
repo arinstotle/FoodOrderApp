@@ -1,4 +1,4 @@
-package com.example.nonameapp.ui.dishesmenu
+package com.example.nonameapp.data.model
 
 import com.example.nonameapp.FoodCategories
 import com.example.nonameapp.network.UUIDSerializer

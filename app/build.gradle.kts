@@ -65,6 +65,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material")
+    implementation("androidx.test:monitor:1.6.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -110,5 +111,12 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.5.0")
 
     // LeakCanary
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
+//    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
+
+    // Mockito framework
+    testImplementation("org.mockito:mockito-core:5.3.0")
+    // mockito-kotlin
+    testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
+
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
 }

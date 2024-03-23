@@ -1,7 +1,7 @@
 package com.example.nonameapp.network.serializable
 
 import com.example.nonameapp.network.UUIDSerializer
-import com.example.nonameapp.ui.dishesmenu.DishUIModel
+import com.example.nonameapp.data.model.DishUIModel
 import kotlinx.serialization.Serializable
 import java.util.UUID
 

@@ -11,11 +11,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,16 +27,13 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.nonameapp.Feature
 import com.example.nonameapp.R
-import com.example.nonameapp.ui.dishesmenu.DishUIModel
-import com.example.nonameapp.ui.dishesmenu.FoodDishUIModel
+import com.example.nonameapp.data.model.DishUIModel
 import com.example.nonameapp.ui.dishesmenu.components.TinyFoodDishCard
 import com.example.nonameapp.ui.mainscreen.shimmerEffect
 import com.example.nonameapp.ui.theme.ReemKufi
@@ -178,8 +172,7 @@ fun FeatureSection(dishes: List<DishUIModel>, isLoading : Boolean) {
                         TinyFoodDishCard(foodDish = dishes[it],
                             modifier = Modifier
                                 .weight(0.5f)
-                                .padding(start = 15.dp, end = 15.dp, top = 10.dp),
-                            onClick = { })
+                                .padding(start = 15.dp, end = 15.dp, top = 10.dp))
                     })
                 }
             }

@@ -31,7 +31,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.nonameapp.R
-import com.example.nonameapp.data.PaymentCardUIModel
+import com.example.nonameapp.data.model.PaymentCardUIModel
 import com.example.nonameapp.ui.theme.ReemKufi
 
 @Composable
