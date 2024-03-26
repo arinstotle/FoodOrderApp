@@ -29,6 +29,8 @@ sealed class Screen(val route : String, val icon : Int, val title : String) {
         title = "New card", icon = R.drawable.google_icon)
     data object FiltersScreen : Screen("filters_screen",
         title = "Filters", icon = R.drawable.google_icon)
+    data object DishCardInfoScreen : Screen("dish_card_info_screen",
+        title = "Dish", icon = R.drawable.google_icon)
 
     object Items{
         val list = listOf(

@@ -1,4 +1,4 @@
-package com.example.nonameapp.data
+package com.example.nonameapp.data.source
 
 import com.example.nonameapp.data.model.PaymentCardUIModel
 

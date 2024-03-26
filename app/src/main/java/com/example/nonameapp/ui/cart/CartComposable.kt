@@ -44,11 +44,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import coil.compose.SubcomposeAsyncImage
 import com.example.nonameapp.R
 import com.example.nonameapp.data.model.CartDishUIModel
 import com.example.nonameapp.navigation.NavigationRouter
 import com.example.nonameapp.navigation.Screen
 import com.example.nonameapp.ui.CustomTopAppBarComposable
+import com.example.nonameapp.ui.cart.components.TinyCartDish
 import com.example.nonameapp.ui.theme.ReemKufi
 import com.example.nonameapp.viewModels.CartViewModel
 
@@ -59,7 +61,6 @@ fun CartScreen(
     mViewModel: CartViewModel
 ) {
     val itemsInCart: List<CartDishUIModel> by mViewModel.dishesInCart.collectAsState()
-    val totalSum: Int by mViewModel.totalCartSum.collectAsState()
 
     Scaffold(
         topBar = {
@@ -88,18 +89,18 @@ fun CartScreen(
                         .fillMaxSize()
                         .padding(start = 20.dp, end = 20.dp, top = 10.dp)
                 ) {
-                    items(itemsInCart) { foodDish ->
-                        TinyCartDish(
-                            cartDish = foodDish,
-                            onPlusClick = {
-                                foodDish.quantity++
-                                mViewModel.calculateTotalCartSum()
-                            },
-                            onMinusClick = {
-                                foodDish.quantity--
-                                mViewModel.calculateTotalCartSum()
-                            }
-                        )
+                    items(itemsInCart, key = { it.id }) { cartDishUIModel ->
+                        if (cartDishUIModel.quantity > 0) {
+                            TinyCartDish(
+                                cartDish = cartDishUIModel,
+                                onPlusClick = {
+                                    mViewModel.performIncreaseDishQuantity(cartDishUIModel = cartDishUIModel)
+                                },
+                                onMinusClick = {
+                                    mViewModel.performDecreaseDishQuantity(cartDishUIModel = cartDishUIModel)
+                                }
+                            )
+                        }
                     }
                 }
             }
@@ -129,7 +130,7 @@ fun CartScreen(
                 )
 
                 Text(
-                    text = "$totalSum ₽",
+                    text = "//TODO ₽", //TODO
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.ExtraBold,
                     color = MaterialTheme.colorScheme.primary
@@ -160,152 +161,3 @@ fun CartScreen(
     }
 }
 
-@Composable
-fun TinyCartDish(
-    cartDish: CartDishUIModel,
-    onPlusClick: () -> Unit,
-    onMinusClick: () -> Unit
-) {
-    var quantity by remember { mutableIntStateOf(cartDish.quantity) }
-
-    Surface(
-        shape = RoundedCornerShape(30.dp),
-        modifier = Modifier
-            .padding(top = 20.dp)
-            .fillMaxSize(),
-        color = MaterialTheme.colorScheme.surface,
-        shadowElevation = 10.dp
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            Image(
-                painter = painterResource(id = cartDish.image),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(110.dp)
-                    .shadow(
-                        elevation = 4.dp,
-                        shape = RoundedCornerShape(30.dp)
-                    )
-                    .clip(RoundedCornerShape(30.dp))
-            )
-
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .height(110.dp)
-                    .padding(top = 10.dp, bottom = 10.dp)
-            ) {
-                // Dish's info
-                Column(
-                    verticalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .padding(start = 15.dp),
-                ) {
-                    Column() {
-                        Text(
-                            text = cartDish.title,
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.ExtraBold,
-                            color = MaterialTheme.colorScheme.primary,
-                            fontFamily = ReemKufi,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-
-                        Text(
-                            text = "${cartDish.price} ${stringResource(id = R.string.cart_grams)}",
-                            style = MaterialTheme.typography.titleSmall,
-                            color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.4f),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            fontWeight = FontWeight.Normal,
-                        )
-                    }
-
-                    Row() {
-                        Text(
-                            text = "${cartDish.price} ₽",
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.primary,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            fontWeight = FontWeight.ExtraBold,
-                        )
-
-                        Text(
-                            text = "x$quantity",
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.onPrimary,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            fontWeight = FontWeight.ExtraBold,
-                            modifier = Modifier
-                                .padding(start = 10.dp)
-                        )
-                    }
-
-                }
-
-                // Plus&Minus buttons
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .padding(top = 5.dp, bottom = 5.dp, end = 15.dp)
-                        .fillMaxHeight()
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .weight(0.4f)
-                            .width(40.dp)
-                            .background(
-                                color = MaterialTheme.colorScheme.primary,
-                                shape = RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp)
-                            )
-                            .clickable {
-                                quantity++
-                                onPlusClick()
-                            },
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.plus_icon),
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onPrimary,
-                            modifier = Modifier
-                                .size(16.dp)
-                        )
-                    }
-
-                    Box(
-                        modifier = Modifier
-                            .weight(0.4f)
-                            .width(40.dp)
-                            .background(
-                                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f),
-                                shape = RoundedCornerShape(bottomStart = 10.dp, bottomEnd = 10.dp)
-                            )
-                            .clickable {
-                                quantity--
-                                onMinusClick()
-                            },
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.minus_icon),
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onPrimary,
-                            modifier = Modifier
-                                .size(16.dp)
-                        )
-                    }
-                }
-            }
-        }
-    }
-}

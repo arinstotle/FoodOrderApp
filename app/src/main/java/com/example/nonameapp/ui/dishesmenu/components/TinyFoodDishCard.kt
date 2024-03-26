@@ -34,7 +34,8 @@ import com.example.nonameapp.ui.theme.ReemKufi
 @Composable
 fun TinyFoodDishCard(
     foodDish: DishUIModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) {
     Card(
         shape = RoundedCornerShape(30.dp),
@@ -47,7 +48,7 @@ fun TinyFoodDishCard(
                 shape = RoundedCornerShape(30.dp)
             )
             .clickable {
-
+                onClick()
             }
     ) {
         Column(

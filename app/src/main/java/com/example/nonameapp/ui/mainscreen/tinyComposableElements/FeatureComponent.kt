@@ -172,7 +172,9 @@ fun FeatureSection(dishes: List<DishUIModel>, isLoading : Boolean) {
                         TinyFoodDishCard(foodDish = dishes[it],
                             modifier = Modifier
                                 .weight(0.5f)
-                                .padding(start = 15.dp, end = 15.dp, top = 10.dp))
+                                .padding(start = 15.dp, end = 15.dp, top = 10.dp)){
+                            // TODO: navigate to DishCardInfo
+                        }
                     })
                 }
             }

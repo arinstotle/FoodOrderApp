@@ -21,7 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.nonameapp.R
-import com.example.nonameapp.data.SharedPreferenceHelper
+import com.example.nonameapp.data.source.SharedPreferenceHelper
 import com.example.nonameapp.navigation.NavigationRouter
 import com.example.nonameapp.navigation.Screen
 import com.example.nonameapp.ui.theme.Black1_28
@@ -29,7 +29,8 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(navController: NavController,
-                 sharedPreferenceHelper: SharedPreferenceHelper) {
+                 sharedPreferenceHelper: SharedPreferenceHelper
+) {
     var animated by remember { mutableStateOf(false) }
     val rotation = remember { Animatable(initialValue = 360f) }
     var visible by remember { mutableStateOf(false) }

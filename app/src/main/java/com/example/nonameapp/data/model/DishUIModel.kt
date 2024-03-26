@@ -1,6 +1,5 @@
 package com.example.nonameapp.data.model
 
-import com.example.nonameapp.FoodCategories
 import com.example.nonameapp.network.UUIDSerializer
 import kotlinx.serialization.Serializable
 import java.util.UUID
@@ -18,4 +17,13 @@ data class DishUIModel(
     val orderedTimes: Int,
     val description: String,
     val ingredients: List<String>
-)
+){
+    fun convertToDishUIModel(): CartDishUIModel = CartDishUIModel(
+        id = id,
+        name = name,
+        imageSource = imageSource,
+        grams = grams,
+        price = price,
+        quantity = 1
+    )
+}

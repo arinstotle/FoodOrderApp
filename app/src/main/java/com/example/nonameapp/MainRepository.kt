@@ -1,22 +1,25 @@
 package com.example.nonameapp
 
-import android.util.Log
-import com.example.nonameapp.data.CacheSession
-import com.example.nonameapp.data.SharedPreferenceHelper
+import com.example.nonameapp.data.model.CartDishUIModel
+import com.example.nonameapp.data.source.CacheSession
+import com.example.nonameapp.data.source.SharedPreferenceHelper
 import com.example.nonameapp.network.api.ApiService
 import com.example.nonameapp.network.serializable.LoginRequestSerialization
 import com.example.nonameapp.network.serializable.TablesRequestChangeIsFreeSerialization
 import com.example.nonameapp.data.model.DishUIModel
+import com.example.nonameapp.data.source.CartManager
 import com.example.nonameapp.ui.reservation.components.TableUIModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.util.UUID
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
     private val preferenceHelper: SharedPreferenceHelper,
-    private val cacheSession: CacheSession
+    private val cacheSession: CacheSession,
+    private val cartManager: CartManager
 ) {
     private val mCoroutineScope = CoroutineScope(Dispatchers.IO)
     private val apiService by lazy {
@@ -46,22 +49,6 @@ class MainRepository @Inject constructor(
     }
 
     fun getAllDishesByCategory(category: String): List<DishUIModel>? {
-//        return if (cacheSession.cachedDishesList != null) {
-////            Log.i("MainRepository", "NOT FILTERED")
-////            cacheSession.cachedDishesList?.forEach { Log.i("MainRepository", it.name) }
-//
-//            val filteredList = cacheSession.cachedDishesList?.filter { it.category == category }
-//
-////            Log.i("MainRepository", "FILTERED")
-////            filteredList?.forEach { Log.i("MainRepository", it.name) }
-//
-//            filteredList
-//        } else {
-//            val listOfDishes = apiService.getAllDishes()
-//            cacheSession.cachedDishesList = listOfDishes
-//            listOfDishes?.filter { it.category == category }
-//        }
-
         return cacheSession.cachedDishesList?.filter { it.category == category }
     }
 
@@ -91,5 +78,28 @@ class MainRepository @Inject constructor(
 
     fun setCurrentRestaurant(restaurant: RestaurantUIModel) {
         cacheSession.currRestaurant = restaurant
+    }
+
+    fun getCurrentDishInDishInfo(): DishUIModel? {
+        return cacheSession.currDish
+    }
+
+    fun setCurrentDishInDishInfo(dishUIModel: DishUIModel) {
+        cacheSession.currDish = dishUIModel
+    }
+
+    fun getDishesInCartStateFlow(): StateFlow<List<CartDishUIModel>> {
+        return cartManager.dishesInCart
+    }
+
+    fun addToCart(dishUIModel: DishUIModel){
+        cartManager.addToCart(dishUIModel)
+    }
+
+    fun increaseDishQuantity(cartDishUIModel: CartDishUIModel){
+        cartManager.increaseDishQuantity(cartDishUIModel = cartDishUIModel)
+    }
+    fun decreaseDishQuantity(cartDishUIModel: CartDishUIModel){
+        cartManager.decreaseDishQuantity(cartDishUIModel = cartDishUIModel)
     }
 }

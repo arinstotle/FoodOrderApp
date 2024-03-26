@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.nonameapp.R
-import com.example.nonameapp.data.FoodDishesDataSource
-import com.example.nonameapp.data.PaymentCardsDataSource
+import com.example.nonameapp.data.source.FoodDishesDataSource
+import com.example.nonameapp.data.source.PaymentCardsDataSource
 import com.example.nonameapp.navigation.Screen
 import com.example.nonameapp.ui.CustomTopAppBarComposable
 import com.example.nonameapp.ui.checkout.components.BonusComponent

@@ -1,4 +1,4 @@
-package com.example.nonameapp.data
+package com.example.nonameapp.data.source
 
 import com.example.nonameapp.Chip
 import com.example.nonameapp.FoodCategories
@@ -6,6 +6,7 @@ import com.example.nonameapp.R
 import com.example.nonameapp.data.model.CartDishUIModel
 import com.example.nonameapp.ui.dishesmenu.FoodDishUIModel
 import com.example.nonameapp.ui.dishesmenu.Ingredient
+import java.util.UUID
 
 object FoodDishesDataSource {
     val listOfFoodDishes = listOf(
@@ -366,67 +367,67 @@ object FoodDishesDataSource {
     )
     val listOfCartDishes = mutableListOf(
         CartDishUIModel(
-            id = "0",
-            title = "Green Pasta",
-            image = R.drawable.dish_green_pasta,
-            weight = "350",
-            price = "390",
+            id = UUID.randomUUID(),
+            name = "Green Pasta",
+            imageSource = "/dishes/dish_caprese.jpg",
+            grams = 350,
+            price = 390,
             quantity = 2,
         ),
         CartDishUIModel(
-            id = "1",
-            title = "Pork set",
-            image = R.drawable.dish_pork_set,
-            weight = "350",
-            price = "300",
+            id = UUID.randomUUID(),
+            name = "Pork set",
+            imageSource = "/dishes/dish_caprese.jpg",
+            grams = 350,
+            price = 300,
             quantity = 1,
         ),
         CartDishUIModel(
-            id = "2",
-            title = "Meat salad",
-            image = R.drawable.dish_meat_salad,
-            weight = "160",
-            price = "250",
+            id = UUID.randomUUID(),
+            name = "Meat salad",
+            imageSource = "/dishes/dish_caprese.jpg",
+            grams = 160,
+            price = 250,
             quantity = 4,
         ),
         CartDishUIModel(
-            id = "3",
-            title = "Italian pasta",
-            image = R.drawable.dish_italian_pasta,
-            weight = "350",
-            price = "300",
+            id = UUID.randomUUID(),
+            name = "Italian pasta",
+            imageSource = "/dishes/dish_caprese.jpg",
+            grams = 350,
+            price = 300,
             quantity = 1,
         ),
         CartDishUIModel(
-            id = "4",
-            title = "Green Pasta",
-            image = R.drawable.dish_green_pasta,
-            weight = "350",
-            price = "390",
+            id = UUID.randomUUID(),
+            name = "Green Pasta",
+            imageSource = "/dishes/dish_caprese.jpg",
+            grams = 350,
+            price = 390,
             quantity = 2,
         ),
         CartDishUIModel(
-            id = "5",
-            title = "Pork set",
-            image = R.drawable.dish_pork_set,
-            weight = "350",
-            price = "300",
+            id = UUID.randomUUID(),
+            name = "Pork set",
+            imageSource = "/dishes/dish_caprese.jpg",
+            grams = 350,
+            price = 300,
             quantity = 1,
         ),
         CartDishUIModel(
-            id = "6",
-            title = "Meat salad",
-            image = R.drawable.dish_meat_salad,
-            weight = "160",
-            price = "250",
+            id = UUID.randomUUID(),
+            name = "Meat salad",
+            imageSource = "/dishes/dish_caprese.jpg",
+            grams = 160,
+            price = 250,
             quantity = 4,
         ),
         CartDishUIModel(
-            id = "7",
-            title = "Italian pasta",
-            image = R.drawable.dish_italian_pasta,
-            weight = "350",
-            price = "300",
+            id = UUID.randomUUID(),
+            name = "Italian pasta",
+            imageSource = "/dishes/dish_caprese.jpg",
+            grams = 350,
+            price = 300,
             quantity = 1,
         )
     )

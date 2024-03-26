@@ -24,16 +24,16 @@ data class FoodDishUIModel(
     val allergens : List<String>,
     val ingredients : List<Ingredient>
 ) {
-    fun convertToCartUIModel(): CartDishUIModel {
-        return CartDishUIModel(
-            id = id,
-            title = title,
-            image = image,
-            weight = weight,
-            price = price,
-            quantity = 0
-        )
-    }
+//    fun convertToCartUIModel(): CartDishUIModel {
+//        return CartDishUIModel(
+//            id = id,
+//            name = title,
+//            imageSource = image,
+//            grams = weight,
+//            price = price,
+//            quantity = 0
+//        )
+//    }
 }
 
 data class Ingredient(

@@ -1,8 +1,8 @@
 //package com.example.nonameapp
 //
 //import android.content.Context
-//import com.example.nonameapp.data.CacheSession
-//import com.example.nonameapp.data.SharedPreferenceHelper
+//import com.example.nonameapp.data.source.CacheSession
+//import com.example.nonameapp.data.source.SharedPreferenceHelper
 //import com.example.nonameapp.domain.GetAllDishesByCategoryUseCase
 //import kotlinx.coroutines.test.runTest
 //import org.junit.Assert

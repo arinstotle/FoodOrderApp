@@ -8,13 +8,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.nonameapp.data.SharedPreferenceHelper
+import com.example.nonameapp.data.source.SharedPreferenceHelper
 import com.example.nonameapp.ui.reservation.ReservationComposable
 import com.example.nonameapp.ui.mainscreen.MainScreen
 import com.example.nonameapp.ui.cart.CartScreen
 import com.example.nonameapp.ui.checkout.CheckoutScreen
+import com.example.nonameapp.ui.dishCardInfo.DishCardInfoComposable
 import com.example.nonameapp.ui.dishesmenu.DishesMenuScreen
-import com.example.nonameapp.ui.filters.FiltersComposable
+import com.example.nonameapp.ui.filters.FiltersScreen
 import com.example.nonameapp.ui.map.MapController
 import com.example.nonameapp.ui.map.MapScreen
 import com.example.nonameapp.ui.newcard.NewCardScreen
@@ -23,8 +24,9 @@ import com.example.nonameapp.ui.profile.ProfileScreen
 import com.example.nonameapp.ui.settings.SettingsScreen
 import com.example.nonameapp.ui.signUp.AuthorizationScreen
 import com.example.nonameapp.ui.splashscreen.SplashScreen
-import com.example.nonameapp.util.DebugObject
 import com.example.nonameapp.viewModels.AuthorizationViewModel
+import com.example.nonameapp.viewModels.CartViewModel
+import com.example.nonameapp.viewModels.DishCardInfoViewModel
 import com.example.nonameapp.viewModels.DishesMenuViewModel
 import com.example.nonameapp.viewModels.MainViewModel
 import com.example.nonameapp.viewModels.MapViewModel
@@ -89,7 +91,11 @@ fun Navigation(
         }
         composable(route = Screen.CartScreen.route) {
             NavigationRouter.currentScreen.value = Screen.CartScreen
-            CartScreen(navController = navController, mViewModel = DebugObject.cartViewModel)
+
+            val cartViewModel: CartViewModel =
+                ViewModelProvider(it, viewModelFactory)[CartViewModel::class.java]
+
+            CartScreen(navController = navController, mViewModel = cartViewModel)
         }
         composable(route = Screen.MapScreen.route) {
             NavigationRouter.currentScreen.value = Screen.MapScreen
@@ -121,7 +127,15 @@ fun Navigation(
         }
         composable(route = Screen.FiltersScreen.route) {
             NavigationRouter.currentScreen.value = Screen.FiltersScreen
-            FiltersComposable(navController = navController)
+            FiltersScreen(navController = navController)
+        }
+        composable(route = Screen.DishCardInfoScreen.route) {
+            NavigationRouter.currentScreen.value = Screen.DishCardInfoScreen
+
+            val dshCardInfoViewModel: DishCardInfoViewModel =
+                ViewModelProvider(it, viewModelFactory)[DishCardInfoViewModel::class.java]
+
+            DishCardInfoComposable(navController = navController, viewModel = dshCardInfoViewModel)
         }
     }
 }

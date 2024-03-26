@@ -14,14 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
-import com.example.nonameapp.data.SharedPreferenceHelper
+import com.example.nonameapp.data.source.SharedPreferenceHelper
 import com.example.nonameapp.di.components.ActivityComponent
 import com.example.nonameapp.navigation.Navigation
 import com.example.nonameapp.navigation.NavigationRouter
 import com.example.nonameapp.navigation.Screen
 import com.example.nonameapp.ui.bottomNavigation.CustomBottomNavigation
 import com.example.nonameapp.ui.theme.AppTheme
-import com.example.nonameapp.viewModels.CartViewModel
 import com.example.nonameapp.viewModels.MainViewModel
 import com.example.nonameapp.viewModels.ViewModelFactory
 import com.yandex.mapkit.MapKitFactory

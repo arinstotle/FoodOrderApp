@@ -1,7 +1,6 @@
 package com.example.nonameapp.ui.checkout.components
 
 import android.content.res.Configuration
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,13 +19,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.nonameapp.data.FoodDishesDataSource
+import coil.compose.SubcomposeAsyncImage
+import com.example.nonameapp.data.source.FoodDishesDataSource
 import com.example.nonameapp.data.model.CartDishUIModel
+import com.example.nonameapp.network.api.ApiRoutes
 import com.example.nonameapp.ui.theme.AppTheme
 import com.example.nonameapp.ui.theme.ReemKufi
 
@@ -50,8 +50,8 @@ fun CheckoutTinyDish(
             modifier = Modifier,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painter = painterResource(id = cartDish.image),
+            SubcomposeAsyncImage(
+                model = ApiRoutes.BASE_URL + ApiRoutes.FILES_DIRECTORY + cartDish.imageSource,
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -64,7 +64,7 @@ fun CheckoutTinyDish(
                     .clip(RoundedCornerShape(20.dp))
             )
             Text(
-                text = cartDish.title,
+                text = cartDish.name,
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.ExtraBold,
                 color = MaterialTheme.colorScheme.primary,

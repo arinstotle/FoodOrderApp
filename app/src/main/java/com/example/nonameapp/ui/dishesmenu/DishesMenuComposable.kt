@@ -1,6 +1,5 @@
 package com.example.nonameapp.ui.dishesmenu
 
-import android.util.Log
 import android.view.MotionEvent
 import androidx.annotation.DrawableRes
 import androidx.annotation.FloatRange
@@ -11,9 +10,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.*
@@ -57,8 +53,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavController
 import com.example.nonameapp.R
-import com.example.nonameapp.data.Constants
-import com.example.nonameapp.data.FoodDishesDataSource
+import com.example.nonameapp.data.source.Constants
+import com.example.nonameapp.data.source.FoodDishesDataSource
 import com.example.nonameapp.data.model.DishUIModel
 import com.example.nonameapp.navigation.NavigationRouter
 import com.example.nonameapp.navigation.Screen
@@ -74,7 +70,6 @@ import com.example.nonameapp.ui.theme.Shapes
 import com.example.nonameapp.viewModels.CartViewModel
 import com.example.nonameapp.viewModels.DishesMenuViewModel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import kotlin.math.PI
 import kotlin.math.cos
@@ -93,10 +88,7 @@ fun DishesMenuScreen(
     val scope = rememberCoroutineScope()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
-    var currentCategory by remember { mutableStateOf<String?>(null) }
-
     val listOfDishes by viewModel.listOfDishes.collectAsState(initial = null)
-    val listOfDishesByCategory by viewModel.listOfDishesByCategory.collectAsState()
 
     var isLoading by remember { mutableStateOf(true) }
     LaunchedEffect(key1 = true) {
@@ -235,8 +227,6 @@ fun DishesMenuScreen(
                 state = chipSelectionState,
                 selectedChipIndex = pagerState.currentPage,
                 onChipClick = { newSelectedChipIndex ->
-                    currentCategory =
-                        FoodDishesDataSource.listOfChips[newSelectedChipIndex].chipName
                     scope.launch {
                         pagerState.scrollToPage(newSelectedChipIndex)
                     }
@@ -254,11 +244,6 @@ fun DishesMenuScreen(
 
                     if (page > 0)
                         chipSelectionState.animateScrollToItem(page - 1)
-
-//                    Log.i("DishesMenuComposable", "page changed to $page!")
-//                    Log.i("DishesMenuComposable", "category = ${FoodDishesDataSource.listOfChips[page].chipName}")
-//                    currentCategory = FoodDishesDataSource.listOfChips[page].chipName
-//                    viewModel.performGetAllDishesByCategory(FoodDishesDataSource.listOfChips[page].chipName)
                 }
             }
 
@@ -275,10 +260,12 @@ fun DishesMenuScreen(
                         .padding(start = 25.dp, end = 25.dp, bottom = 75.dp)
                 ) {
                     TinyFoodItems(
-//                        listOfFoodDishes = if(listOfDishes != null) viewModel.performGetAllDishesByCategory(page) else listOf(),
                         listOfFoodDishes = listOfDishes?.filter { it.category == FoodDishesDataSource.listOfChips[page].chipName },
                         isLoading = isLoading
-                    )
+                    ) { dishUIModel ->
+                        viewModel.performSetCurrentDishInDishInfo(dishUIModel = dishUIModel)
+                        navController.navigate(Screen.DishCardInfoScreen.route)
+                    }
                 }
             }
         }
@@ -289,7 +276,8 @@ fun DishesMenuScreen(
 @Composable
 fun TinyFoodItems(
     listOfFoodDishes: List<DishUIModel>?,
-    isLoading: Boolean
+    isLoading: Boolean,
+    onClick: (dishUIModel: DishUIModel) -> Unit
 ) {
     var index = 0
     while (index < (listOfFoodDishes?.size ?: 6)) {
@@ -322,18 +310,26 @@ fun TinyFoodItems(
                 }
                 index++
             } else {
+                val dishLeft = listOfFoodDishes[index++]
                 TinyFoodDishCard(
-                    foodDish = listOfFoodDishes[index++],
+                    foodDish = dishLeft,
                     modifier = Modifier
-                        .weight(0.4f),
-                )
+                        .weight(0.4f)
+                ) {
+                    onClick(dishLeft)
+                }
+
                 if (index < listOfFoodDishes.size) {
+                    val dishRight = listOfFoodDishes[index++]
+
                     Spacer(modifier = Modifier.weight(0.05f))
                     TinyFoodDishCard(
-                        foodDish = listOfFoodDishes[index++],
+                        foodDish = dishRight,
                         modifier = Modifier
-                            .weight(0.4f),
-                    )
+                            .weight(0.4f)
+                    ) {
+                        onClick(dishRight)
+                    }
                 }
             }
         }
@@ -365,9 +361,9 @@ fun TinyFoodItems(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DishCardInfoComposable(
+fun DishCardInfoComposable_OLD(
     mViewModel: CartViewModel,
-    foodDish: FoodDishUIModel
+    foodDish: FoodDishUIModel = FoodDishesDataSource.listOfFoodDishes[0]
 ) {
     val scrollState = rememberLazyListState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
@@ -412,7 +408,7 @@ fun DishContent(
             IngredientsSection()
             IngredientList(foodDish)
             AddToCartButton() {
-                mViewModel.addDishToCart(foodDish.convertToCartUIModel().also { it.quantity = 1 })
+//                mViewModel.addDishToCart(foodDish.convertToCartUIModel().also { it.quantity = 1 })
             }
             ReviewsSection(foodDish)
         }
