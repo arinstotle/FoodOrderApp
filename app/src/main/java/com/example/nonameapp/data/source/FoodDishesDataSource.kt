@@ -4,8 +4,10 @@ import com.example.nonameapp.Chip
 import com.example.nonameapp.FoodCategories
 import com.example.nonameapp.R
 import com.example.nonameapp.data.model.CartDishUIModel
+import com.example.nonameapp.data.model.DishUIModel
 import com.example.nonameapp.ui.dishesmenu.FoodDishUIModel
 import com.example.nonameapp.ui.dishesmenu.Ingredient
+import com.example.nonameapp.ui.reservation.components.TableUIModel
 import java.util.UUID
 
 object FoodDishesDataSource {
@@ -363,6 +365,149 @@ object FoodDishesDataSource {
         Chip(
             "Alcohol",
             R.drawable.chip_alco
+        )
+    )
+
+    val listOfDishUIModel = listOf(
+        DishUIModel(
+            id = UUID.randomUUID(),
+            category = "Other",
+            name = "Pork Set",
+            imageSource = "/files/dishes/pork_set.jpg",
+            price = 350,
+            grams = 300,
+            timeToCook = 30,
+            rating = 4.5f,
+            orderedTimes = 356,
+            description = "Pork Set mmmhm",
+            ingredients = listOf("Pork", "Potato")
+        ),
+        DishUIModel(
+            id = UUID.randomUUID(),
+            category = "Other",
+            name = "Pork Set",
+            imageSource = "/files/dishes/pork_set.jpg",
+            price = 350,
+            grams = 300,
+            timeToCook = 30,
+            rating = 4.5f,
+            orderedTimes = 356,
+            description = "Pork Set mmmhm",
+            ingredients = listOf("Pork", "Potato")
+        ),
+        DishUIModel(
+            id = UUID.randomUUID(),
+            category = "Other",
+            name = "Pork Set",
+            imageSource = "/files/dishes/pork_set.jpg",
+            price = 350,
+            grams = 300,
+            timeToCook = 30,
+            rating = 4.5f,
+            orderedTimes = 356,
+            description = "Pork Set mmmhm",
+            ingredients = listOf("Pork", "Potato")
+        ),
+        DishUIModel(
+            id = UUID.randomUUID(),
+            category = "Other",
+            name = "Pork Set",
+            imageSource = "/files/dishes/pork_set.jpg",
+            price = 350,
+            grams = 300,
+            timeToCook = 30,
+            rating = 4.5f,
+            orderedTimes = 356,
+            description = "Pork Set mmmhm",
+            ingredients = listOf("Pork", "Potato")
+        ),
+    )
+    val listOfDishUIModelOfCategoryOther = listOf(
+        DishUIModel(
+            id = UUID.randomUUID(),
+            category = "Other",
+            name = "Pork Set",
+            imageSource = "/files/dishes/pork_set.jpg",
+            price = 350,
+            grams = 300,
+            timeToCook = 30,
+            rating = 4.5f,
+            orderedTimes = 356,
+            description = "Pork Set mmmhm",
+            ingredients = listOf("Pork", "Potato")
+        ),
+        DishUIModel(
+            id = UUID.randomUUID(),
+            category = "Other",
+            name = "Pork Set",
+            imageSource = "/files/dishes/pork_set.jpg",
+            price = 350,
+            grams = 300,
+            timeToCook = 30,
+            rating = 4.5f,
+            orderedTimes = 356,
+            description = "Pork Set mmmhm",
+            ingredients = listOf("Pork", "Potato")
+        ),
+        DishUIModel(
+            id = UUID.randomUUID(),
+            category = "Other",
+            name = "Pork Set",
+            imageSource = "/files/dishes/pork_set.jpg",
+            price = 350,
+            grams = 300,
+            timeToCook = 30,
+            rating = 4.5f,
+            orderedTimes = 356,
+            description = "Pork Set mmmhm",
+            ingredients = listOf("Pork", "Potato")
+        ),
+        DishUIModel(
+            id = UUID.randomUUID(),
+            category = "Other",
+            name = "Pork Set",
+            imageSource = "/files/dishes/pork_set.jpg",
+            price = 350,
+            grams = 300,
+            timeToCook = 30,
+            rating = 4.5f,
+            orderedTimes = 356,
+            description = "Pork Set mmmhm",
+            ingredients = listOf("Pork", "Potato")
+        ),
+    )
+    val listOfTableUIModel = listOf(
+        TableUIModel(
+            id = UUID.randomUUID(),
+            isFree = true,
+            x = 3,
+            y = 3,
+            widthTiles = 3,
+            heightTiles = 2
+        ),
+        TableUIModel(
+            id = UUID.randomUUID(),
+            isFree = true,
+            x = 5,
+            y = 5,
+            widthTiles = 3,
+            heightTiles = 2
+        ),
+        TableUIModel(
+            id = UUID.randomUUID(),
+            isFree = true,
+            x = 7,
+            y = 7,
+            widthTiles = 3,
+            heightTiles = 2
+        ),
+        TableUIModel(
+            id = UUID.randomUUID(),
+            isFree = true,
+            x = 12,
+            y = 7,
+            widthTiles = 3,
+            heightTiles = 2
         )
     )
     val listOfCartDishes = mutableListOf(

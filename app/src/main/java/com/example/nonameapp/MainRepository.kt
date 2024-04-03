@@ -19,13 +19,10 @@ import javax.inject.Inject
 class MainRepository @Inject constructor(
     private val preferenceHelper: SharedPreferenceHelper,
     private val cacheSession: CacheSession,
-    private val cartManager: CartManager
+    private val cartManager: CartManager,
+    private val apiService: ApiService
 ) {
     private val mCoroutineScope = CoroutineScope(Dispatchers.IO)
-    private val apiService by lazy {
-        ApiService.create()
-    }
-
     init {
         mCoroutineScope.launch {
             getAllRestaurants()

@@ -5,6 +5,7 @@ import com.example.nonameapp.data.source.CacheSession
 import com.example.nonameapp.data.source.CartManager
 import com.example.nonameapp.data.source.SharedPreferenceHelper
 import com.example.nonameapp.di.scopes.AppScope
+import com.example.nonameapp.network.api.ApiService
 import dagger.Module
 import dagger.Provides
 
@@ -23,7 +24,8 @@ class RepositoryModule {
     fun provideMainRepository(
         preferenceHelper: SharedPreferenceHelper,
         cacheSession: CacheSession,
-        cartManager: CartManager
-    ): MainRepository = MainRepository(preferenceHelper, cacheSession, cartManager)
+        cartManager: CartManager,
+        apiService: ApiService
+    ): MainRepository = MainRepository(preferenceHelper, cacheSession, cartManager, apiService)
 
 }
