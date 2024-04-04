@@ -11,6 +11,7 @@ import com.example.nonameapp.domain.GetAllRestaurantsUseCase
 import com.example.nonameapp.domain.GetAllTablesUseCase
 import com.example.nonameapp.domain.GetCurrentDishInDishInfoUseCase
 import com.example.nonameapp.domain.GetCurrentRestaurantUseCase
+import com.example.nonameapp.domain.GetSumCartFlowUseCase
 import com.example.nonameapp.domain.IncreaseDishQuantityUseCase
 import com.example.nonameapp.domain.LoginByEmailUseCase
 import com.example.nonameapp.domain.ReserveTableUseCase
@@ -66,6 +67,11 @@ class DomainModule {
     @ActivityScope
     fun provideGetAllDishesInCartFlowUseCase(repository: MainRepository): GetAllDishesInCartFlowUseCase =
         GetAllDishesInCartFlowUseCase(repository)
+
+    @Provides
+    @ActivityScope
+    fun provideGetSumCartFlowUseCase(repository: MainRepository): GetSumCartFlowUseCase =
+        GetSumCartFlowUseCase(repository)
 
     @Provides
     @ActivityScope

@@ -61,6 +61,7 @@ fun CartScreen(
     mViewModel: CartViewModel
 ) {
     val itemsInCart: List<CartDishUIModel> by mViewModel.dishesInCart.collectAsState()
+    val sumCart: Int by mViewModel.sumCart.collectAsState()
 
     Scaffold(
         topBar = {
@@ -130,7 +131,7 @@ fun CartScreen(
                 )
 
                 Text(
-                    text = "//TODO ₽", //TODO
+                    text = "$sumCart ₽",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.ExtraBold,
                     color = MaterialTheme.colorScheme.primary

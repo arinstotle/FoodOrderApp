@@ -89,6 +89,10 @@ class MainRepository @Inject constructor(
         return cartManager.dishesInCart
     }
 
+    fun getSumCartStateFlow(): StateFlow<Int> {
+        return cartManager.sumCart
+    }
+
     fun addToCart(dishUIModel: DishUIModel){
         cartManager.addToCart(dishUIModel)
     }

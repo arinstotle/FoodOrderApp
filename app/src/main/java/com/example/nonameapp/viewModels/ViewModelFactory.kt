@@ -11,6 +11,7 @@ import com.example.nonameapp.domain.GetAllRestaurantsUseCase
 import com.example.nonameapp.domain.GetAllTablesUseCase
 import com.example.nonameapp.domain.GetCurrentDishInDishInfoUseCase
 import com.example.nonameapp.domain.GetCurrentRestaurantUseCase
+import com.example.nonameapp.domain.GetSumCartFlowUseCase
 import com.example.nonameapp.domain.IncreaseDishQuantityUseCase
 import com.example.nonameapp.domain.LoginByEmailUseCase
 import com.example.nonameapp.domain.ReserveTableUseCase
@@ -27,6 +28,7 @@ class ViewModelFactory(
     private val getCurrentRestaurant: GetCurrentRestaurantUseCase,
     private val setCurrentRestaurant: SetCurrentRestaurantUseCase,
     private val getAllDishesInCartFlow: GetAllDishesInCartFlowUseCase,
+    private val getSumCartFlow: GetSumCartFlowUseCase,
     private val addToCart: AddToCartUseCase,
     private val getCurrentDishInDishInfo: GetCurrentDishInDishInfoUseCase,
     private val setCurrentDishInDishInfo: SetCurrentDishInDishInfoUseCase,
@@ -43,6 +45,7 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(CartViewModel::class.java) -> {
                 CartViewModel(
                     getAllDishesInCartFlow = getAllDishesInCartFlow,
+                    getSumCartFlow = getSumCartFlow,
                     increaseDishQuantity = increaseDishQuantity,
                     decreaseDishQuantity = decreaseDishQuantity
                 ) as T

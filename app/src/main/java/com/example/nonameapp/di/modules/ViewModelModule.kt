@@ -10,6 +10,7 @@ import com.example.nonameapp.domain.GetAllRestaurantsUseCase
 import com.example.nonameapp.domain.GetAllTablesUseCase
 import com.example.nonameapp.domain.GetCurrentDishInDishInfoUseCase
 import com.example.nonameapp.domain.GetCurrentRestaurantUseCase
+import com.example.nonameapp.domain.GetSumCartFlowUseCase
 import com.example.nonameapp.domain.IncreaseDishQuantityUseCase
 import com.example.nonameapp.domain.LoginByEmailUseCase
 import com.example.nonameapp.domain.ReserveTableUseCase
@@ -33,6 +34,7 @@ class ViewModelModule {
         getCurrentRestaurant: GetCurrentRestaurantUseCase,
         setCurrentRestaurant: SetCurrentRestaurantUseCase,
         getAllDishesInCartFlow: GetAllDishesInCartFlowUseCase,
+        getSumCartFlow: GetSumCartFlowUseCase,
         addToCart: AddToCartUseCase,
         getCurrentDishInDishInfo: GetCurrentDishInDishInfoUseCase,
         setCurrentDishInDishInfo: SetCurrentDishInDishInfoUseCase,
@@ -48,6 +50,7 @@ class ViewModelModule {
         getCurrentRestaurant = getCurrentRestaurant,
         setCurrentRestaurant = setCurrentRestaurant,
         getAllDishesInCartFlow = getAllDishesInCartFlow,
+        getSumCartFlow = getSumCartFlow,
         addToCart = addToCart,
         getCurrentDishInDishInfo = getCurrentDishInDishInfo,
         setCurrentDishInDishInfo = setCurrentDishInDishInfo,

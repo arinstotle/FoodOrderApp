@@ -9,6 +9,9 @@ class CartManager {
     private val _dishesInCart = MutableStateFlow<MutableList<CartDishUIModel>>(mutableListOf())
     val dishesInCart: StateFlow<List<CartDishUIModel>> = _dishesInCart
 
+    private val _sumCart = MutableStateFlow(0)
+    val sumCart: StateFlow<Int> = _sumCart
+
     fun addToCart(dishUIModel: DishUIModel) {
         var foundedDish: CartDishUIModel? = null
 
@@ -24,10 +27,13 @@ class CartManager {
         else {
             _dishesInCart.value.add(dishUIModel.convertToDishUIModel())
         }
+
+        _sumCart.value += dishUIModel.price
     }
 
     fun increaseDishQuantity(cartDishUIModel: CartDishUIModel){
         cartDishUIModel.quantity++
+        _sumCart.value += cartDishUIModel.price
     }
 
     fun decreaseDishQuantity(cartDishUIModel: CartDishUIModel){
@@ -37,5 +43,6 @@ class CartManager {
         else{
             cartDishUIModel.quantity--
         }
+        _sumCart.value -= cartDishUIModel.price
     }
 }

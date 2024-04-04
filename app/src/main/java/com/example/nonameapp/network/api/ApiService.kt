@@ -36,8 +36,4 @@ interface ApiService {
 
     // Restaurant
     suspend fun getAllRestaurants(): List<RestaurantUIModel>?
-
-    companion object {
-
-    }
 }
